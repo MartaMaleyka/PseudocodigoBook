@@ -1,0 +1,2236 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Piensa primero, programa después</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F8FC; --card:#FFFFFF; --ink:#101B34; --muted:#56637F; --line:#D9E0EF;
+  --blue:#1D4ED8; --red:#D21034; --sun:#F4B400; --mint:#0E9F82; --violet:#7C3AED;
+  --blue-t:#E3EBFF; --red-t:#FFE3E8; --sun-t:#FFF1C7; --mint-t:#D8F5EC; --violet-t:#EEE5FF;
+  --code:#0F1B3D;
+  --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
+  --body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B1226; --card:#141E3A; --ink:#EAF0FF; --muted:#9DABCC; --line:#27345A;
+    --blue:#7AA2FF; --red:#FF6B85; --sun:#FFD166; --mint:#4FD8B4; --violet:#B697FF;
+    --blue-t:#1A2B66; --red-t:#4A1A2A; --sun-t:#4A3A0E; --mint-t:#0F3D35; --violet-t:#2E1F5C;
+    --code:#08102B;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B1226; --card:#141E3A; --ink:#EAF0FF; --muted:#9DABCC; --line:#27345A;
+  --blue:#7AA2FF; --red:#FF6B85; --sun:#FFD166; --mint:#4FD8B4; --violet:#B697FF;
+  --blue-t:#1A2B66; --red-t:#4A1A2A; --sun-t:#4A3A0E; --mint-t:#0F3D35; --violet-t:#2E1F5C;
+  --code:#08102B;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65}
+main{max-width:760px;margin:0 auto;padding:0 20px 80px}
+a{color:var(--blue)}
+code{font-family:var(--mono);font-size:.88em;background:var(--sun-t);padding:.1em .4em;border-radius:5px}
+
+/* Portada */
+.cover{padding:56px 0 36px}
+.cover .stripes{display:flex;height:14px;border-radius:7px;overflow:hidden;margin-bottom:34px}
+.cover .stripes i{flex:1}
+.cover h1{font-family:var(--head);font-weight:800;font-size:clamp(2.4rem,9vw,4.2rem);line-height:1.02;margin:0 0 18px;letter-spacing:-.02em}
+.cover h1 .a{color:var(--blue)} .cover h1 .b{color:var(--red)}
+.cover p.sub{font-size:1.2rem;color:var(--muted);max-width:34em;margin:0}
+.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:30px 0 0}
+.toc h2{font-family:var(--head);font-size:1.15rem;margin:0 0 10px}
+.toc ol{margin:0;padding-left:1.4em}
+.toc li{margin:4px 0}
+.toc li.soon{color:var(--muted)}
+
+/* Capítulos */
+.chapter{margin-top:64px;--acc:var(--blue);--acc-t:var(--blue-t)}
+.chapter.c2{--acc:var(--red);--acc-t:var(--red-t)}
+.chapter.c3{--acc:var(--mint);--acc-t:var(--mint-t)}
+.chapter.c4{--acc:var(--violet);--acc-t:var(--violet-t)}
+.chapter.c5{--acc:var(--blue);--acc-t:var(--blue-t)}
+.chapter.c6{--acc:var(--red);--acc-t:var(--red-t)}
+.chapter.c7{--acc:var(--mint);--acc-t:var(--mint-t)}
+.chapter.c8{--acc:var(--blue);--acc-t:var(--blue-t)}
+.chapter.c9{--acc:var(--violet);--acc-t:var(--violet-t)}
+.chapter.c10{--acc:var(--red);--acc-t:var(--red-t)}
+.chapter.c11{--acc:var(--blue);--acc-t:var(--blue-t)}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.meta span{background:var(--acc-t);padding:2px 12px;border-radius:99px;font-size:.9rem;font-weight:600}
+.cierre{margin-top:64px;padding:28px 26px;border-radius:20px;background:var(--code);color:#E6ECFF}
+.cierre h2{font-family:var(--head);font-weight:800;font-size:1.8rem;margin:0 0 10px;color:#FFD166}
+.cierre p{margin:0 0 12px}
+.cierre .firma{font-family:var(--head);font-weight:600;color:#7EE6BC;margin:0}
+.lang{display:inline-block;font-family:var(--head);font-weight:600;font-size:.85rem;color:#fff;background:var(--acc);padding:3px 14px;border-radius:8px 8px 0 0;margin-top:14px}
+.lang + pre{margin-top:0;border-top-left-radius:0}
+.lang.py{background:#3776AB}.lang.js{background:#8A6D00}.lang.cs{background:#68217A}.lang.sql{background:#B3470F}
+.prueba td.cd{font-family:var(--mono)}
+.lista-prob{columns:2;column-gap:28px}
+@media (max-width:560px){.lista-prob{columns:1}}
+.caso{background:var(--card);border:1px solid var(--line);border-left:8px solid var(--acc);border-radius:6px 16px 16px 6px;padding:6px 20px 12px;margin:30px 0}
+.caso h3{margin-top:14px}
+.ch-head{background:var(--acc-t);border-left:10px solid var(--acc);border-radius:6px 18px 18px 6px;padding:22px 24px;margin-bottom:26px}
+.ch-head .n{font-family:var(--head);font-weight:800;color:var(--acc);font-size:1rem;margin:0 0 4px}
+.ch-head h2{font-family:var(--head);font-weight:800;font-size:clamp(1.6rem,6vw,2.3rem);line-height:1.1;margin:0;letter-spacing:-.01em}
+h3{font-family:var(--head);font-weight:600;font-size:1.35rem;margin:36px 0 8px;color:var(--ink)}
+p{margin:0 0 14px}
+.quote{font-family:var(--head);font-weight:600;font-size:1.3rem;line-height:1.3;border-left:6px solid var(--sun);padding:6px 0 6px 18px;margin:26px 0}
+
+/* Cajas */
+.callout{border-radius:14px;padding:16px 18px;margin:22px 0;background:var(--sun-t);border:1px solid var(--sun)}
+.callout.tip{background:var(--mint-t);border-color:var(--mint)}
+.callout.ojo{background:var(--red-t);border-color:var(--red)}
+.callout p:last-child{margin-bottom:0}
+.versus{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+@media (max-width:560px){.versus{grid-template-columns:1fr}}
+.versus > div{border-radius:14px;padding:16px 18px;background:var(--card);border:2px solid var(--line)}
+.versus .mal{border-color:var(--red);background:var(--red-t)}
+.versus .bien{border-color:var(--mint);background:var(--mint-t)}
+.versus h4{font-family:var(--head);margin:0 0 8px;font-size:1.1rem}
+.versus ol{margin:0;padding-left:1.3em}
+.versus li{margin:3px 0}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:20px 0}
+.card{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--k,var(--blue));border-radius:12px;padding:14px 16px}
+.card b{font-family:var(--head);display:block;margin-bottom:4px}
+.card .kwd{font-family:var(--mono);font-weight:600;color:var(--k,var(--blue))}
+.k-blue{--k:var(--blue)} .k-red{--k:var(--red)} .k-sun{--k:var(--sun)} .k-mint{--k:var(--mint)} .k-violet{--k:var(--violet)}
+
+/* Pseudocódigo coloreado */
+pre.pseudo,pre.code{background:var(--code);color:#E6ECFF;border-radius:14px;padding:18px 16px;margin:16px 0;overflow-x:auto;font-family:var(--mono);font-size:.92rem;line-height:1.7;counter-reset:l;border:1px solid #24336B}
+.ln{display:block;white-space:pre}
+.ln::before{counter-increment:l;content:counter(l);display:inline-block;width:2ch;margin-right:1.6ch;color:#6C7BA6;text-align:right}
+.t-kw{color:#FF8CA1;font-weight:600}
+.t-str{color:#7EE6BC}
+.t-num{color:#FFD166}
+.t-var{color:#9DBEFF}
+.t-arrow{color:#C9A6FF;font-weight:600}
+.t-op{color:#FFB86B;font-weight:600}
+.t-cm{color:#8896BA;font-style:italic}
+.caption{font-family:var(--head);font-weight:600;margin:24px 0 0;font-size:1rem;color:var(--muted)}
+
+/* Prueba de escritorio */
+.scroll{overflow-x:auto;margin:10px 0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
+table.prueba{border-collapse:collapse;width:100%;min-width:520px;font-size:.95rem}
+.prueba th{background:var(--acc,var(--blue));color:#fff;font-family:var(--head);font-weight:600;padding:9px 10px;text-align:left;white-space:nowrap}
+:root[data-theme="dark"] .prueba th, .dk .prueba th{color:#0B1226}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .prueba th{color:#0B1226}}
+.prueba td{padding:8px 10px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.88rem;white-space:nowrap}
+.prueba td.in{background:var(--blue-t)}
+.prueba td.chg{background:var(--sun-t);font-weight:600}
+.prueba td.out{background:var(--mint-t);font-weight:600}
+.prueba td.ok{color:var(--mint);font-weight:700}
+.prueba td.no{color:var(--red);font-weight:700}
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.88rem;color:var(--muted);margin:-6px 0 18px}
+.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+
+/* Ejercicio y checklist */
+.ejercicio{background:var(--card);border:2px dashed var(--acc);border-radius:16px;padding:18px 20px;margin:30px 0 18px}
+.ejercicio h3{margin-top:0;color:var(--acc)}
+details{margin-top:12px;border-radius:12px;background:var(--acc-t);padding:4px 16px}
+summary{cursor:pointer;font-family:var(--head);font-weight:600;padding:10px 0}
+summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.check{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.check h3{margin-top:0}
+.check label{display:flex;gap:12px;align-items:flex-start;margin:10px 0;cursor:pointer}
+.check input{width:22px;height:22px;margin-top:3px;accent-color:var(--acc);flex:none}
+.check input:checked + span{color:var(--muted);text-decoration:line-through}
+.next{margin-top:60px;padding:22px 24px;border-radius:18px;background:var(--code);color:#E6ECFF}
+.next h2{font-family:var(--head);margin:0 0 6px;color:#FFD166}
+.next p{margin:0}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+
+<header class="cover">
+  <div class="stripes"><i style="background:var(--blue)"></i><i style="background:var(--red)"></i><i style="background:var(--sun)"></i><i style="background:var(--mint)"></i><i style="background:var(--violet)"></i></div>
+  <h1>Piensa <span class="a">primero</span>,<br>programa <span class="b">después</span></h1>
+  <p class="sub">Aprende a resolver problemas con pseudocódigo y pruebas de escritorio, y después pásalos a cualquier lenguaje. Sin tecnicismos y sin miedo a elegir mal.</p>
+
+  <nav class="toc" aria-label="Índice">
+    <h2>Lo que vas a encontrar</h2>
+    <ol>
+      <li><a href="#cap1">No eres tonto, solo empezaste por el final</a></li>
+      <li><a href="#cap2">El truco: el lenguaje es lo de menos</a></li>
+      <li><a href="#cap3">¿Qué es un pseudocódigo?</a></li>
+      <li><a href="#cap4">Las 3 piezas con las que se resuelve casi todo</a></li>
+      <li><a href="#cap5">Tu primer pseudocódigo: el descuento por compra</a></li>
+      <li><a href="#cap6">La prueba de escritorio a fondo</a></li>
+      <li><a href="#cap7">Pseudocódigo con casos del trabajo</a></li>
+      <li><a href="#cap8">De pseudocódigo a código</a></li>
+      <li><a href="#cap9">Los errores de principiante</a></li>
+      <li><a href="#cap10">Cómo elegir tu primer lenguaje sin miedo</a></li>
+      <li><a href="#plan">Plan de acción de 7 días</a></li>
+      <li><a href="#anexo">Anexo: tu hoja de trucos de una página</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- ============ CAPÍTULO 1 ============ -->
+<section class="chapter c1" id="cap1">
+  <div class="ch-head"><p class="n">Capítulo 1</p><h2>No eres tonto, solo empezaste por el final</h2></div>
+
+  <p>Te voy a contar algo que casi me saca de la programación.</p>
+  <p>Mi primer lenguaje fue Python. Un día me pasé <b>tres horas</b> buscando por qué mi programa no funcionaba. ¿El culpable? Un <code>:</code> que se me olvidó. Otro día fue un <code>=</code> donde iba un <code>==</code>. Tres horas por dos puntos.</p>
+  <p>Mientras tanto, todos a mi alrededor parecían entender y yo no. Estuve a un clic de dejarlo todo.</p>
+  <p>Lo que me salvó no fue estudiar más sintaxis. Fue darme cuenta de esto: <b>yo escribía código sin saber qué quería que hiciera.</b> El problema no era mi talento. Era que empezaba por el final.</p>
+
+  <div class="quote">Primero piensa, después escribe. El error no es tu enemigo, es tu pista.</div>
+
+  <h3>Dos formas de empezar</h3>
+  <div class="versus">
+    <div class="mal"><h4>🔥 Código primero</h4>
+      <ol><li>Abro el editor.</li><li>Escribo lo primero que se me ocurre.</li><li>Falla.</li><li>Cambio cosas al azar.</li><li>Falla distinto.</li><li>Me frustro y pienso que no sirvo.</li></ol></div>
+    <div class="bien"><h4>🌱 Plan primero</h4>
+      <ol><li>Digo qué quiero en una frase.</li><li>Escribo los pasos en español.</li><li>Los pruebo con papel y lápiz.</li><li>Recién ahí, escribo código.</li></ol></div>
+  </div>
+
+  <h3>Un ejemplo bien simple: ¿llevo paraguas?</h3>
+  <p>Antes de pensar en lenguajes, piensa en pasos. Este es el plan, escrito en español como lo diría una persona:</p>
+
+  <pre class="pseudo">INICIO
+  LEER lluvia      // "si" o "no"
+  LEER nubes       // "muchas" o "pocas"
+  SI lluvia = "si" ENTONCES
+    ESCRIBIR "Lleva paraguas"
+  SINO
+    SI nubes = "muchas" ENTONCES
+      ESCRIBIR "Mejor llévalo, por si acaso"
+    SINO
+      ESCRIBIR "Sal tranquilo"
+    FIN SI
+  FIN SI
+FIN</pre>
+
+  <h3>Ahora lo probamos a mano: la prueba de escritorio</h3>
+  <p>Una prueba de escritorio es <b>hacer de computadora con papel y lápiz</b>: eliges valores de ejemplo, sigues el plan línea por línea y anotas qué pasa. Sin instalar nada.</p>
+  <p>Probamos tres casos. Fíjate en la columna «línea que decide»: te dice por cuál camino se fue el plan.</p>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>lluvia</th><th>nubes</th><th>Línea que decide</th><th>Salida</th><th>¿Esperado?</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">"si"</td><td class="in">"pocas"</td><td>5</td><td class="out">Lleva paraguas</td><td class="ok">✔ sí</td></tr>
+      <tr><td>B</td><td class="in">"no"</td><td class="in">"muchas"</td><td>8</td><td class="out">Mejor llévalo, por si acaso</td><td class="ok">✔ sí</td></tr>
+      <tr><td>C</td><td class="in">"no"</td><td class="in">"pocas"</td><td>10</td><td class="out">Sal tranquilo</td><td class="ok">✔ sí</td></tr>
+    </tbody></table></div>
+  <div class="legend"><span style="--c:var(--blue-t)">Dato de entrada</span><span style="--c:var(--sun-t)">Valor que cambió</span><span style="--c:var(--mint-t)">Lo que sale</span></div>
+
+  <div class="callout tip">
+    <p><b>💡 ¿Y mis dos puntos y mi <code>==</code>?</b> Fíjate cómo escribí el plan: ni un <code>:</code> ni un <code>==</code> a la vista. En pseudocódigo <b>guardas</b> con una flecha (←) y <b>preguntas</b> con un igual (=). Cuando llegue la hora de escribir código real, ya sabrás qué quieres hacer y la sintaxis se vuelve un detalle de traducción, no una pesadilla de tres horas.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🚦 Caso práctico extra: el semáforo</h3>
+    <p>Una buena prueba de escritorio no solo confirma lo que funciona. También destapa lo que olvidaste. Mira este primer intento:</p>
+<pre class="pseudo">INICIO
+  LEER color
+  SI color = "rojo" ENTONCES
+    ESCRIBIR "Detente"
+  SINO
+    SI color = "amarillo" ENTONCES
+      ESCRIBIR "Prepárate"
+    SINO
+      ESCRIBIR "Avanza"
+    FIN SI
+  FIN SI
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>color</th><th>Línea que decide</th><th>Salida</th><th>¿Esperado?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"rojo"</td><td>4</td><td class="out">Detente</td><td class="ok">✔ sí</td></tr>
+        <tr><td>B</td><td class="in">"amarillo"</td><td>7</td><td class="out">Prepárate</td><td class="ok">✔ sí</td></tr>
+        <tr><td>C</td><td class="in">"verde"</td><td>9</td><td class="out">Avanza</td><td class="ok">✔ sí</td></tr>
+        <tr><td>D</td><td class="in">"azul"</td><td>9</td><td class="out">Avanza</td><td class="no">✘ no</td></tr>
+      </tbody></table></div>
+    <p>El caso D es un color que no existe en un semáforo, ¡y el plan dice «Avanza»! Un plan sin esa prueba habría mandado a alguien a cruzar con un color inventado. La solución es preguntar por el verde de forma explícita y dejar el último SINO para los datos raros:</p>
+<pre class="pseudo">INICIO
+  LEER color
+  SI color = "rojo" ENTONCES
+    ESCRIBIR "Detente"
+  SINO
+    SI color = "amarillo" ENTONCES
+      ESCRIBIR "Prepárate"
+    SINO
+      SI color = "verde" ENTONCES
+        ESCRIBIR "Avanza"
+      SINO
+        ESCRIBIR "Color no válido"
+      FIN SI
+    FIN SI
+  FIN SI
+FIN</pre>
+    <p>Con este plan, el caso D ahora sale con «Color no válido». <b>Moraleja:</b> siempre pregúntate «¿y si me escriben algo que no esperaba?».</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: el cajero automático</h3>
+    <p>Escribe en español el plan de un cajero. Pide el <b>saldo</b> y el <b>retiro</b>. Si el retiro alcanza, resta el dinero y avisa cuánto te queda. Si no alcanza, avisa que no hay fondos.</p>
+    <p>Después prueba con tres casos: <b>saldo 100 y retiro 40</b>, <b>saldo 30 y retiro 30</b>, y <b>saldo 20 y retiro 50</b>.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  LEER saldo
+  LEER retiro
+  SI retiro ≤ saldo ENTONCES
+    saldo ← saldo - retiro
+    ESCRIBIR "Retiro exitoso. Te quedan: ", saldo
+  SINO
+    ESCRIBIR "Fondos insuficientes"
+  FIN SI
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>saldo</th><th>retiro</th><th>¿retiro ≤ saldo?</th><th>saldo al final</th><th>Salida</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">100</td><td class="in">40</td><td>sí</td><td class="chg">60</td><td class="out">Retiro exitoso. Te quedan: 60</td></tr>
+          <tr><td>B</td><td class="in">30</td><td class="in">30</td><td>sí</td><td class="chg">0</td><td class="out">Retiro exitoso. Te quedan: 0</td></tr>
+          <tr><td>C</td><td class="in">20</td><td class="in">50</td><td>no</td><td>20</td><td class="out">Fondos insuficientes</td></tr>
+        </tbody></table></div>
+      <p>El caso B (30 y 30) es el traicionero: si hubieras escrito «menor que» en vez de «menor o igual», tu cajero le negaría el retiro a alguien que sí tiene la plata justa. La prueba de escritorio lo atrapa antes de escribir una sola línea de código.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 1</h3>
+    <label><input type="checkbox"><span>Antes de abrir el editor, dije en una frase qué quiero que pase.</span></label>
+    <label><input type="checkbox"><span>Escribí los pasos en español, sin código.</span></label>
+    <label><input type="checkbox"><span>Probé mi plan con al menos 3 casos a mano.</span></label>
+    <label><input type="checkbox"><span>Cuando algo falló, lo tomé como una pista y no como una sentencia.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 2 ============ -->
+<section class="chapter c2" id="cap2">
+  <div class="ch-head"><p class="n">Capítulo 2</p><h2>El truco: el lenguaje es lo de menos</h2></div>
+
+  <p>La pregunta que más escucho es: «¿con qué lenguaje empiezo? ¿Python? ¿Java? ¿JavaScript?». Y la gente se queda paralizada. Meses enteros leyendo comparaciones y sin escribir una sola línea.</p>
+  <p>Te voy a decir lo que me hubiera gustado que me dijeran: <b>esa no es la pregunta importante.</b></p>
+
+  <h3>La receta del sancocho</h3>
+  <p>Piensa en un sancocho. La receta (qué va primero, cuánto tiempo hierve, cuándo entra el ñame) es la misma en Chitré, en Colón o en tu casa. Lo que cambia es la olla, la estufa y el fogón.</p>
+  <p>Con la programación pasa igual: <b>los lenguajes son la cocina; el pseudocódigo es la receta.</b> Si dominas la receta, cocinas en cualquier cocina.</p>
+
+  <h3>El mapa de traducción</h3>
+  <p>Todos los lenguajes hacen las mismas cosas básicas. Solo les cambian el nombre:</p>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">LEER</span><b>Pedir un dato</b>Preguntarle algo a quien usa el programa.</div>
+    <div class="card k-violet"><span class="kwd">←</span><b>Guardar</b>Poner un valor dentro de una «cajita» con nombre.</div>
+    <div class="card k-red"><span class="kwd">SI … SINO</span><b>Decidir</b>Tomar un camino u otro según una condición.</div>
+    <div class="card k-sun"><span class="kwd">MIENTRAS</span><b>Repetir</b>Hacer algo una y otra vez hasta que se cumpla algo.</div>
+    <div class="card k-mint"><span class="kwd">ESCRIBIR</span><b>Mostrar</b>Enseñar un resultado en pantalla.</div>
+  </div>
+  <p>Cada lenguaje tiene su forma de decir estas cinco cosas. En el capítulo 8 las vemos lado a lado. Por ahora quédate con la idea: <b>si tu plan está bien, traducirlo es cuestión de práctica.</b></p>
+
+  <h3>Un ejemplo real: la factura con ITBMS</h3>
+  <p>El ITBMS es el 7 % que se suma a una compra. Fíjate que este plan no menciona ningún lenguaje y sirve para todos:</p>
+
+  <pre class="pseudo">INICIO
+  LEER subtotal
+  itbms ← subtotal * 0.07
+  total ← subtotal + itbms
+  ESCRIBIR "ITBMS: ", itbms
+  ESCRIBIR "Total a pagar: ", total
+FIN</pre>
+
+  <p>Prueba de escritorio con tres valores. Observa cómo las cajitas <b>itbms</b> y <b>total</b> van cambiando:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>subtotal</th><th>itbms</th><th>total</th><th>Salida</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">20</td><td class="chg">1.40</td><td class="chg">21.40</td><td class="out">ITBMS: 1.40 · Total: 21.40</td></tr>
+      <tr><td>B</td><td class="in">100</td><td class="chg">7.00</td><td class="chg">107.00</td><td class="out">ITBMS: 7.00 · Total: 107.00</td></tr>
+      <tr><td>C</td><td class="in">0</td><td class="chg">0.00</td><td class="chg">0.00</td><td class="out">ITBMS: 0.00 · Total: 0.00</td></tr>
+    </tbody></table></div>
+
+  <div class="callout">
+    <p><b>🔎 Fíjate en el caso C.</b> Siempre incluye en tu prueba un valor «raro»: el cero, el más pequeño, el más grande. Ahí es donde los programas se rompen, y es donde un buen plan se luce.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🌡️ Caso práctico extra: de Celsius a Fahrenheit</h3>
+    <p>Un turista te pregunta cuánto es «30 grados» y su termómetro está en Fahrenheit. Mismo plan, en cualquier lenguaje:</p>
+<pre class="pseudo">INICIO
+  LEER celsius
+  fahrenheit ← celsius * 9 / 5 + 32
+  ESCRIBIR celsius, " °C = ", fahrenheit, " °F"
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>celsius</th><th>cálculo</th><th>fahrenheit</th><th>¿Esperado?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">0</td><td>0 * 9 / 5 + 32</td><td class="chg">32</td><td class="ok">✔ el agua se congela</td></tr>
+        <tr><td>B</td><td class="in">100</td><td>100 * 9 / 5 + 32</td><td class="chg">212</td><td class="ok">✔ el agua hierve</td></tr>
+        <tr><td>C</td><td class="in">30</td><td>30 * 9 / 5 + 32</td><td class="chg">86</td><td class="ok">✔ día de playa</td></tr>
+        <tr><td>D</td><td class="in">-40</td><td>-40 * 9 / 5 + 32</td><td class="chg">-40</td><td class="ok">✔ el único punto donde ambas escalas coinciden</td></tr>
+      </tbody></table></div>
+    <p>¿Ves el truco de usar casos que ya conoces? El 0 y el 100 son tus «jueces»: si tu plan no da 32 y 212, algo anda mal sin necesidad de buscar la respuesta en otro lado.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: de minutos a horas</h3>
+    <p>Tienes una cantidad de <b>minutos</b> y quieres decir cuántas horas y cuántos minutos son. Para eso necesitas dos herramientas nuevas:</p>
+    <p><b>DIV</b> responde «¿cuántas veces cabe?» (135 DIV 60 = 2) y <b>MOD</b> responde «¿cuánto sobra?» (135 MOD 60 = 15).</p>
+    <p>Escribe el plan y pruébalo con <b>135</b>, <b>45</b> y <b>60</b> minutos.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  LEER minutos
+  horas ← minutos DIV 60
+  resto ← minutos MOD 60
+  ESCRIBIR horas, " h ", resto, " min"
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>minutos</th><th>horas</th><th>resto</th><th>Salida</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">135</td><td class="chg">2</td><td class="chg">15</td><td class="out">2 h 15 min</td></tr>
+          <tr><td>B</td><td class="in">45</td><td class="chg">0</td><td class="chg">45</td><td class="out">0 h 45 min</td></tr>
+          <tr><td>C</td><td class="in">60</td><td class="chg">1</td><td class="chg">0</td><td class="out">1 h 0 min</td></tr>
+        </tbody></table></div>
+      <p>Mira el caso C: 60 minutos es exactamente una hora, y el resto da 0. Si tu plan hubiera dicho «0 h 60 min», la prueba te lo habría mostrado al instante.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 2</h3>
+    <label><input type="checkbox"><span>Puedo explicar mi problema sin nombrar ningún lenguaje.</span></label>
+    <label><input type="checkbox"><span>Mi pseudocódigo no usa palabras raras de ningún lenguaje en particular.</span></label>
+    <label><input type="checkbox"><span>Probé con 3 valores, incluyendo el 0 o el más pequeño.</span></label>
+    <label><input type="checkbox"><span>Entiendo que cambiar de lenguaje es cambiar la forma de escribir, no la idea.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 3 ============ -->
+<section class="chapter c3" id="cap3">
+  <div class="ch-head"><p class="n">Capítulo 3</p><h2>¿Qué es un pseudocódigo? Es escribir en español lo que quieres que pase</h2></div>
+
+  <p>«Pseudo» significa «casi». El pseudocódigo es <b>casi código</b>: lo entiendes tú, no lo entiende una computadora. Y eso es una ventaja, porque no hay un punto y coma que se te olvide.</p>
+  <p>No hay reglas oficiales, pero te recomiendo estas seis «reglas de la casa» para que no te enredes:</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">INICIO … FIN</span><b>1. Todo tiene principio y final</b>Así sabes dónde empieza y dónde termina tu plan.</div>
+    <div class="card k-mint"><span class="kwd">LEER · ESCRIBIR</span><b>2. Entra y sale</b>LEER pide un dato; ESCRIBIR muestra un resultado.</div>
+    <div class="card k-violet"><span class="kwd">←</span><b>3. Flecha guarda, igual pregunta</b><code>x ← 5</code> guarda un 5 en x. <code>x = 5</code> pregunta si x vale 5.</div>
+    <div class="card k-red"><span class="kwd">SI … SINO … FIN SI</span><b>4. Cada SI se cierra</b>Si abres una decisión, la cierras con FIN SI.</div>
+    <div class="card k-sun"><span class="kwd">MIENTRAS … FIN MIENTRAS</span><b>5. Repetir también se cierra</b>Lo vemos a fondo en el capítulo 4.</div>
+    <div class="card k-blue"><span class="kwd">sangría</span><b>6. Lo de adentro, a la derecha</b>Y usa nombres claros: <code>precio</code>, no <code>p</code>.</div>
+  </div>
+
+  <h3>Ejemplo: ¿aprobé o no aprobé?</h3>
+  <p>En un colegio panameño la escala va de 1 a 5 y se aprueba con 3 o más. Tienes tres notas y quieres saber si pasaste:</p>
+
+  <pre class="pseudo">INICIO
+  LEER nota1
+  LEER nota2
+  LEER nota3
+  suma ← nota1 + nota2 + nota3
+  promedio ← suma / 3
+  SI promedio ≥ 3 ENTONCES
+    ESCRIBIR "Aprobado con ", promedio
+  SINO
+    ESCRIBIR "Toca repasar. Promedio: ", promedio
+  FIN SI
+FIN</pre>
+
+  <p>Prueba de escritorio. Mira con atención el caso C:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>nota1</th><th>nota2</th><th>nota3</th><th>suma</th><th>promedio</th><th>¿promedio ≥ 3?</th><th>Salida</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">5</td><td class="in">4</td><td class="in">3</td><td class="chg">12</td><td class="chg">4.00</td><td class="ok">sí</td><td class="out">Aprobado con 4</td></tr>
+      <tr><td>B</td><td class="in">2</td><td class="in">3</td><td class="in">2</td><td class="chg">7</td><td class="chg">2.33</td><td class="no">no</td><td class="out">Toca repasar. Promedio: 2.33</td></tr>
+      <tr><td>C</td><td class="in">3</td><td class="in">3</td><td class="in">3</td><td class="chg">9</td><td class="chg">3.00</td><td class="ok">sí</td><td class="out">Aprobado con 3</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ El caso frontera.</b> El caso C vale exactamente 3, justo en el borde. Si en la línea 7 hubieras puesto <code>&gt;</code> en lugar de <code>≥</code>, ese estudiante saldría reprobado con un 3.00. La prueba de escritorio te lo muestra sin ejecutar nada. Siempre prueba el valor justo en el borde.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📅 Caso práctico extra: ¿es año bisiesto?</h3>
+    <p>Un año es bisiesto si es divisible entre 4, <b>pero</b> no entre 100, <b>salvo</b> que también sea divisible entre 400. Suena enredado, ¿verdad? En pseudocódigo se vuelve claro:</p>
+<pre class="pseudo">INICIO
+  LEER anio
+  SI (anio MOD 4 = 0 Y anio MOD 100 ≠ 0) O anio MOD 400 = 0 ENTONCES
+    ESCRIBIR anio, " es bisiesto"
+  SINO
+    ESCRIBIR anio, " no es bisiesto"
+  FIN SI
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>anio</th><th>MOD 4</th><th>MOD 100</th><th>MOD 400</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2024</td><td>0</td><td>24</td><td>24</td><td class="out">Bisiesto (divisible entre 4, no entre 100)</td></tr>
+        <tr><td>B</td><td class="in">2023</td><td>3</td><td>23</td><td>23</td><td class="out">No es bisiesto</td></tr>
+        <tr><td>C</td><td class="in">1900</td><td>0</td><td>0</td><td>300</td><td class="out">No es bisiesto (divisible entre 100, no entre 400)</td></tr>
+        <tr><td>D</td><td class="in">2000</td><td>0</td><td>0</td><td>0</td><td class="out">Bisiesto (divisible entre 400)</td></tr>
+      </tbody></table></div>
+    <p>Los casos C y D son los fronterizos. Sin una prueba de escritorio, casi todo el mundo se equivoca con el 1900. Los paréntesis agrupan las condiciones, igual que en matemáticas.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: ¿puede entrar al cine?</h3>
+    <p>Una película es para mayores de 13 años, pero también puede entrar un menor si va acompañado de un adulto. Pide la <b>edad</b> y si va <b>acompañado</b> («si» o «no»). Muestra «Puede entrar» o «No puede entrar».</p>
+    <p>Pruébalo con cuatro casos: <b>15 años sin compañía</b>, <b>10 años con compañía</b>, <b>10 años sin compañía</b> y <b>13 años sin compañía</b>.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  LEER edad
+  LEER acompanado     // "si" o "no"
+  SI edad ≥ 13 O acompanado = "si" ENTONCES
+    ESCRIBIR "Puede entrar"
+  SINO
+    ESCRIBIR "No puede entrar"
+  FIN SI
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>edad</th><th>acompanado</th><th>¿edad ≥ 13?</th><th>¿acompanado = "si"?</th><th>Salida</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">15</td><td class="in">"no"</td><td class="ok">sí</td><td class="no">no</td><td class="out">Puede entrar</td></tr>
+          <tr><td>B</td><td class="in">10</td><td class="in">"si"</td><td class="no">no</td><td class="ok">sí</td><td class="out">Puede entrar</td></tr>
+          <tr><td>C</td><td class="in">10</td><td class="in">"no"</td><td class="no">no</td><td class="no">no</td><td class="out">No puede entrar</td></tr>
+          <tr><td>D</td><td class="in">13</td><td class="in">"no"</td><td class="ok">sí</td><td class="no">no</td><td class="out">Puede entrar</td></tr>
+        </tbody></table></div>
+      <p>Con <b>O</b> basta con que se cumpla una de las dos condiciones. El caso D es el frontera: 13 años justos sí entran, porque usamos «mayor o igual».</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 3</h3>
+    <label><input type="checkbox"><span>Mi plan empieza con INICIO y termina con FIN.</span></label>
+    <label><input type="checkbox"><span>Uso ← para guardar y = para preguntar.</span></label>
+    <label><input type="checkbox"><span>Cada SI tiene su FIN SI y todo lo de adentro está con sangría.</span></label>
+    <label><input type="checkbox"><span>Probé el caso frontera: el valor justo en el borde.</span></label>
+    <label><input type="checkbox"><span>Mis variables tienen nombres que cualquiera entiende.</span></label>
+  </div>
+</section>
+
+
+<!-- ============ CAPÍTULO 4 ============ -->
+<section class="chapter c4" id="cap4">
+  <div class="ch-head"><p class="n">Capítulo 4</p><h2>Las 3 piezas con las que se resuelve casi todo</h2></div>
+
+  <p>Aquí va un secreto: casi cualquier programa se arma con solo <b>tres piezas</b>. Como los bloques de Lego: pocas formas, millones de combinaciones. Si las dominas en pseudocódigo, ya sabes lo más importante.</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Secuencia</span><b>Uno detrás del otro</b>Los pasos se hacen en orden. Cambiar el orden cambia el resultado.</div>
+    <div class="card k-red"><span class="kwd">Decisión</span><b>Elegir un camino</b>SI pasa esto, haz aquello; si no, haz otra cosa.</div>
+    <div class="card k-sun"><span class="kwd">Repetición</span><b>Dar vueltas</b>Repite un bloque mientras se cumpla una condición.</div>
+  </div>
+
+  <h3>Pieza 1: la secuencia (el orden importa)</h3>
+  <p>Imagina que tienes jugo de mango en el vaso A y jugo de piña en el vaso B, y quieres <b>intercambiarlos</b> sin mezclarlos. ¿Qué necesitas? Un tercer vaso. Con variables pasa lo mismo:</p>
+
+<pre class="pseudo">INICIO
+  LEER a
+  LEER b
+  aux ← a      // guardo lo de a en el vaso extra
+  a ← b        // ahora a tiene lo de b
+  b ← aux      // y b recupera lo que era de a
+  ESCRIBIR a, b
+FIN</pre>
+
+  <p>Prueba de escritorio con <b>a = 5</b> y <b>b = 8</b>. Esta vez anotamos <b>una fila por línea ejecutada</b>, para ver cómo cambia cada «vaso»:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Paso</th><th>Línea</th><th>a</th><th>b</th><th>aux</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="in">5</td><td>—</td><td>—</td></tr>
+      <tr><td>2</td><td>3</td><td>5</td><td class="in">8</td><td>—</td></tr>
+      <tr><td>3</td><td>4</td><td>5</td><td>8</td><td class="chg">5</td></tr>
+      <tr><td>4</td><td>5</td><td class="chg">8</td><td>8</td><td>5</td></tr>
+      <tr><td>5</td><td>6</td><td>8</td><td class="chg">5</td><td>5</td></tr>
+      <tr><td>6</td><td>7</td><td class="out">8</td><td class="out">5</td><td>5</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ ¿Y si no usas el vaso extra?</b> Mira qué pasa si escribes solo <code>a ← b</code> y luego <code>b ← a</code>, con los mismos valores 5 y 8:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Paso</th><th>Instrucción</th><th>a</th><th>b</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>(inicio)</td><td class="in">5</td><td class="in">8</td></tr>
+        <tr><td>1</td><td>a ← b</td><td class="chg">8</td><td>8</td></tr>
+        <tr><td>2</td><td>b ← a</td><td>8</td><td class="chg">8</td></tr>
+      </tbody></table></div>
+    <p>Terminas con <b>8 y 8</b>. El 5 se perdió para siempre. Por eso el orden de una secuencia importa tanto.</p>
+  </div>
+
+  <h3>Pieza 2: la decisión (cada pregunta, en su lugar)</h3>
+  <p>Ahora clasificamos a una persona según su edad: niño, adolescente o adulto. Fíjate cómo una decisión puede vivir dentro de otra:</p>
+
+<pre class="pseudo">INICIO
+  LEER edad
+  SI edad &lt; 12 ENTONCES
+    categoria ← "Niño"
+  SINO
+    SI edad &lt; 18 ENTONCES
+      categoria ← "Adolescente"
+    SINO
+      categoria ← "Adulto"
+    FIN SI
+  FIN SI
+  ESCRIBIR categoria
+FIN</pre>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>edad</th><th>¿edad &lt; 12?</th><th>¿edad &lt; 18?</th><th>categoria</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">8</td><td class="ok">sí</td><td>— (no se pregunta)</td><td class="out">Niño</td></tr>
+      <tr><td>B</td><td class="in">12</td><td class="no">no</td><td class="ok">sí</td><td class="out">Adolescente</td></tr>
+      <tr><td>C</td><td class="in">17</td><td class="no">no</td><td class="ok">sí</td><td class="out">Adolescente</td></tr>
+      <tr><td>D</td><td class="in">18</td><td class="no">no</td><td class="no">no</td><td class="out">Adulto</td></tr>
+      <tr><td>E</td><td class="in">40</td><td class="no">no</td><td class="no">no</td><td class="out">Adulto</td></tr>
+    </tbody></table></div>
+  <p>Los casos B y D son los de frontera: 12 ya es adolescente y 18 ya es adulto. Observa en la columna del medio que, cuando la primera respuesta es «sí», la segunda pregunta ni se hace. Eso es lo que significa que el SINO sea «el resto de los casos».</p>
+
+  <h3>Pieza 3: la repetición (dar vueltas con cabeza)</h3>
+  <p>Aquí es donde la prueba de escritorio se luce. Queremos sumar los números del 1 al 4. Tú harías 1+2+3+4 = 10 de cabeza, pero el plan tiene que funcionar también para el 1 al 1000:</p>
+
+<pre class="pseudo">INICIO
+  contador ← 1
+  suma ← 0
+  MIENTRAS contador ≤ 4 HACER
+    suma ← suma + contador
+    contador ← contador + 1
+  FIN MIENTRAS
+  ESCRIBIR suma
+FIN</pre>
+
+  <p>Una fila por línea ejecutada. Fíjate cómo la línea 4 (la pregunta del MIENTRAS) aparece una vez más que las vueltas: la última vez dice «no» y el programa sale del bucle.</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Paso</th><th>Línea</th><th>contador</th><th>suma</th><th>¿contador ≤ 4?</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="chg">1</td><td>—</td><td></td></tr>
+      <tr><td>2</td><td>3</td><td>1</td><td class="chg">0</td><td></td></tr>
+      <tr><td>3</td><td>4</td><td>1</td><td>0</td><td class="ok">sí</td></tr>
+      <tr><td>4</td><td>5</td><td>1</td><td class="chg">1</td><td></td></tr>
+      <tr><td>5</td><td>6</td><td class="chg">2</td><td>1</td><td></td></tr>
+      <tr><td>6</td><td>4</td><td>2</td><td>1</td><td class="ok">sí</td></tr>
+      <tr><td>7</td><td>5</td><td>2</td><td class="chg">3</td><td></td></tr>
+      <tr><td>8</td><td>6</td><td class="chg">3</td><td>3</td><td></td></tr>
+      <tr><td>9</td><td>4</td><td>3</td><td>3</td><td class="ok">sí</td></tr>
+      <tr><td>10</td><td>5</td><td>3</td><td class="chg">6</td><td></td></tr>
+      <tr><td>11</td><td>6</td><td class="chg">4</td><td>6</td><td></td></tr>
+      <tr><td>12</td><td>4</td><td>4</td><td>6</td><td class="ok">sí</td></tr>
+      <tr><td>13</td><td>5</td><td>4</td><td class="chg">10</td><td></td></tr>
+      <tr><td>14</td><td>6</td><td class="chg">5</td><td>10</td><td></td></tr>
+      <tr><td>15</td><td>4</td><td>5</td><td>10</td><td class="no">no → sale</td></tr>
+      <tr><td>16</td><td>8</td><td>5</td><td class="out">10</td><td>ESCRIBIR 10</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>🛒 Caso práctico: sumar compras hasta que escribas 0</h3>
+    <p>En una tienda, la cajera va pasando productos y escribe el precio de cada uno. Cuando termina, escribe <b>0</b>. Este valor que avisa «ya terminé» se llama <b>centinela</b>.</p>
+<pre class="pseudo">INICIO
+  total ← 0
+  LEER compra
+  MIENTRAS compra ≠ 0 HACER
+    total ← total + compra
+    LEER compra
+  FIN MIENTRAS
+  ESCRIBIR "Total: ", total
+FIN</pre>
+    <p>Probamos con la secuencia de precios <b>12, 5, 8, 0</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Paso</th><th>Línea</th><th>compra</th><th>total</th><th>¿compra ≠ 0?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2</td><td>—</td><td class="chg">0</td><td></td></tr>
+        <tr><td>2</td><td>3</td><td class="in">12</td><td>0</td><td></td></tr>
+        <tr><td>3</td><td>4</td><td>12</td><td>0</td><td class="ok">sí</td></tr>
+        <tr><td>4</td><td>5</td><td>12</td><td class="chg">12</td><td></td></tr>
+        <tr><td>5</td><td>6</td><td class="in">5</td><td>12</td><td></td></tr>
+        <tr><td>6</td><td>4</td><td>5</td><td>12</td><td class="ok">sí</td></tr>
+        <tr><td>7</td><td>5</td><td>5</td><td class="chg">17</td><td></td></tr>
+        <tr><td>8</td><td>6</td><td class="in">8</td><td>17</td><td></td></tr>
+        <tr><td>9</td><td>4</td><td>8</td><td>17</td><td class="ok">sí</td></tr>
+        <tr><td>10</td><td>5</td><td>8</td><td class="chg">25</td><td></td></tr>
+        <tr><td>11</td><td>6</td><td class="in">0</td><td>25</td><td></td></tr>
+        <tr><td>12</td><td>4</td><td>0</td><td>25</td><td class="no">no → sale</td></tr>
+        <tr><td>13</td><td>8</td><td>0</td><td class="out">25</td><td>ESCRIBIR 25</td></tr>
+      </tbody></table></div>
+    <div class="callout ojo">
+      <p><b>⚠️ El bucle infinito.</b> ¿Qué pasa si se te olvida la línea 6 (el segundo LEER)? La variable <code>compra</code> se queda en 12 para siempre, la pregunta siempre dice «sí» y el programa nunca termina. En la tabla lo verías enseguida: la columna <b>compra</b> jamás cambia. Regla de oro: <b>dentro del MIENTRAS, algo tiene que cambiar para que la condición algún día diga «no»</b>.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>🎓 Caso práctico: las tres piezas juntas</h3>
+    <p>Un profesor quiere saber cuántos de sus 4 estudiantes aprobaron (nota ≥ 3). Fíjate: hay <b>secuencia</b> (iniciar contadores), <b>repetición</b> (revisar cada estudiante) y <b>decisión</b> (¿aprobó?).</p>
+<pre class="pseudo">INICIO
+  aprobados ← 0
+  contador ← 1
+  MIENTRAS contador ≤ 4 HACER
+    LEER nota
+    SI nota ≥ 3 ENTONCES
+      aprobados ← aprobados + 1
+    FIN SI
+    contador ← contador + 1
+  FIN MIENTRAS
+  ESCRIBIR aprobados, " de 4 aprobaron"
+FIN</pre>
+    <p>Para ahorrar espacio, esta tabla anota <b>una fila por vuelta</b> en lugar de una por línea. Es la versión «compacta» de la prueba de escritorio. Notas: <b>4, 2, 3, 5</b>.</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>contador</th><th>nota</th><th>¿nota ≥ 3?</th><th>aprobados</th></tr></thead>
+      <tbody>
+        <tr><td>Antes</td><td class="chg">1</td><td>—</td><td>—</td><td class="chg">0</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">4</td><td class="ok">sí</td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">2</td><td class="no">no</td><td>1</td></tr>
+        <tr><td>3</td><td>3</td><td class="in">3</td><td class="ok">sí</td><td class="chg">2</td></tr>
+        <tr><td>4</td><td>4</td><td class="in">5</td><td class="ok">sí</td><td class="chg">3</td></tr>
+        <tr><td>Salida</td><td>5 (5 ≤ 4: no)</td><td>—</td><td>—</td><td class="out">3 de 4 aprobaron</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: cuenta regresiva</h3>
+    <p>Escribe el plan de una cuenta regresiva que muestre <b>3, 2, 1</b> y al final diga <b>«¡Despegue!»</b>. Después haz la prueba de escritorio con una fila por vuelta.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  contador ← 3
+  MIENTRAS contador ≥ 1 HACER
+    ESCRIBIR contador
+    contador ← contador - 1
+  FIN MIENTRAS
+  ESCRIBIR "¡Despegue!"
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Vuelta</th><th>contador al empezar</th><th>¿contador ≥ 1?</th><th>Salida</th><th>contador al terminar</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="in">3</td><td class="ok">sí</td><td class="out">3</td><td class="chg">2</td></tr>
+          <tr><td>2</td><td>2</td><td class="ok">sí</td><td class="out">2</td><td class="chg">1</td></tr>
+          <tr><td>3</td><td>1</td><td class="ok">sí</td><td class="out">1</td><td class="chg">0</td></tr>
+          <tr><td>—</td><td>0</td><td class="no">no → sale</td><td class="out">¡Despegue!</td><td>0</td></tr>
+        </tbody></table></div>
+      <p>Si hubieras puesto <code>contador &gt; 1</code>, el plan se detendría en el 2 y nunca mostraría el 1. ¡Otra vez la frontera!</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 4</h3>
+    <label><input type="checkbox"><span>Identifico en mi plan cuáles son las secuencias, las decisiones y las repeticiones.</span></label>
+    <label><input type="checkbox"><span>En cada MIENTRAS, algo cambia para que la condición algún día diga «no».</span></label>
+    <label><input type="checkbox"><span>Pruebo mis bucles con una fila por vuelta, sin saltarme ninguna.</span></label>
+    <label><input type="checkbox"><span>Revisé qué pasa en la primera y en la última vuelta.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 5 ============ -->
+<section class="chapter c5" id="cap5">
+  <div class="ch-head"><p class="n">Capítulo 5</p><h2>Tu primer pseudocódigo: el descuento por compra</h2></div>
+
+  <p>Este es el problema que me hizo entender todo. Una tienda quiere dar descuento según el monto de la compra, y yo lo intenté resolver directo en código, con un montón de condiciones anidadas que se enredaron como audífonos en un bolsillo.</p>
+  <p>Te voy a mostrar cómo lo resolví cuando por fin <b>pensé primero</b>. Sigue estos cinco pasos, que sirven para cualquier problema:</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Paso 1</span><b>Entiende con un ejemplo</b>Resuélvelo a mano con un caso real antes de escribir nada.</div>
+    <div class="card k-violet"><span class="kwd">Paso 2</span><b>Entradas y salidas</b>¿Qué datos te dan? ¿Qué debe salir?</div>
+    <div class="card k-mint"><span class="kwd">Paso 3</span><b>Pasos grandes</b>Escribe el plan en 4 o 5 frases, sin detalles.</div>
+    <div class="card k-sun"><span class="kwd">Paso 4</span><b>Afina</b>Conviértelo en pseudocódigo con INICIO, SI, FIN.</div>
+    <div class="card k-red"><span class="kwd">Paso 5</span><b>Pruébalo</b>Prueba de escritorio con casos normales y de frontera.</div>
+  </div>
+
+  <h3>Paso 1 y 2: entiende el problema</h3>
+  <p>La tienda dice: «si compras menos de $50, no hay descuento; de $50 a menos de $100, 5 %; de $100 a menos de $200, 10 %; y de $200 en adelante, 15 %».</p>
+  <p>Un ejemplo a mano: si compras $100, te toca 10 %, o sea $10 de descuento, y pagas $90. Ya sabemos qué esperar.</p>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Datos de entrada</th><th>Resultados que debe dar</th></tr></thead>
+    <tbody>
+      <tr><td class="in">monto de la compra</td><td class="out">porcentaje, descuento y total a pagar</td></tr>
+    </tbody></table></div>
+
+  <h3>Paso 3 y 4: el plan en español, afinado</h3>
+  <p>El truco está en preguntar <b>de mayor a menor</b>. Mira el plan completo:</p>
+
+<pre class="pseudo">INICIO
+  LEER monto
+  SI monto ≥ 200 ENTONCES
+    porcentaje ← 15
+  SINO
+    SI monto ≥ 100 ENTONCES
+      porcentaje ← 10
+    SINO
+      SI monto ≥ 50 ENTONCES
+        porcentaje ← 5
+      SINO
+        porcentaje ← 0
+      FIN SI
+    FIN SI
+  FIN SI
+  descuento ← monto * porcentaje / 100
+  total ← monto - descuento
+  ESCRIBIR "Descuento: ", descuento
+  ESCRIBIR "Total a pagar: ", total
+FIN</pre>
+
+  <h3>Paso 5: la prueba de escritorio</h3>
+  <p>Probamos con montos normales y con los de frontera (50 y 100):</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>monto</th><th>¿≥ 200?</th><th>¿≥ 100?</th><th>¿≥ 50?</th><th>porcentaje</th><th>descuento</th><th>total</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">30</td><td class="no">no</td><td class="no">no</td><td class="no">no</td><td class="chg">0</td><td class="chg">0.00</td><td class="out">30.00</td></tr>
+      <tr><td>B</td><td class="in">50</td><td class="no">no</td><td class="no">no</td><td class="ok">sí</td><td class="chg">5</td><td class="chg">2.50</td><td class="out">47.50</td></tr>
+      <tr><td>C</td><td class="in">100</td><td class="no">no</td><td class="ok">sí</td><td>—</td><td class="chg">10</td><td class="chg">10.00</td><td class="out">90.00</td></tr>
+      <tr><td>D</td><td class="in">199</td><td class="no">no</td><td class="ok">sí</td><td>—</td><td class="chg">10</td><td class="chg">19.90</td><td class="out">179.10</td></tr>
+      <tr><td>E</td><td class="in">250</td><td class="ok">sí</td><td>—</td><td>—</td><td class="chg">15</td><td class="chg">37.50</td><td class="out">212.50</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>💥 La versión que se rompe: el orden de las preguntas</h3>
+    <p>Mi primer intento preguntaba de <b>menor a mayor</b>. Parece lógico, pero mira lo que pasa:</p>
+<pre class="pseudo">  SI monto ≥ 50 ENTONCES
+    porcentaje ← 5
+  SINO
+    SI monto ≥ 100 ENTONCES
+      porcentaje ← 10
+    SINO
+      SI monto ≥ 200 ENTONCES
+        porcentaje ← 15
+      SINO
+        porcentaje ← 0
+      FIN SI
+    FIN SI
+  FIN SI</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>monto</th><th>¿≥ 50?</th><th>porcentaje obtenido</th><th>porcentaje esperado</th><th>¿Correcto?</th></tr></thead>
+      <tbody>
+        <tr><td class="in">250</td><td class="ok">sí</td><td class="chg">5</td><td>15</td><td class="no">✘ no</td></tr>
+        <tr><td class="in">100</td><td class="ok">sí</td><td class="chg">5</td><td>10</td><td class="no">✘ no</td></tr>
+        <tr><td class="in">30</td><td class="no">no</td><td class="chg">0</td><td>0</td><td class="ok">✔ sí</td></tr>
+      </tbody></table></div>
+    <p>Con 250, la primera pregunta (≥ 50) ya dice «sí» y el plan nunca llega a preguntar por el 15 %. <b>Cuando las condiciones se solapan, pregunta primero por la más exigente.</b> Esta lección sola vale lo que cuesta este ebook.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: el costo de envío</h3>
+    <p>Una tienda en línea cobra el envío según el peso del paquete: hasta <b>1 kg</b>, $3; de más de 1 kg hasta <b>5 kg</b>, $7; más de 5 kg, $12. Escribe el plan siguiendo los cinco pasos y pruébalo con <b>0.5, 1, 3, 5 y 8 kg</b>.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  LEER peso
+  SI peso ≤ 1 ENTONCES
+    envio ← 3
+  SINO
+    SI peso ≤ 5 ENTONCES
+      envio ← 7
+    SINO
+      envio ← 12
+    FIN SI
+  FIN SI
+  ESCRIBIR "Costo de envío: $", envio
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>peso</th><th>¿peso ≤ 1?</th><th>¿peso ≤ 5?</th><th>envio</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">0.5</td><td class="ok">sí</td><td>—</td><td class="out">3</td></tr>
+          <tr><td>B</td><td class="in">1</td><td class="ok">sí</td><td>—</td><td class="out">3</td></tr>
+          <tr><td>C</td><td class="in">3</td><td class="no">no</td><td class="ok">sí</td><td class="out">7</td></tr>
+          <tr><td>D</td><td class="in">5</td><td class="no">no</td><td class="ok">sí</td><td class="out">7</td></tr>
+          <tr><td>E</td><td class="in">8</td><td class="no">no</td><td class="no">no</td><td class="out">12</td></tr>
+        </tbody></table></div>
+      <p>Los casos B y D (justo 1 kg y justo 5 kg) son los de frontera: «hasta» incluye el límite, por eso usamos ≤.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 5</h3>
+    <label><input type="checkbox"><span>Resolví un ejemplo a mano antes de escribir el plan.</span></label>
+    <label><input type="checkbox"><span>Escribí claro qué entra y qué sale.</span></label>
+    <label><input type="checkbox"><span>Pregunté primero por la condición más exigente.</span></label>
+    <label><input type="checkbox"><span>Probé al menos un caso por cada rango y los valores justo en el borde.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 6 ============ -->
+<section class="chapter c6" id="cap6">
+  <div class="ch-head"><p class="n">Capítulo 6</p><h2>La prueba de escritorio a fondo</h2></div>
+
+  <p>Ya hiciste varias pruebas de escritorio sin darte cuenta. Ahora vamos a convertirla en tu superpoder: una herramienta con método, para que cuando algo falle sepas <b>exactamente</b> dónde mirar.</p>
+
+  <h3>Las 5 reglas de una buena prueba</h3>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Regla 1</span><b>Una columna por variable</b>Si una variable no tiene columna, la vas a perder de vista.</div>
+    <div class="card k-violet"><span class="kwd">Regla 2</span><b>Una fila por paso</b>Cada línea que se ejecuta es una fila. No te saltes pasos.</div>
+    <div class="card k-red"><span class="kwd">Regla 3</span><b>Haz de computadora tonta</b>Ejecuta lo que dice el plan, no lo que tú quisiste decir.</div>
+    <div class="card k-sun"><span class="kwd">Regla 4</span><b>Marca lo que cambia</b>Pinta o subraya cada valor nuevo. Así ves el recorrido.</div>
+    <div class="card k-mint"><span class="kwd">Regla 5</span><b>Elige bien tus casos</b>Uno normal, uno en el borde y uno raro (cero, vacío, muy grande).</div>
+  </div>
+
+  <h3>Ejemplo paso a paso: el mayor de tres números</h3>
+  <p>Una pregunta de entrevista de trabajo clásica. La idea: asumimos que el primero es el mayor y lo comparamos con los demás.</p>
+
+<pre class="pseudo">INICIO
+  LEER a
+  LEER b
+  LEER c
+  mayor ← a
+  SI b &gt; mayor ENTONCES
+    mayor ← b
+  FIN SI
+  SI c &gt; mayor ENTONCES
+    mayor ← c
+  FIN SI
+  ESCRIBIR "El mayor es ", mayor
+FIN</pre>
+
+  <p>Seguimos el caso <b>a = 4, b = 9, c = 2</b> línea por línea (omitimos los FIN SI para no alargar):</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Paso</th><th>Línea</th><th>a</th><th>b</th><th>c</th><th>mayor</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="in">4</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>2</td><td>3</td><td>4</td><td class="in">9</td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>3</td><td>4</td><td>4</td><td>9</td><td class="in">2</td><td>—</td><td></td></tr>
+      <tr><td>4</td><td>5</td><td>4</td><td>9</td><td>2</td><td class="chg">4</td><td>supongo que a es el mayor</td></tr>
+      <tr><td>5</td><td>6</td><td>4</td><td>9</td><td>2</td><td>4</td><td class="ok">9 &gt; 4: sí</td></tr>
+      <tr><td>6</td><td>7</td><td>4</td><td>9</td><td>2</td><td class="chg">9</td><td></td></tr>
+      <tr><td>7</td><td>9</td><td>4</td><td>9</td><td>2</td><td>9</td><td class="no">2 &gt; 9: no</td></tr>
+      <tr><td>8</td><td>12</td><td>4</td><td>9</td><td>2</td><td class="out">9</td><td>ESCRIBIR 9</td></tr>
+    </tbody></table></div>
+
+  <p>Ahora los otros casos, en versión resumida. El de en medio (7, 7, 7) es el «raro» porque todos son iguales:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Caso</th><th>a</th><th>b</th><th>c</th><th>mayor al final</th><th>¿Esperado?</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">1</td><td class="in">2</td><td class="in">3</td><td class="out">3</td><td class="ok">✔ sí</td></tr>
+      <tr><td>B</td><td class="in">7</td><td class="in">7</td><td class="in">7</td><td class="out">7</td><td class="ok">✔ sí</td></tr>
+      <tr><td>C</td><td class="in">9</td><td class="in">5</td><td class="in">6</td><td class="out">9</td><td class="ok">✔ sí</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>🐛 Caza de bichos 1: la división traicionera</h3>
+    <p>Alguien escribió este plan para promediar tres notas. Parece perfecto, pero la prueba de escritorio dice otra cosa:</p>
+<pre class="pseudo">INICIO
+  LEER nota1
+  LEER nota2
+  LEER nota3
+  promedio ← nota1 + nota2 + nota3 / 3
+  ESCRIBIR promedio
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>nota1</th><th>nota2</th><th>nota3</th><th>Cálculo real (primero se divide)</th><th>promedio obtenido</th><th>promedio esperado</th></tr></thead>
+      <tbody>
+        <tr><td class="in">3</td><td class="in">3</td><td class="in">3</td><td>3 + 3 + (3 / 3) = 3 + 3 + 1</td><td class="chg">7</td><td class="no">3</td></tr>
+        <tr><td class="in">5</td><td class="in">4</td><td class="in">3</td><td>5 + 4 + (3 / 3) = 5 + 4 + 1</td><td class="chg">10</td><td class="no">4</td></tr>
+      </tbody></table></div>
+    <p>La división se hace antes que la suma, igual que en matemáticas. <b>Arreglo:</b> poner paréntesis.</p>
+<pre class="pseudo">  promedio ← (nota1 + nota2 + nota3) / 3</pre>
+    <p>Con los mismos valores: (3 + 3 + 3) / 3 = <b>3</b> y (5 + 4 + 3) / 3 = <b>4</b>. ✔</p>
+  </div>
+
+  <div class="caso">
+    <h3>🐛 Caza de bichos 2: el que se pasó (o se quedó corto) por uno</h3>
+    <p>Quiero sumar del 1 al 4 y alguien escribe <code>MIENTRAS contador &lt; 4</code> en lugar de <code>≤ 4</code>. Mira cómo la tabla lo delata:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>contador</th><th>¿contador &lt; 4?</th><th>suma después de la vuelta</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">1</td><td class="ok">sí</td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>2</td><td class="ok">sí</td><td class="chg">3</td></tr>
+        <tr><td>3</td><td>3</td><td class="ok">sí</td><td class="chg">6</td></tr>
+        <tr><td>—</td><td>4</td><td class="no">no → sale</td><td class="out">6 (esperado: 10)</td></tr>
+      </tbody></table></div>
+    <p>El 4 nunca se sumó. Es tan común que tiene nombre entre programadores: el error «por uno». Una tabla de cuatro filas te ahorra una tarde.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: ¿qué escribe este plan?</h3>
+    <p>Sin mirar la solución, haz la prueba de escritorio de este plan y predice <b>todo lo que se escribe en pantalla</b>:</p>
+<pre class="pseudo">INICIO
+  x ← 1
+  MIENTRAS x &lt; 20 HACER
+    x ← x * 2
+    ESCRIBIR x
+  FIN MIENTRAS
+FIN</pre>
+    <details><summary>Ver la solución</summary>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Vuelta</th><th>x al empezar</th><th>¿x &lt; 20?</th><th>x al terminar</th><th>Salida</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="in">1</td><td class="ok">sí</td><td class="chg">2</td><td class="out">2</td></tr>
+          <tr><td>2</td><td>2</td><td class="ok">sí</td><td class="chg">4</td><td class="out">4</td></tr>
+          <tr><td>3</td><td>4</td><td class="ok">sí</td><td class="chg">8</td><td class="out">8</td></tr>
+          <tr><td>4</td><td>8</td><td class="ok">sí</td><td class="chg">16</td><td class="out">16</td></tr>
+          <tr><td>5</td><td>16</td><td class="ok">sí</td><td class="chg">32</td><td class="out">32</td></tr>
+          <tr><td>—</td><td>32</td><td class="no">no → sale</td><td>32</td><td>—</td></tr>
+        </tbody></table></div>
+      <p>En pantalla salen: <b>2, 4, 8, 16, 32</b>. Fíjate que el 32 sí se escribe, aunque sea mayor que 20: la pregunta se hace <i>antes</i> de empezar cada vuelta, pero la vuelta que empieza con 16 se completa entera.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 6</h3>
+    <label><input type="checkbox"><span>Mi tabla tiene una columna por cada variable.</span></label>
+    <label><input type="checkbox"><span>Ejecuté lo que dice el plan, no lo que yo quería que dijera.</span></label>
+    <label><input type="checkbox"><span>Probé un caso normal, uno de frontera y uno raro.</span></label>
+    <label><input type="checkbox"><span>Cuando el resultado no coincidió, busqué la primera fila donde se separó de lo esperado.</span></label>
+    <label><input type="checkbox"><span>Revisé los paréntesis en los cálculos con varias operaciones.</span></label>
+  </div>
+</section>
+
+
+<!-- ============ CAPÍTULO 7 ============ -->
+<section class="chapter c7" id="cap7">
+  <div class="ch-head"><p class="n">Capítulo 7</p><h2>Pseudocódigo con casos del trabajo</h2></div>
+
+  <p>Hasta aquí practicamos con ejemplos de la vida diaria. Ahora vamos a la oficina. Te muestro tres casos que me tocaron de verdad en el trabajo (con datos inventados, claro): <b>validar un formulario</b>, <b>armar un reporte</b> y <b>diseñar un flujo de aprobación</b>.</p>
+  <p>Lo bonito es que en los tres casos hice lo mismo: <b>primero dibujé o escribí el plan, después lo probé a mano, y recién ahí toqué una herramienta</b>. Y las herramientas fueron distintas: una aplicación web, una consulta SQL y una plataforma de automatización. Mismo método, tres destinos.</p>
+
+  <div class="caso">
+    <h3>📝 Caso 1: validar un formulario de registro</h3>
+    <p><b>El problema.</b> Una persona se registra en un sistema y tienes que revisar que sus datos estén bien antes de guardarlos. Las reglas son:</p>
+    <ul>
+      <li>El nombre no puede estar vacío.</li>
+      <li>El correo debe contener una arroba (@).</li>
+      <li>La edad debe ser 18 o más.</li>
+      <li>La clave debe tener 8 caracteres o más.</li>
+    </ul>
+    <p><b>Un detalle de cómo leer este plan.</b> Usamos dos «ayudantes» que existen en todos los lenguajes: <code>contiene(texto, pedacito)</code> responde sí o no, y <code>longitud(texto)</code> cuenta los caracteres. Se llaman <b>funciones</b>: reciben un dato y devuelven una respuesta.</p>
+    <p><b>La idea del plan.</b> En lugar de parar al primer error, vamos a <b>contar los errores</b> con una variable llamada <code>errores</code> (un «acumulador»). Así, la persona ve todo lo que debe corregir de una sola vez.</p>
+
+<pre class="pseudo">INICIO
+  LEER nombre
+  LEER correo
+  LEER edad
+  LEER clave
+  errores ← 0
+  SI nombre = "" ENTONCES
+    ESCRIBIR "Falta el nombre"
+    errores ← errores + 1
+  FIN SI
+  SI NO contiene(correo, "@") ENTONCES
+    ESCRIBIR "Correo inválido"
+    errores ← errores + 1
+  FIN SI
+  SI edad &lt; 18 ENTONCES
+    ESCRIBIR "Debes ser mayor de edad"
+    errores ← errores + 1
+  FIN SI
+  SI longitud(clave) &lt; 8 ENTONCES
+    ESCRIBIR "La clave debe tener 8 o más caracteres"
+    errores ← errores + 1
+  FIN SI
+  SI errores = 0 ENTONCES
+    ESCRIBIR "Registro exitoso"
+  SINO
+    ESCRIBIR "Corrige ", errores, " campo(s)"
+  FIN SI
+FIN</pre>
+
+    <p><b>Prueba con cuatro casos.</b> El A es normal, el B tiene todo mal, el C está justo en las fronteras (18 años y 8 caracteres) y el D falla en una sola cosa:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>nombre</th><th>correo</th><th>edad</th><th>clave</th><th>longitud(clave)</th><th>errores</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"Ana"</td><td class="in">"ana@mail.com"</td><td class="in">25</td><td class="in">"abcd1234"</td><td>8</td><td class="chg">0</td><td class="out">Registro exitoso</td></tr>
+        <tr><td>B</td><td class="in">""</td><td class="in">"ana.mail.com"</td><td class="in">16</td><td class="in">"123"</td><td>3</td><td class="chg">4</td><td class="out">Corrige 4 campo(s)</td></tr>
+        <tr><td>C</td><td class="in">"Luis"</td><td class="in">"luis@mail.com"</td><td class="in">18</td><td class="in">"12345678"</td><td>8</td><td class="chg">0</td><td class="out">Registro exitoso</td></tr>
+        <tr><td>D</td><td class="in">"Rosa"</td><td class="in">"rosa@mail.com"</td><td class="in">17</td><td class="in">"clave2026"</td><td>9</td><td class="chg">1</td><td class="out">Debes ser mayor de edad · Corrige 1 campo(s)</td></tr>
+      </tbody></table></div>
+
+    <p><b>Ahora el detalle del caso B, paso a paso.</b> Aquí se ve cómo el acumulador sube de 0 a 4 mientras el plan va encontrando errores:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Paso</th><th>Línea</th><th>Qué pasa</th><th>errores</th><th>Salida</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2 a 5</td><td>Lee los 4 datos: "", "ana.mail.com", 16, "123"</td><td>—</td><td></td></tr>
+        <tr><td>2</td><td>6</td><td>Inicia el acumulador</td><td class="chg">0</td><td></td></tr>
+        <tr><td>3</td><td>7</td><td>¿nombre = ""? Sí</td><td>0</td><td></td></tr>
+        <tr><td>4</td><td>8 y 9</td><td>Avisa y suma un error</td><td class="chg">1</td><td class="out">Falta el nombre</td></tr>
+        <tr><td>5</td><td>11</td><td>¿NO contiene "@"? Sí, "ana.mail.com" no tiene arroba</td><td>1</td><td></td></tr>
+        <tr><td>6</td><td>12 y 13</td><td>Avisa y suma un error</td><td class="chg">2</td><td class="out">Correo inválido</td></tr>
+        <tr><td>7</td><td>15</td><td>¿16 &lt; 18? Sí</td><td>2</td><td></td></tr>
+        <tr><td>8</td><td>16 y 17</td><td>Avisa y suma un error</td><td class="chg">3</td><td class="out">Debes ser mayor de edad</td></tr>
+        <tr><td>9</td><td>19</td><td>¿longitud("123") = 3 &lt; 8? Sí</td><td>3</td><td></td></tr>
+        <tr><td>10</td><td>20 y 21</td><td>Avisa y suma un error</td><td class="chg">4</td><td class="out">La clave debe tener 8 o más caracteres</td></tr>
+        <tr><td>11</td><td>23</td><td>¿errores = 0? No (vale 4)</td><td>4</td><td></td></tr>
+        <tr><td>12</td><td>26</td><td>Muestra el resumen</td><td>4</td><td class="out">Corrige 4 campo(s)</td></tr>
+      </tbody></table></div>
+
+    <div class="callout tip">
+      <p><b>💡 Una decisión de diseño que tomaste sin darte cuenta.</b> Pudimos haber parado en el primer error o mostrar todos juntos. Para un formulario, mostrar todos es más amable: nadie quiere corregir un campo, enviar de nuevo y descubrir que había otros tres errores. Fíjate cómo el pseudocódigo te obliga a pensar estas cosas <i>antes</i> de escribir código.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>📊 Caso 2: armar un reporte de ventas</h3>
+    <p><b>El problema.</b> Tu jefa te pide: «necesito saber cuánto vendió cada vendedor en septiembre, de mayor a menor». Antes de abrir cualquier herramienta, escribimos el plan como una receta de datos:</p>
+
+<pre class="pseudo">INICIO
+  TOMAR las ventas con fecha entre 1 y 30 de septiembre
+  AGRUPAR las ventas por vendedor
+  PARA CADA vendedor
+    total ← SUMAR los montos de sus ventas
+  FIN PARA
+  ORDENAR los vendedores de mayor a menor total
+  ESCRIBIR vendedor, total
+FIN</pre>
+
+    <p><b>La prueba de escritorio con datos.</b> Aquí la «prueba» no sigue variables sino <b>tablas</b>. Empezamos con la tabla de ventas completa, incluyendo dos trampas: una venta del 31 de agosto y otra del 1 de octubre (fíjate en la frontera de las fechas):</p>
+
+    <p class="caption">Paso 0: la tabla ventas que tenemos</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>#</th><th>vendedor</th><th>monto</th><th>fecha</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">Ana</td><td class="in">100</td><td class="in">2026-09-03</td></tr>
+        <tr><td>2</td><td class="in">Luis</td><td class="in">50</td><td class="in">2026-09-15</td></tr>
+        <tr><td>3</td><td class="in">Ana</td><td class="in">200</td><td class="in">2026-09-30</td></tr>
+        <tr><td>4</td><td class="in">Luis</td><td class="in">300</td><td class="in">2026-08-31</td></tr>
+        <tr><td>5</td><td class="in">Rosa</td><td class="in">80</td><td class="in">2026-09-10</td></tr>
+        <tr><td>6</td><td class="in">Rosa</td><td class="in">40</td><td class="in">2026-10-01</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Paso 1: nos quedamos solo con septiembre</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>#</th><th>vendedor</th><th>monto</th><th>fecha</th><th>¿Septiembre?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Ana</td><td>100</td><td>2026-09-03</td><td class="ok">sí, se queda</td></tr>
+        <tr><td>2</td><td>Luis</td><td>50</td><td>2026-09-15</td><td class="ok">sí, se queda</td></tr>
+        <tr><td>3</td><td>Ana</td><td>200</td><td>2026-09-30</td><td class="ok">sí, se queda (30 de sep. entra)</td></tr>
+        <tr><td>4</td><td>Luis</td><td>300</td><td>2026-08-31</td><td class="no">no, es de agosto</td></tr>
+        <tr><td>5</td><td>Rosa</td><td>80</td><td>2026-09-10</td><td class="ok">sí, se queda</td></tr>
+        <tr><td>6</td><td>Rosa</td><td>40</td><td>2026-10-01</td><td class="no">no, es de octubre</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Paso 2: agrupamos por vendedor y sumamos</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>vendedor</th><th>ventas que cuentan</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>Ana</td><td>100 + 200</td><td class="chg">300</td></tr>
+        <tr><td>Luis</td><td>50</td><td class="chg">50</td></tr>
+        <tr><td>Rosa</td><td>80</td><td class="chg">80</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Paso 3: ordenamos de mayor a menor (el reporte final)</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Posición</th><th>vendedor</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="out">Ana</td><td class="out">300</td></tr>
+        <tr><td>2</td><td class="out">Rosa</td><td class="out">80</td></tr>
+        <tr><td>3</td><td class="out">Luis</td><td class="out">50</td></tr>
+      </tbody></table></div>
+
+    <div class="callout ojo">
+      <p><b>⚠️ La trampa de las fechas.</b> Si tu filtro se equivoca por un día, el reporte se ve «casi bien» y nadie lo nota hasta que no cuadran los números. Por eso en la tabla pusimos un 31 de agosto y un 1 de octubre: son los casos frontera de los reportes mensuales. En el capítulo 8 verás cómo se escribe este mismo plan en SQL.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>✅ Caso 3: un flujo de aprobación de vacaciones</h3>
+    <p><b>El problema.</b> En una empresa, una solicitud de vacaciones pasa por distintas personas según los días que pidas. Las reglas son:</p>
+    <ul>
+      <li>Si pides más días de los que te quedan, se rechaza automáticamente.</li>
+      <li>De 1 a 3 días: aprueba tu jefe directo.</li>
+      <li>De 4 a 10 días: aprueban tu jefe directo y Recursos Humanos.</li>
+      <li>Más de 10 días: jefe directo, Recursos Humanos y Gerencia.</li>
+    </ul>
+    <p>Esto es exactamente lo que se «dibuja» como un flujo con rombos de decisión. El pseudocódigo es el mismo dibujo, pero en palabras:</p>
+
+<pre class="pseudo">INICIO
+  LEER dias
+  LEER saldo
+  SI dias &gt; saldo ENTONCES
+    ESCRIBIR "Rechazada: saldo insuficiente"
+  SINO
+    SI dias ≤ 3 ENTONCES
+      aprobadores ← "Jefe directo"
+    SINO
+      SI dias ≤ 10 ENTONCES
+        aprobadores ← "Jefe directo y Recursos Humanos"
+      SINO
+        aprobadores ← "Jefe directo, RR.HH. y Gerencia"
+      FIN SI
+    FIN SI
+    ESCRIBIR "Solicitud enviada a: ", aprobadores
+  FIN SI
+FIN</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>dias</th><th>saldo</th><th>¿dias &gt; saldo?</th><th>¿dias ≤ 3?</th><th>¿dias ≤ 10?</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2</td><td class="in">10</td><td class="no">no</td><td class="ok">sí</td><td>—</td><td class="out">Enviada a: Jefe directo</td></tr>
+        <tr><td>B</td><td class="in">3</td><td class="in">10</td><td class="no">no</td><td class="ok">sí</td><td>—</td><td class="out">Enviada a: Jefe directo (frontera: 3 días)</td></tr>
+        <tr><td>C</td><td class="in">4</td><td class="in">10</td><td class="no">no</td><td class="no">no</td><td class="ok">sí</td><td class="out">Enviada a: Jefe directo y RR.HH.</td></tr>
+        <tr><td>D</td><td class="in">12</td><td class="in">15</td><td class="no">no</td><td class="no">no</td><td class="no">no</td><td class="out">Enviada a: Jefe, RR.HH. y Gerencia</td></tr>
+        <tr><td>E</td><td class="in">12</td><td class="in">8</td><td class="ok">sí</td><td>—</td><td>—</td><td class="out">Rechazada: saldo insuficiente</td></tr>
+        <tr><td>F</td><td class="in">8</td><td class="in">8</td><td class="no">no</td><td class="no">no</td><td class="ok">sí</td><td class="out">Enviada a: Jefe directo y RR.HH. (frontera: pide justo lo que tiene)</td></tr>
+      </tbody></table></div>
+    <p>El caso F es el que más se olvida: si alguien tiene 8 días y pide 8, ¿se rechaza? Nuestro plan dice que no, porque usamos <code>&gt;</code> (estrictamente mayor). Esa es una <b>regla de negocio</b> que conviene confirmar con quien pidió el proceso.</p>
+
+    <h3>¿Y si el jefe no responde?</h3>
+    <p>Los procesos reales tienen excepciones. Agreguemos esta: si el aprobador no responde en 3 días, la solicitud se <b>escala</b> al siguiente nivel. Fíjate cómo aparece una repetición con <b>dos condiciones</b>:</p>
+
+<pre class="pseudo">INICIO
+  diasEspera ← 0
+  LEER respuesta       // "pendiente", "aprobada" o "rechazada"
+  MIENTRAS respuesta = "pendiente" Y diasEspera &lt; 3 HACER
+    diasEspera ← diasEspera + 1
+    LEER respuesta
+  FIN MIENTRAS
+  SI respuesta = "pendiente" ENTONCES
+    ESCRIBIR "Escalar al siguiente nivel"
+  SINO
+    ESCRIBIR "Respuesta recibida: ", respuesta
+  FIN SI
+FIN</pre>
+
+    <p>Probamos dos escenarios. En el <b>escenario 1</b> el jefe responde el día 2. En el <b>escenario 2</b> nunca responde:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Escenario</th><th>Vuelta</th><th>respuesta que llega</th><th>diasEspera</th><th>¿sigue el MIENTRAS?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Antes</td><td class="in">"pendiente"</td><td class="chg">0</td><td class="ok">sí (pendiente Y 0 &lt; 3)</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">"pendiente"</td><td class="chg">1</td><td class="ok">sí (pendiente Y 1 &lt; 3)</td></tr>
+        <tr><td>1</td><td>2</td><td class="in">"aprobada"</td><td class="chg">2</td><td class="no">no (ya no está pendiente)</td></tr>
+        <tr><td>1</td><td>Salida</td><td colspan="3" class="out">Respuesta recibida: aprobada</td></tr>
+        <tr><td>2</td><td>Antes</td><td class="in">"pendiente"</td><td class="chg">0</td><td class="ok">sí</td></tr>
+        <tr><td>2</td><td>1</td><td class="in">"pendiente"</td><td class="chg">1</td><td class="ok">sí</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">"pendiente"</td><td class="chg">2</td><td class="ok">sí</td></tr>
+        <tr><td>2</td><td>3</td><td class="in">"pendiente"</td><td class="chg">3</td><td class="no">no (3 &lt; 3 es falso)</td></tr>
+        <tr><td>2</td><td>Salida</td><td colspan="3" class="out">Escalar al siguiente nivel</td></tr>
+      </tbody></table></div>
+    <p>La condición con <b>Y</b> es como tener dos puertas de salida: el ciclo termina apenas <i>una</i> de las dos deja de cumplirse (llegó respuesta o se acabaron los 3 días).</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: la solicitud de compra</h3>
+    <p>En tu empresa, las compras se aprueban según el monto: hasta <b>$100</b> se aprueban automáticamente; de más de $100 hasta <b>$1,000</b> las aprueba el supervisor; y más de $1,000 requieren al supervisor <b>y</b> al gerente. Escribe el plan y pruébalo con <b>$100, $101, $1,000 y $1,001</b>.</p>
+    <details><summary>Ver una solución posible</summary>
+<pre class="pseudo">INICIO
+  LEER monto
+  SI monto ≤ 100 ENTONCES
+    ESCRIBIR "Aprobada automáticamente"
+  SINO
+    SI monto ≤ 1000 ENTONCES
+      ESCRIBIR "Requiere aprobación del supervisor"
+    SINO
+      ESCRIBIR "Requiere aprobación del supervisor y del gerente"
+    FIN SI
+  FIN SI
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>monto</th><th>¿monto ≤ 100?</th><th>¿monto ≤ 1000?</th><th>Resultado</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">100</td><td class="ok">sí</td><td>—</td><td class="out">Aprobada automáticamente</td></tr>
+          <tr><td>B</td><td class="in">101</td><td class="no">no</td><td class="ok">sí</td><td class="out">Requiere aprobación del supervisor</td></tr>
+          <tr><td>C</td><td class="in">1000</td><td class="no">no</td><td class="ok">sí</td><td class="out">Requiere aprobación del supervisor</td></tr>
+          <tr><td>D</td><td class="in">1001</td><td class="no">no</td><td class="no">no</td><td class="out">Supervisor y gerente</td></tr>
+        </tbody></table></div>
+      <p>Los cuatro casos son las fronteras de cada tramo: 100 y 101, 1,000 y 1,001. Un reporte de auditoría te agradecerá que lo hayas probado así.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 7</h3>
+    <label><input type="checkbox"><span>Antes de usar cualquier herramienta, escribí las reglas del negocio en pseudocódigo.</span></label>
+    <label><input type="checkbox"><span>Decidí si mi validación muestra todos los errores o solo el primero, y por qué.</span></label>
+    <label><input type="checkbox"><span>Probé las fronteras de las fechas, los montos y los límites de cada tramo.</span></label>
+    <label><input type="checkbox"><span>Confirmé con quien pidió el proceso qué pasa con los casos justo en el borde.</span></label>
+    <label><input type="checkbox"><span>Pensé en las excepciones: ¿qué pasa si nadie responde?</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 8 ============ -->
+<section class="chapter c8" id="cap8">
+  <div class="ch-head"><p class="n">Capítulo 8</p><h2>De pseudocódigo a código</h2></div>
+
+  <p>Llegó el momento que prometí: ver cómo tu pseudocódigo se convierte en código real. Y te lo voy a mostrar en <b>Python, JavaScript, C# y SQL</b>, lado a lado, para que veas que la idea es siempre la misma.</p>
+  <p>Una advertencia importante: este capítulo no es para que memorices sintaxis. Es para que veas que <b>traducir es mecánico</b>. Si tu plan está bien y tu prueba de escritorio dio bien, traducirlo es como pasar una receta de español a inglés: cambian las palabras, no los pasos.</p>
+
+  <h3>La receta de traducción en 4 pasos</h3>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Paso 1</span><b>Pega el plan como comentarios</b>Cada línea de tu pseudocódigo se vuelve un comentario en el editor.</div>
+    <div class="card k-violet"><span class="kwd">Paso 2</span><b>Traduce línea por línea</b>Debajo de cada comentario, escribe su equivalente en el lenguaje.</div>
+    <div class="card k-mint"><span class="kwd">Paso 3</span><b>Corre tus mismos casos</b>Los de tu tabla de prueba de escritorio.</div>
+    <div class="card k-red"><span class="kwd">Paso 4</span><b>Compara</b>Si el resultado no coincide con la tabla, el error está en la traducción.</div>
+  </div>
+
+  <p>Mira cómo se ve el paso 1 y 2 con el inicio del plan del descuento. Los comentarios son tu pseudocódigo; el resto, la traducción:</p>
+<div class="lang py">Python</div>
+<pre class="code"># LEER monto
+monto = float(input("Monto de la compra: "))
+
+# SI monto ≥ 200 ENTONCES porcentaje ← 15
+if monto &gt;= 200:
+    porcentaje = 15</pre>
+
+  <h3>El diccionario: pseudocódigo ↔ lenguajes</h3>
+  <p>Esta es la tabla que más vas a consultar. Guárdala:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Pseudocódigo</th><th>Python</th><th>JavaScript</th><th>C#</th></tr></thead>
+    <tbody>
+      <tr><td>LEER x</td><td class="cd">x = float(input())</td><td class="cd">let x = parseFloat(prompt())</td><td class="cd">double x = double.Parse(Console.ReadLine())</td></tr>
+      <tr><td>x ← 5 (guardar)</td><td class="cd">x = 5</td><td class="cd">let x = 5</td><td class="cd">int x = 5</td></tr>
+      <tr><td>x = 5 (preguntar)</td><td class="cd">x == 5</td><td class="cd">x === 5</td><td class="cd">x == 5</td></tr>
+      <tr><td>x ≠ 5</td><td class="cd">x != 5</td><td class="cd">x !== 5</td><td class="cd">x != 5</td></tr>
+      <tr><td>SI … SINO</td><td class="cd">if: … else:</td><td class="cd">if (…) { } else { }</td><td class="cd">if (…) { } else { }</td></tr>
+      <tr><td>SINO SI</td><td class="cd">elif</td><td class="cd">else if</td><td class="cd">else if</td></tr>
+      <tr><td>MIENTRAS</td><td class="cd">while cond:</td><td class="cd">while (cond) { }</td><td class="cd">while (cond) { }</td></tr>
+      <tr><td>ESCRIBIR</td><td class="cd">print()</td><td class="cd">console.log()</td><td class="cd">Console.WriteLine()</td></tr>
+      <tr><td>Y · O · NO</td><td class="cd">and · or · not</td><td class="cd">&amp;&amp; · || · !</td><td class="cd">&amp;&amp; · || · !</td></tr>
+      <tr><td>MOD</td><td class="cd">%</td><td class="cd">%</td><td class="cd">%</td></tr>
+      <tr><td>DIV</td><td class="cd">//</td><td class="cd">Math.floor(a / b)</td><td class="cd">a / b (con enteros)</td></tr>
+    </tbody></table></div>
+
+  <div class="callout tip">
+    <p><b>💡 ¡Aquí se resuelve el misterio del capítulo 1!</b> Recuerdas mis tres horas por un <code>=</code> en lugar de <code>==</code>. Mira la tabla: en pseudocódigo, <b>guardar</b> es ← y <b>preguntar</b> es =. En casi todos los lenguajes se invierten los roles: guardar es <code>=</code> y preguntar es <code>==</code>. Si ya sabes qué quieres hacer en cada línea (guardar o preguntar), elegir el símbolo correcto es cuestión de consultar el diccionario.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🏷️ Caso 1: el descuento por compra, en tres lenguajes</h3>
+    <p>El plan del capítulo 5, traducido. Fíjate que los <code>SINO SI</code> anidados del pseudocódigo se vuelven <code>elif</code> o <code>else if</code>, que es la forma en que los lenguajes los escriben «en fila» para que no queden escalones.</p>
+
+<div class="lang py">Python</div>
+<pre class="code">monto = float(input("Monto de la compra: "))
+
+if monto &gt;= 200:
+    porcentaje = 15
+elif monto &gt;= 100:
+    porcentaje = 10
+elif monto &gt;= 50:
+    porcentaje = 5
+else:
+    porcentaje = 0
+
+descuento = monto * porcentaje / 100
+total = monto - descuento
+print("Descuento:", descuento)
+print("Total a pagar:", total)</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let monto = parseFloat(prompt("Monto de la compra:"));
+let porcentaje;
+
+if (monto &gt;= 200) {
+  porcentaje = 15;
+} else if (monto &gt;= 100) {
+  porcentaje = 10;
+} else if (monto &gt;= 50) {
+  porcentaje = 5;
+} else {
+  porcentaje = 0;
+}
+
+let descuento = monto * porcentaje / 100;
+let total = monto - descuento;
+console.log("Descuento: " + descuento);
+console.log("Total a pagar: " + total);</pre>
+
+<div class="lang cs">C#</div>
+<pre class="code">using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Monto de la compra: ");
+        double monto = double.Parse(Console.ReadLine());
+        double porcentaje;
+
+        if (monto &gt;= 200) { porcentaje = 15; }
+        else if (monto &gt;= 100) { porcentaje = 10; }
+        else if (monto &gt;= 50) { porcentaje = 5; }
+        else { porcentaje = 0; }
+
+        double descuento = monto * porcentaje / 100;
+        double total = monto - descuento;
+        Console.WriteLine("Descuento: " + descuento);
+        Console.WriteLine("Total a pagar: " + total);
+    }
+}</pre>
+
+    <p><b>La prueba de escritorio no cambia.</b> Es la misma tabla del capítulo 5, porque el plan es el mismo. Verifica el caso del código con <b>monto = 100</b>, siguiendo la versión de Python:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Línea de Python</th><th>monto</th><th>porcentaje</th><th>descuento</th><th>total</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td class="cd">monto = float(input(…))</td><td class="in">100.0</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td class="cd">if monto &gt;= 200</td><td>100.0</td><td>—</td><td>—</td><td>—</td><td class="no">falso</td></tr>
+        <tr><td class="cd">elif monto &gt;= 100</td><td>100.0</td><td>—</td><td>—</td><td>—</td><td class="ok">verdadero (frontera)</td></tr>
+        <tr><td class="cd">porcentaje = 10</td><td>100.0</td><td class="chg">10</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td class="cd">descuento = monto * porcentaje / 100</td><td>100.0</td><td>10</td><td class="chg">10.0</td><td>—</td><td></td></tr>
+        <tr><td class="cd">total = monto - descuento</td><td>100.0</td><td>10</td><td>10.0</td><td class="chg">90.0</td><td></td></tr>
+        <tr><td class="cd">print(…)</td><td>100.0</td><td>10</td><td>10.0</td><td class="out">90.0</td><td>Total a pagar: 90.0 ✔</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="caso">
+    <h3>🛒 Caso 2: sumar compras hasta escribir 0</h3>
+    <p>El plan con centinela del capítulo 4. Mira cómo el <code>LEER</code> aparece dos veces, igual que en el pseudocódigo: una antes del ciclo y otra al final de cada vuelta.</p>
+
+<div class="lang py">Python</div>
+<pre class="code">total = 0
+compra = float(input("Precio (0 para terminar): "))
+
+while compra != 0:
+    total = total + compra
+    compra = float(input("Precio (0 para terminar): "))
+
+print("Total:", total)</pre>
+
+<div class="lang cs">C#</div>
+<pre class="code">double total = 0;
+Console.Write("Precio (0 para terminar): ");
+double compra = double.Parse(Console.ReadLine());
+
+while (compra != 0)
+{
+    total = total + compra;
+    Console.Write("Precio (0 para terminar): ");
+    compra = double.Parse(Console.ReadLine());
+}
+
+Console.WriteLine("Total: " + total);</pre>
+    <p>(En C# este bloque va dentro de <code>Main</code>, como en el caso anterior.) Con los precios 12, 5, 8, 0, la tabla del capítulo 4 sigue valiendo tal cual: <b>total = 25</b>.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📅 Caso 3: año bisiesto en Python y JavaScript</h3>
+    <p>Aquí lo interesante son los paréntesis y los operadores Y/O. Compara con el pseudocódigo del capítulo 3:</p>
+
+<div class="lang py">Python</div>
+<pre class="code">anio = int(input("Año: "))
+
+if (anio % 4 == 0 and anio % 100 != 0) or anio % 400 == 0:
+    print(anio, "es bisiesto")
+else:
+    print(anio, "no es bisiesto")</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let anio = parseInt(prompt("Año:"));
+
+if ((anio % 4 === 0 &amp;&amp; anio % 100 !== 0) || anio % 400 === 0) {
+  console.log(anio + " es bisiesto");
+} else {
+  console.log(anio + " no es bisiesto");
+}</pre>
+
+    <p>La misma prueba de escritorio, esta vez con las expresiones reales del código:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>anio</th><th>anio % 4 == 0</th><th>anio % 100 != 0</th><th>anio % 400 == 0</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td class="in">2024</td><td class="ok">True</td><td class="ok">True</td><td class="no">False</td><td class="out">es bisiesto</td></tr>
+        <tr><td class="in">1900</td><td class="ok">True</td><td class="no">False</td><td class="no">False</td><td class="out">no es bisiesto</td></tr>
+        <tr><td class="in">2000</td><td class="ok">True</td><td class="no">False</td><td class="ok">True</td><td class="out">es bisiesto</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="caso">
+    <h3>📊 Caso 4: el reporte de ventas, en SQL</h3>
+    <p>Recuerdas el reporte del capítulo 7. SQL se parece mucho al plan en español porque <b>describe qué quieres, no cómo hacerlo</b>. Compara línea por línea:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Paso del plan</th><th>Su equivalente en SQL</th></tr></thead>
+      <tbody>
+        <tr><td>TOMAR las ventas</td><td class="cd">FROM ventas</td></tr>
+        <tr><td>entre 1 y 30 de septiembre</td><td class="cd">WHERE fecha &gt;= '2026-09-01' AND fecha &lt; '2026-10-01'</td></tr>
+        <tr><td>AGRUPAR por vendedor</td><td class="cd">GROUP BY vendedor</td></tr>
+        <tr><td>SUMAR los montos</td><td class="cd">SUM(monto) AS total</td></tr>
+        <tr><td>ORDENAR de mayor a menor</td><td class="cd">ORDER BY total DESC</td></tr>
+      </tbody></table></div>
+
+<div class="lang sql">SQL (SQL Server, MySQL, PostgreSQL)</div>
+<pre class="code">SELECT vendedor, SUM(monto) AS total
+FROM ventas
+WHERE fecha &gt;= '2026-09-01' AND fecha &lt; '2026-10-01'
+GROUP BY vendedor
+ORDER BY total DESC;</pre>
+
+    <p>Observa el truco del filtro: en lugar de «hasta el 30 de septiembre» (que puede fallar si la fecha tiene hora), usamos «antes del 1 de octubre». Es la forma segura de manejar la frontera que probamos con las ventas del 31 de agosto y del 1 de octubre. El resultado es el mismo de la prueba de escritorio:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>vendedor</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td class="out">Ana</td><td class="out">300</td></tr>
+        <tr><td class="out">Rosa</td><td class="out">80</td></tr>
+        <tr><td class="out">Luis</td><td class="out">50</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <h3>Las 4 trampas de la traducción (y cómo la prueba de escritorio las atrapa)</h3>
+
+  <p><b>Trampa 1: los datos que entran como texto.</b> Cuando el programa le pide algo a la persona, casi todos los lenguajes lo reciben como <i>texto</i>, no como número. Mira lo que pasa en JavaScript si te olvidas de convertirlo con <code>parseFloat</code>:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Expresión (sin convertir)</th><th>Esperabas</th><th>Obtienes</th></tr></thead>
+    <tbody>
+      <tr><td class="cd">"30" + 5</td><td>35</td><td class="no">"305" (pegó los textos)</td></tr>
+      <tr><td class="cd">"100" &gt; "20"</td><td>true</td><td class="no">false (compara letra por letra)</td></tr>
+      <tr><td class="cd">parseFloat("30") + 5</td><td>35</td><td class="ok">35</td></tr>
+    </tbody></table></div>
+  <p>Por eso, en el diccionario de arriba, <code>LEER</code> siempre trae una conversión: <code>float(…)</code>, <code>parseFloat(…)</code>, <code>double.Parse(…)</code>.</p>
+
+  <p><b>Trampa 2: los dos puntos, las llaves y la sangría.</b> En Python, el <code>:</code> al final del <code>if</code> y la sangría son obligatorios; en JavaScript y C# mandan las llaves <code>{ }</code> y el punto y coma. Es justo el tipo de detalle que me costó tres horas. Cuando algo falla, <b>revisa la puntuación línea por línea con tu pseudocódigo al lado</b>.</p>
+
+  <p><b>Trampa 3: la división entera.</b> Mira cómo cambia <code>7 dividido entre 2</code> según el lenguaje:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Lenguaje</th><th>Expresión</th><th>Resultado</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>Pseudocódigo</td><td class="cd">7 DIV 2</td><td class="out">3</td><td>«¿Cuántas veces cabe el 2 en el 7?»</td></tr>
+      <tr><td>Python</td><td class="cd">7 / 2</td><td class="chg">3.5</td><td>Para el 3, usa <code>7 // 2</code></td></tr>
+      <tr><td>JavaScript</td><td class="cd">7 / 2</td><td class="chg">3.5</td><td>Para el 3, usa <code>Math.floor(7 / 2)</code></td></tr>
+      <tr><td>C#</td><td class="cd">7 / 2</td><td class="chg">3</td><td>Con dos enteros, ya divide «entero»; con 7.0 daría 3.5</td></tr>
+    </tbody></table></div>
+
+  <p><b>Trampa 4: los nombres.</b> Las palabras reservadas (<code>if</code>, <code>while</code>, <code>class</code>) no se pueden usar como nombres de variables. Y en la mayoría de los lenguajes, <code>Total</code> y <code>total</code> son dos variables distintas. Escoger nombres claros y consistentes desde el pseudocódigo te evita estos dolores de cabeza.</p>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: traduce el cine</h3>
+    <p>Toma el pseudocódigo de «¿puede entrar al cine?» del capítulo 3 y tradúcelo al lenguaje que elijas. Usa la receta de 4 pasos y el diccionario. Después prueba los casos <b>15 años sin compañía</b>, <b>10 con compañía</b>, <b>10 sin compañía</b> y <b>13 sin compañía</b>.</p>
+    <details><summary>Ver una solución posible</summary>
+<div class="lang py">Python</div>
+<pre class="code">edad = int(input("Edad: "))
+acompanado = input("¿Va acompañado? (si/no): ")
+
+if edad &gt;= 13 or acompanado == "si":
+    print("Puede entrar")
+else:
+    print("No puede entrar")</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let edad = parseInt(prompt("Edad:"));
+let acompanado = prompt("¿Va acompañado? (si/no)");
+
+if (edad &gt;= 13 || acompanado === "si") {
+  console.log("Puede entrar");
+} else {
+  console.log("No puede entrar");
+}</pre>
+      <p>Fíjate en las traducciones: «O» pasó a ser <code>or</code> en Python y <code>||</code> en JavaScript; «=» para preguntar pasó a ser <code>==</code> en Python y <code>===</code> en JavaScript; y <code>acompanado</code> quedó sin tilde en el nombre de la variable porque es más seguro. Los cuatro resultados son los mismos de la tabla del capítulo 3: <b>Puede entrar, Puede entrar, No puede entrar, Puede entrar</b>.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 8</h3>
+    <label><input type="checkbox"><span>Pegué mi pseudocódigo como comentarios y traduje debajo de cada uno.</span></label>
+    <label><input type="checkbox"><span>Distingo guardar (<code>=</code>) de preguntar (<code>==</code>) en el lenguaje que uso.</span></label>
+    <label><input type="checkbox"><span>Convertí los datos que entran como texto a números.</span></label>
+    <label><input type="checkbox"><span>Corrí mis mismos casos de la prueba de escritorio y comparé resultados.</span></label>
+    <label><input type="checkbox"><span>Si algo falló, revisé primero la puntuación y los nombres.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 9 ============ -->
+<section class="chapter c9" id="cap9">
+  <div class="ch-head"><p class="n">Capítulo 9</p><h2>Los errores de principiante (y cómo esquivarlos)</h2></div>
+
+  <p>Todos los cometimos, yo incluida. La buena noticia es que son siempre los mismos cinco. Para cada uno te muestro cómo se ve, cómo lo delata la prueba de escritorio y cómo se arregla.</p>
+
+  <div class="caso">
+    <h3>Error 1: abrir el editor antes de entender el problema</h3>
+    <p><b>Cómo se ve.</b> Te piden «calcula la propina» y empiezas a escribir. Pero... ¿la propina se calcula antes o después del ITBMS? Dos personas razonables entienden cosas distintas. Mira las dos versiones con una cuenta de <b>$20</b>:</p>
+
+<pre class="pseudo">// Versión A: la propina es el 10 % del subtotal
+INICIO
+  LEER subtotal
+  itbms ← subtotal * 0.07
+  propina ← subtotal * 0.10
+  total ← subtotal + itbms + propina
+  ESCRIBIR total
+FIN</pre>
+
+<pre class="pseudo">// Versión B: la propina es el 10 % de la cuenta con ITBMS
+INICIO
+  LEER subtotal
+  itbms ← subtotal * 0.07
+  propina ← (subtotal + itbms) * 0.10
+  total ← subtotal + itbms + propina
+  ESCRIBIR total
+FIN</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Versión</th><th>subtotal</th><th>itbms</th><th>propina</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">20</td><td>1.40</td><td class="chg">2.00</td><td class="out">23.40</td></tr>
+        <tr><td>B</td><td class="in">20</td><td>1.40</td><td class="chg">2.14</td><td class="out">23.54</td></tr>
+      </tbody></table></div>
+    <p>Son 14 centavos de diferencia en una cuenta de $20. En mil cuentas al día ya es una discusión con el contador. <b>La solución no es técnica: es preguntar.</b></p>
+    <div class="callout tip">
+      <p><b>💡 Las 3 preguntas antes de escribir:</b> (1) ¿Qué datos me van a dar? (2) ¿Qué debe salir exactamente? (3) ¿Me puedes dar un ejemplo con números reales? La tercera es la más poderosa: si la otra persona no puede darte un ejemplo, ni ella tiene claro lo que quiere.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>Error 2: copiar código sin entenderlo</h3>
+    <p><b>Cómo se ve.</b> Encuentras un fragmento que «funciona», lo pegas y cruzas los dedos. Cuando falla, no sabes ni por dónde empezar. <b>La cura es la prueba de escritorio.</b> Veamos un plan misterioso que alguien te pasó. ¿Qué hace?</p>
+
+<pre class="pseudo">INICIO
+  LEER n
+  r ← 0
+  MIENTRAS n &gt; 0 HACER
+    r ← r * 10 + (n MOD 10)
+    n ← n DIV 10
+  FIN MIENTRAS
+  ESCRIBIR r
+FIN</pre>
+
+    <p>No lo leas «de arriba abajo esperando entenderlo». Pruébalo con un número, por ejemplo <b>123</b>, y anota cada vuelta:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>n al empezar</th><th>n MOD 10 (última cifra)</th><th>r</th><th>n DIV 10 (quita la última cifra)</th></tr></thead>
+      <tbody>
+        <tr><td>Antes</td><td class="in">123</td><td>—</td><td class="chg">0</td><td>—</td></tr>
+        <tr><td>1</td><td>123</td><td>3</td><td class="chg">0 * 10 + 3 = 3</td><td class="chg">12</td></tr>
+        <tr><td>2</td><td>12</td><td>2</td><td class="chg">3 * 10 + 2 = 32</td><td class="chg">1</td></tr>
+        <tr><td>3</td><td>1</td><td>1</td><td class="chg">32 * 10 + 1 = 321</td><td class="chg">0</td></tr>
+        <tr><td>Salida</td><td>0 (0 &gt; 0: no)</td><td>—</td><td class="out">321</td><td>—</td></tr>
+      </tbody></table></div>
+    <p>¡Descubierto! <b>Le da la vuelta a un número</b>: 123 se vuelve 321. Y como bonus, probemos con 100 para ver su comportamiento raro:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>n al empezar</th><th>n MOD 10</th><th>r</th><th>n al terminar</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">100</td><td>0</td><td class="chg">0</td><td>10</td></tr>
+        <tr><td>2</td><td>10</td><td>0</td><td class="chg">0</td><td>1</td></tr>
+        <tr><td>3</td><td>1</td><td>1</td><td class="chg">1</td><td>0</td></tr>
+        <tr><td>Salida</td><td>—</td><td>—</td><td class="out">1</td><td>—</td></tr>
+      </tbody></table></div>
+    <p>El 100 da «1», no «001»: los ceros a la izquierda se pierden. Si hubieras copiado este código para validar placas o cédulas, ese detalle te habría costado caro. <b>Un código que no puedes probar a mano es un código que no entiendes.</b></p>
+  </div>
+
+  <div class="caso">
+    <h3>Error 3: querer aprender el lenguaje completo antes de dominar la lógica</h3>
+    <p><b>Cómo se ve.</b> Compras tres cursos, memorizas todas las funciones de Python y todavía no puedes resolver el problema de «contar cuántos números pares hay». Mira las dos rutas:</p>
+    <div class="versus">
+      <div class="mal"><h4>🐢 Ruta lenta</h4>
+        <ol><li>Estudiar todo el lenguaje.</li><li>Ver 40 horas de videos.</li><li>Intentar un problema real.</li><li>Descubrir que no sabes por dónde empezar.</li><li>Frustración.</li></ol></div>
+      <div class="bien"><h4>🚀 Ruta rápida</h4>
+        <ol><li>Resolver un problema pequeño en pseudocódigo.</li><li>Probarlo a mano.</li><li>Traducirlo al lenguaje que ya conoces.</li><li>Aprender solo lo nuevo que necesites.</li><li>Repetir con un problema un poco más grande.</li></ol></div>
+    </div>
+    <p>La lógica se aprende <b>resolviendo problemas</b>, no leyendo sintaxis. Aquí tienes diez problemas para empezar, del más fácil al más retador. Resuelve cada uno en pseudocódigo con su prueba de escritorio antes de pensar en un lenguaje:</p>
+    <ol class="lista-prob">
+      <li>Decir si un número es par o impar.</li>
+      <li>Encontrar el mayor de dos números.</li>
+      <li>Mostrar la tabla de multiplicar de un número.</li>
+      <li>Sumar los números pares del 1 al 20.</li>
+      <li>Calcular el factorial de un número (5! = 120).</li>
+      <li>Contar cuántos dígitos tiene un número.</li>
+      <li>Decir si un número es primo.</li>
+      <li>Convertir segundos a horas, minutos y segundos.</li>
+      <li>Calcular cuánto pagas de luz según tramos de consumo.</li>
+      <li>Juego: adivinar un número con pistas «mayor» o «menor».</li>
+    </ol>
+  </div>
+
+  <div class="caso">
+    <h3>Error 4: no probar con casos (ni siquiera a mano)</h3>
+    <p><b>Cómo se ve.</b> Pruebas con un solo valor «normal», funciona, y lo das por bueno. Los casos que rompen los programas casi nunca son los normales. Uno de los más peligrosos es el <b>cero</b> (o «no hay datos»). Mira este plan para promediar notas:</p>
+
+<pre class="pseudo">INICIO
+  LEER cantidad
+  suma ← 0
+  contador ← 1
+  MIENTRAS contador ≤ cantidad HACER
+    LEER nota
+    suma ← suma + nota
+    contador ← contador + 1
+  FIN MIENTRAS
+  promedio ← suma / cantidad
+  ESCRIBIR promedio
+FIN</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>cantidad</th><th>Notas</th><th>suma</th><th>promedio ← suma / cantidad</th><th>¿Funciona?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2</td><td class="in">4, 5</td><td class="chg">9</td><td class="out">9 / 2 = 4.5</td><td class="ok">✔ sí</td></tr>
+        <tr><td>B</td><td class="in">1</td><td class="in">3</td><td class="chg">3</td><td class="out">3 / 1 = 3</td><td class="ok">✔ sí</td></tr>
+        <tr><td>C</td><td class="in">0</td><td>— (el ciclo no corre)</td><td class="chg">0</td><td class="no">0 / 0 = ¡error!</td><td class="no">✘ se rompe</td></tr>
+      </tbody></table></div>
+    <p>El caso C (nadie entregó notas) divide entre cero y el programa se cae. La solución es una decisión que protege el cálculo:</p>
+<pre class="pseudo">  SI cantidad = 0 ENTONCES
+    ESCRIBIR "No hay notas para promediar"
+  SINO
+    promedio ← suma / cantidad
+    ESCRIBIR promedio
+  FIN SI</pre>
+    <div class="callout">
+      <p><b>🔎 Tu kit de casos «raros»:</b> el cero, el vacío (nada), el negativo, el valor máximo y el repetido (todos iguales). Pruébalos siempre.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>Error 5: rendirse al primer error</h3>
+    <p><b>Cómo se ve.</b> Aparece un mensaje rojo y piensas «no sirvo para esto». Pero ese mensaje es información gratis: te dice casi siempre <b>qué falló y en qué línea</b>. Este es el protocolo que uso cuando algo no funciona:</p>
+    <div class="cards">
+      <div class="card k-blue"><span class="kwd">1</span><b>Respira y lee todo el mensaje</b>Aunque esté en inglés. Casi siempre dice la línea y el tipo de error.</div>
+      <div class="card k-violet"><span class="kwd">2</span><b>Ve a esa línea</b>Y a la anterior: muchos errores aparecen una línea después de donde nacieron.</div>
+      <div class="card k-red"><span class="kwd">3</span><b>Haz la prueba de escritorio</b>Con los valores que causaron el fallo, hasta llegar a esa línea.</div>
+      <div class="card k-sun"><span class="kwd">4</span><b>Simplifica</b>Prueba con el caso más pequeño posible que todavía falle.</div>
+      <div class="card k-mint"><span class="kwd">5</span><b>Pide ayuda bien</b>Con la plantilla de abajo.</div>
+    </div>
+    <div class="callout tip">
+      <p><b>💡 Plantilla para pedir ayuda:</b> «Quiero que mi programa <i>[lo que debería hacer]</i>. Con la entrada <i>[valores]</i> esperaba <i>[resultado]</i>, pero obtengo <i>[resultado real / mensaje de error]</i>. Ya probé <i>[lo que intentaste]</i>. Mi pseudocódigo es: <i>[pegarlo]</i>.» Quien te lea podrá ayudarte en dos minutos en lugar de veinte.</p>
+    </div>
+    <p>Y para cuando el resultado «casi» sale bien, esta tabla de síntomas te ahorra tiempo:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Síntoma</th><th>Causa más probable</th><th>Qué revisar en tu tabla</th></tr></thead>
+      <tbody>
+        <tr><td>Siempre da 0 o un valor raro</td><td>Una variable sin iniciar</td><td>La primera fila: ¿todas las variables tienen valor inicial?</td></tr>
+        <tr><td>El programa nunca termina</td><td>Nada cambia dentro del MIENTRAS</td><td>La columna de la variable de la condición</td></tr>
+        <tr><td>Casi bien, pero falta o sobra uno</td><td>Error «por uno» o de frontera</td><td>La primera y la última vuelta</td></tr>
+        <tr><td>Un número enorme o absurdo</td><td>Orden de operaciones o paréntesis</td><td>El cálculo, operación por operación</td></tr>
+        <tr><td>Funciona con unos casos y con otros no</td><td>Preguntas en el orden equivocado</td><td>Los casos que se solapan, de mayor a menor</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: el detective</h3>
+    <p>Este plan promedia un grupo de notas. Alguien dice que «nunca da el promedio correcto». Haz la prueba de escritorio con <b>cantidad = 2</b> y notas <b>4 y 5</b>, encuentra el error y arréglalo:</p>
+<pre class="pseudo">INICIO
+  LEER cantidad
+  contador ← 1
+  MIENTRAS contador ≤ cantidad HACER
+    LEER nota
+    suma ← suma + nota
+    contador ← contador + 1
+  FIN MIENTRAS
+  ESCRIBIR suma / cantidad
+FIN</pre>
+    <details><summary>Ver la solución</summary>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Paso</th><th>Línea</th><th>cantidad</th><th>contador</th><th>nota</th><th>suma</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>2</td><td class="in">2</td><td>—</td><td>—</td><td class="no">¿?</td></tr>
+          <tr><td>2</td><td>3</td><td>2</td><td class="chg">1</td><td>—</td><td class="no">¿?</td></tr>
+          <tr><td>3</td><td>5</td><td>2</td><td>1</td><td class="in">4</td><td class="no">¿ ? + 4 → ¡error!</td></tr>
+        </tbody></table></div>
+      <p>En el paso 3 la tabla se detiene: <b>no sabemos cuánto vale <code>suma</code></b> porque nadie la inició. Es el síntoma «una variable sin iniciar». El arreglo es una línea, antes del ciclo:</p>
+<pre class="pseudo">INICIO
+  LEER cantidad
+  suma ← 0
+  contador ← 1
+  MIENTRAS contador ≤ cantidad HACER
+    LEER nota
+    suma ← suma + nota
+    contador ← contador + 1
+  FIN MIENTRAS
+  ESCRIBIR suma / cantidad
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Vuelta</th><th>contador</th><th>nota</th><th>suma</th></tr></thead>
+        <tbody>
+          <tr><td>Antes</td><td class="chg">1</td><td>—</td><td class="chg">0</td></tr>
+          <tr><td>1</td><td>1</td><td class="in">4</td><td class="chg">4</td></tr>
+          <tr><td>2</td><td>2</td><td class="in">5</td><td class="chg">9</td></tr>
+          <tr><td>Salida</td><td>3 (3 ≤ 2: no)</td><td>—</td><td class="out">9 / 2 = 4.5</td></tr>
+        </tbody></table></div>
+      <p>Y como acabas de aprender en el error 4: si <code>cantidad</code> fuera 0, la última línea se rompería. ¿Cómo la protegerías?</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 9</h3>
+    <label><input type="checkbox"><span>Antes de escribir, pregunté qué entra, qué sale y pedí un ejemplo con números.</span></label>
+    <label><input type="checkbox"><span>No uso ningún código que no pueda probar a mano.</span></label>
+    <label><input type="checkbox"><span>Practico con problemas pequeños antes de estudiar el lenguaje completo.</span></label>
+    <label><input type="checkbox"><span>Pruebo siempre el cero, el vacío y el valor justo en el borde.</span></label>
+    <label><input type="checkbox"><span>Cuando falla algo, sigo el protocolo de 5 pasos antes de rendirme.</span></label>
+  </div>
+</section>
+
+<!-- ============ CAPÍTULO 10 ============ -->
+<section class="chapter c10" id="cap10">
+  <div class="ch-head"><p class="n">Capítulo 10</p><h2>Cómo elegir tu primer lenguaje sin miedo</h2></div>
+
+  <p>Llegamos a la pregunta que te trajo hasta aquí: <b>¿con qué lenguaje empiezo?</b> La respuesta corta es que, a estas alturas, ya casi no importa. Pero como sé que quieres una respuesta concreta, te la voy a dar con un método y no con una opinión.</p>
+
+  <h3>Primero, quítate el miedo: elegir «mal» casi no existe</h3>
+  <p>El miedo a equivocarte viene de creer que lo que aprendas en un lenguaje se pierde si cambias. Mira lo que realmente se transfiere:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Lo que aprendiste</th><th>¿Se transfiere a otro lenguaje?</th></tr></thead>
+    <tbody>
+      <tr><td>Pensar en pasos (pseudocódigo)</td><td class="ok">Completo</td></tr>
+      <tr><td>Secuencias, decisiones y repeticiones</td><td class="ok">Completo</td></tr>
+      <tr><td>La prueba de escritorio y los casos frontera</td><td class="ok">Completo</td></tr>
+      <tr><td>Descomponer un problema grande en pequeños</td><td class="ok">Completo</td></tr>
+      <tr><td>La sintaxis (llaves, dos puntos, nombres de funciones)</td><td class="chg">Se vuelve a aprender, pero mucho más rápido la segunda vez</td></tr>
+      <tr><td>Las herramientas y librerías propias de cada lenguaje</td><td class="chg">Se vuelven a aprender</td></tr>
+    </tbody></table></div>
+  <p>Lo que más cuesta es justo lo que ya estás aprendiendo. Cambiar de lenguaje después es como cambiar de marca de carro: manejar ya sabes.</p>
+
+  <h3>Elige por tu objetivo, no por la moda</h3>
+  <p>La pregunta correcta no es «¿cuál es el mejor lenguaje?», sino <b>«¿qué quiero construir?»</b>. Aquí tienes una guía honesta, que no es la única verdad pero te sirve para arrancar:</p>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Python</span><b>Datos, automatización, aprender</b>Sintaxis limpia y legible. Muy usado para automatizar tareas, analizar datos y para aprender.</div>
+    <div class="card k-sun"><span class="kwd">JavaScript</span><b>Páginas y aplicaciones web</b>Es el lenguaje de los navegadores. Si quieres ver resultados en una página web, es el camino natural.</div>
+    <div class="card k-violet"><span class="kwd">C#</span><b>Aplicaciones de empresa y videojuegos</b>Muy presente en el mundo empresarial y en el desarrollo de juegos con Unity.</div>
+    <div class="card k-red"><span class="kwd">SQL</span><b>Bases de datos y reportes</b>No compite con los demás: se aprende <i>además</i>. Casi todo sistema serio guarda datos.</div>
+    <div class="card k-mint"><span class="kwd">Kotlin · Swift</span><b>Apps móviles nativas</b>Kotlin para Android y Swift para iPhone. Más específico; mejor después de dominar la lógica.</div>
+  </div>
+
+  <h3>La decisión, escrita como pseudocódigo (¡claro!)</h3>
+  <p>Como este es un libro de pseudocódigo, la guía anterior se escribe así. Fíjate que es una cadena de decisiones, como la del capítulo 5:</p>
+
+<pre class="pseudo">INICIO
+  LEER objetivo       // "web", "datos", "juegos", "movil" o "no se"
+  SI objetivo = "web" ENTONCES
+    lenguaje ← "JavaScript"
+  SINO
+    SI objetivo = "datos" ENTONCES
+      lenguaje ← "Python"
+    SINO
+      SI objetivo = "juegos" ENTONCES
+        lenguaje ← "C#"
+      SINO
+        SI objetivo = "movil" ENTONCES
+          lenguaje ← "Kotlin o Swift"
+        SINO
+          lenguaje ← "Python"
+        FIN SI
+      FIN SI
+    FIN SI
+  FIN SI
+  ESCRIBIR "Empieza con: ", lenguaje
+FIN</pre>
+
+  <p>Probamos con cuatro personas y un caso «raro»:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Persona</th><th>objetivo</th><th>Camino que sigue el plan</th><th>lenguaje</th><th>Salida</th></tr></thead>
+    <tbody>
+      <tr><td>Carla (cambia de carrera, no sabe qué quiere)</td><td class="in">"no se"</td><td>Pasa los 4 SI y cae en el último SINO</td><td class="chg">"Python"</td><td class="out">Empieza con: Python</td></tr>
+      <tr><td>Dani (quiere la página de su negocio)</td><td class="in">"web"</td><td>Responde «sí» en el primer SI</td><td class="chg">"JavaScript"</td><td class="out">Empieza con: JavaScript</td></tr>
+      <tr><td>Miguel (repite reportes cada semana)</td><td class="in">"datos"</td><td>Segundo SI</td><td class="chg">"Python"</td><td class="out">Empieza con: Python</td></tr>
+      <tr><td>Luis (sueña con hacer un videojuego)</td><td class="in">"juegos"</td><td>Tercer SI</td><td class="chg">"C#"</td><td class="out">Empieza con: C#</td></tr>
+      <tr><td><b>Caso raro:</b> Dani escribe «Web» con mayúscula</td><td class="in">"Web"</td><td class="no">"Web" = "web" es falso, pasa por todos los SINO</td><td class="chg">"Python"</td><td class="no">Empieza con: Python ✘ (no era lo que quería)</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ El caso raro es una lección de oro.</b> Para el plan, «Web» y «web» son textos distintos. Un programa real tendría que convertir lo que escribe la persona a minúsculas antes de comparar: <code>objetivo ← minusculas(objetivo)</code>. Es el mismo tipo de error del capítulo 9: no probar con datos «raros». Y también un recordatorio de que, en ese último SINO, quedó un valor por defecto que puede esconder errores.</p>
+  </div>
+
+  <div class="caso">
+    <h3>⚖️ Caso práctico: desempata con una tabla de puntos</h3>
+    <p>¿Dudas entre dos lenguajes (digamos A y B)? Dales un puntaje del 1 al 5 en cuatro criterios que sí dependen de ti: <b>motivación</b> (¿me emociona lo que puedo hacer?), <b>ayuda</b> (¿tengo a quién preguntar?), <b>utilidad</b> (¿sirve para mi objetivo?) y <b>práctica</b> (¿tengo dónde practicar esta semana?).</p>
+
+<pre class="pseudo">INICIO
+  LEER motivacionA, ayudaA, utilidadA, practicaA
+  LEER motivacionB, ayudaB, utilidadB, practicaB
+  puntosA ← motivacionA + ayudaA + utilidadA + practicaA
+  puntosB ← motivacionB + ayudaB + utilidadB + practicaB
+  SI puntosA &gt; puntosB ENTONCES
+    ESCRIBIR "Empieza con A"
+  SINO
+    SI puntosB &gt; puntosA ENTONCES
+      ESCRIBIR "Empieza con B"
+    SINO
+      ESCRIBIR "Empate: cualquiera sirve, elige uno hoy"
+    FIN SI
+  FIN SI
+FIN</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>Puntos de A (motiv. + ayuda + util. + práctica)</th><th>Puntos de B</th><th>puntosA &gt; puntosB</th><th>puntosB &gt; puntosA</th><th>Resultado</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">5 + 4 + 5 + 3 = <b>17</b></td><td class="in">3 + 4 + 3 + 4 = <b>14</b></td><td class="ok">sí</td><td>—</td><td class="out">Empieza con A</td></tr>
+        <tr><td>2</td><td class="in">3 + 3 + 3 + 3 = <b>12</b></td><td class="in">4 + 4 + 3 + 3 = <b>14</b></td><td class="no">no</td><td class="ok">sí</td><td class="out">Empieza con B</td></tr>
+        <tr><td>3</td><td class="in">4 + 4 + 4 + 4 = <b>16</b></td><td class="in">5 + 3 + 4 + 4 = <b>16</b></td><td class="no">no</td><td class="no">no</td><td class="out">Empate: cualquiera sirve, elige uno hoy</td></tr>
+      </tbody></table></div>
+    <p>El caso 3 es el más importante: <b>si hay empate, cualquiera sirve</b>. Un empate te está diciendo que la diferencia entre los dos es tan pequeña que dudar más te cuesta más que equivocarte. Elige uno hoy.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📆 Caso práctico: la regla de los 30 días</h3>
+    <p>El error más caro después de elegir es <b>cambiar de lenguaje cada semana</b> porque «el otro se ve más fácil». Te propongo un compromiso: <b>30 días con el mismo lenguaje</b> antes de plantearte cambiar. El plan es una regla con dos condiciones:</p>
+
+<pre class="pseudo">INICIO
+  LEER dias
+  LEER ganasDeCambiar    // "si" o "no"
+  SI dias &lt; 30 Y ganasDeCambiar = "si" ENTONCES
+    ESCRIBIR "Todavía no: termina tus 30 días y vuelve a preguntar"
+  SINO
+    SI dias &lt; 30 ENTONCES
+      ESCRIBIR "Vas bien: sigue practicando"
+    SINO
+      ESCRIBIR "Ya puedes decidir con calma si cambias"
+    FIN SI
+  FIN SI
+FIN</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>dias</th><th>ganasDeCambiar</th><th>¿dias &lt; 30?</th><th>¿Y ganas = "si"?</th><th>Salida</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">10</td><td class="in">"si"</td><td class="ok">sí</td><td class="ok">sí</td><td class="out">Todavía no: termina tus 30 días</td></tr>
+        <tr><td>B</td><td class="in">10</td><td class="in">"no"</td><td class="ok">sí</td><td class="no">no</td><td class="out">Vas bien: sigue practicando</td></tr>
+        <tr><td>C</td><td class="in">30</td><td class="in">"si"</td><td class="no">no (frontera)</td><td>—</td><td class="out">Ya puedes decidir con calma si cambias</td></tr>
+        <tr><td>D</td><td class="in">45</td><td class="in">"no"</td><td class="no">no</td><td>—</td><td class="out">Ya puedes decidir con calma si cambias</td></tr>
+      </tbody></table></div>
+    <p>Fíjate en el caso C: el día 30 exacto ya cuenta como «cumplido». Esa decisión (¿día 30 sí o no?) la tomaste tú con un <code>&lt;</code> en lugar de <code>≤</code>. Lo bonito de la prueba de escritorio es que te obliga a decidir esas cosas conscientemente.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Tu turno: tu propia guía de decisión</h3>
+    <p>Escribe tu propio pseudocódigo de decisión con <b>tres objetivos personales</b> tuyos (por ejemplo: «automatizar mi trabajo», «hacer una app», «entender cómo funcionan las páginas») y el lenguaje con el que empezarías en cada caso. Prueba con tus tres objetivos y un cuarto valor «raro» que no esté en tu lista.</p>
+    <details><summary>Ver un ejemplo</summary>
+<pre class="pseudo">INICIO
+  LEER meta
+  SI meta = "automatizar" ENTONCES
+    lenguaje ← "Python"
+  SINO
+    SI meta = "pagina" ENTONCES
+      lenguaje ← "JavaScript"
+    SINO
+      SI meta = "reportes" ENTONCES
+        lenguaje ← "SQL"
+      SINO
+        lenguaje ← "Python"
+      FIN SI
+    FIN SI
+  FIN SI
+  ESCRIBIR "Empiezo con: ", lenguaje
+FIN</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Caso</th><th>meta</th><th>lenguaje</th><th>Salida</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">"automatizar"</td><td class="chg">"Python"</td><td class="out">Empiezo con: Python</td></tr>
+          <tr><td>B</td><td class="in">"pagina"</td><td class="chg">"JavaScript"</td><td class="out">Empiezo con: JavaScript</td></tr>
+          <tr><td>C</td><td class="in">"reportes"</td><td class="chg">"SQL"</td><td class="out">Empiezo con: SQL</td></tr>
+          <tr><td>D (raro)</td><td class="in">"cocinar"</td><td class="chg">"Python"</td><td class="out">Empiezo con: Python (valor por defecto)</td></tr>
+        </tbody></table></div>
+      <p>Si tu caso D te hace dudar («¿y si escribe algo que no pensé?»), ya estás pensando como programadora o programador.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Checklist del capítulo 10</h3>
+    <label><input type="checkbox"><span>Escribí qué quiero construir antes de mirar lenguajes.</span></label>
+    <label><input type="checkbox"><span>Elegí mi lenguaje hoy, aunque haya quedado un empate.</span></label>
+    <label><input type="checkbox"><span>Me comprometí con 30 días sin cambiar.</span></label>
+    <label><input type="checkbox"><span>Entiendo que la lógica se transfiere y que la sintaxis se aprende rápido la segunda vez.</span></label>
+  </div>
+</section>
+
+<!-- ============ PLAN DE 7 DÍAS ============ -->
+<section class="chapter c11" id="plan">
+  <div class="ch-head"><p class="n">Cierre</p><h2>Tu plan de acción de 7 días</h2></div>
+
+  <p>Aprender se logra con <b>repetición corta</b>, no con maratones. Este plan te pide entre <b>30 y 45 minutos al día</b>, durante una semana. Cada día tiene un objetivo claro, un ejercicio con ejemplo resuelto y una meta que puedes marcar.</p>
+
+  <div class="callout">
+    <p><b>📌 Tres reglas del plan.</b> (1) <b>Papel y lápiz primero:</b> un día no cuenta si no escribiste el plan a mano o en un cuaderno. (2) <b>Siempre prueba con casos</b>, incluyendo uno de frontera. (3) <b>Si te atrasas un día, no empieces de cero:</b> retoma donde quedaste. Un plan flexible dura más que uno perfecto.</p>
+  </div>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Día</th><th>Tema</th><th>Lo que vas a tener al terminar</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Tu primer plan en pseudocódigo</td><td class="out">Un plan con una decisión, probado con 3 casos</td></tr>
+      <tr><td>2</td><td>Decisiones encadenadas</td><td class="out">Un plan con 3 caminos y un valor raro</td></tr>
+      <tr><td>3</td><td>Tu primera repetición</td><td class="out">Una tabla de multiplicar con prueba por vuelta</td></tr>
+      <tr><td>4</td><td>Un problema de tu vida real</td><td class="out">Plan en 5 pasos de algo que sí te importa</td></tr>
+      <tr><td>5</td><td>Casos de frontera y bichos</td><td class="out">Un plan con repetición y decisión, a prueba de bordes</td></tr>
+      <tr><td>6</td><td>Del plan al código</td><td class="out">Tu plan del día 4 funcionando en un lenguaje</td></tr>
+      <tr><td>7</td><td>Mini proyecto y celebración</td><td class="out">Un juego completo de adivinar números</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>Día 1: tu primer plan, con una decisión</h3>
+    <div class="meta"><span>⏱ 30 min</span><span>📖 Repasa capítulos 1 a 3</span></div>
+    <p><b>Qué hacer.</b> Elige un problema de tu día a día con una sola decisión. Escribe qué entra, qué sale, el pseudocódigo y pruébalo con 3 casos, uno de ellos justo en el borde.</p>
+    <p><b>Ejemplo resuelto: «¿me alcanza para el almuerzo?»</b></p>
+<pre class="pseudo">INICIO
+  LEER dinero
+  LEER precio
+  SI dinero ≥ precio ENTONCES
+    ESCRIBIR "Te alcanza. Te sobran: ", dinero - precio
+  SINO
+    ESCRIBIR "No te alcanza. Te faltan: ", precio - dinero
+  FIN SI
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>dinero</th><th>precio</th><th>¿dinero ≥ precio?</th><th>Salida</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">5.00</td><td class="in">4.50</td><td class="ok">sí</td><td class="out">Te alcanza. Te sobran: 0.50</td></tr>
+        <tr><td>B</td><td class="in">4.50</td><td class="in">4.50</td><td class="ok">sí (frontera)</td><td class="out">Te alcanza. Te sobran: 0.00</td></tr>
+        <tr><td>C</td><td class="in">3.00</td><td class="in">4.50</td><td class="no">no</td><td class="out">No te alcanza. Te faltan: 1.50</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 1:</b> tengo un plan escrito a mano con 3 casos probados.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 2: decisiones encadenadas</h3>
+    <div class="meta"><span>⏱ 35 min</span><span>📖 Repasa capítulos 4 y 5</span></div>
+    <p><b>Qué hacer.</b> Escribe un plan con tres caminos (usando SI dentro de SINO) y recuerda la regla del capítulo 5: pregunta primero por la condición más exigente. Incluye un valor «raro» que no esperabas.</p>
+    <p><b>Ejemplo resuelto: el pasaje del bus.</b> Los adultos mayores viajan gratis, los estudiantes pagan la mitad y los demás pagan la tarifa completa (usamos una tarifa de ejemplo de $1.00):</p>
+<pre class="pseudo">INICIO
+  tarifa ← 1.00
+  LEER tipo        // "adulto mayor", "estudiante" o "regular"
+  SI tipo = "adulto mayor" ENTONCES
+    pasaje ← 0
+  SINO
+    SI tipo = "estudiante" ENTONCES
+      pasaje ← tarifa / 2
+    SINO
+      pasaje ← tarifa
+    FIN SI
+  FIN SI
+  ESCRIBIR "Tu pasaje es: ", pasaje
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>tipo</th><th>¿adulto mayor?</th><th>¿estudiante?</th><th>pasaje</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"regular"</td><td class="no">no</td><td class="no">no</td><td class="out">1.00</td></tr>
+        <tr><td>B</td><td class="in">"estudiante"</td><td class="no">no</td><td class="ok">sí</td><td class="out">0.50</td></tr>
+        <tr><td>C</td><td class="in">"adulto mayor"</td><td class="ok">sí</td><td>—</td><td class="out">0.00</td></tr>
+        <tr><td>D (raro)</td><td class="in">"jubilado"</td><td class="no">no</td><td class="no">no</td><td class="no">1.00 (cae en «regular»)</td></tr>
+      </tbody></table></div>
+    <p>El caso D es la pregunta del día: ¿está bien que «jubilado» pague completo? Quizá deberías avisar «tipo no válido», como en el semáforo del capítulo 1.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 2:</b> mi plan tiene 3 caminos y probé un valor raro.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 3: tu primera repetición</h3>
+    <div class="meta"><span>⏱ 40 min</span><span>📖 Repasa el capítulo 4</span></div>
+    <p><b>Qué hacer.</b> Escribe un plan con MIENTRAS y haz la prueba de escritorio <b>una fila por vuelta</b>. Antes de escribirlo, responde: ¿qué variable cambia en cada vuelta y cuándo deja de cumplirse la condición?</p>
+    <p><b>Ejemplo resuelto: la tabla de multiplicar del 4 (hasta el 5).</b></p>
+<pre class="pseudo">INICIO
+  contador ← 1
+  MIENTRAS contador ≤ 5 HACER
+    ESCRIBIR "4 x ", contador, " = ", 4 * contador
+    contador ← contador + 1
+  FIN MIENTRAS
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>contador al empezar</th><th>¿contador ≤ 5?</th><th>Cálculo</th><th>Salida</th><th>contador al terminar</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">1</td><td class="ok">sí</td><td>4 * 1</td><td class="out">4 x 1 = 4</td><td class="chg">2</td></tr>
+        <tr><td>2</td><td>2</td><td class="ok">sí</td><td>4 * 2</td><td class="out">4 x 2 = 8</td><td class="chg">3</td></tr>
+        <tr><td>3</td><td>3</td><td class="ok">sí</td><td>4 * 3</td><td class="out">4 x 3 = 12</td><td class="chg">4</td></tr>
+        <tr><td>4</td><td>4</td><td class="ok">sí</td><td>4 * 4</td><td class="out">4 x 4 = 16</td><td class="chg">5</td></tr>
+        <tr><td>5</td><td>5</td><td class="ok">sí (frontera)</td><td>4 * 5</td><td class="out">4 x 5 = 20</td><td class="chg">6</td></tr>
+        <tr><td>—</td><td>6</td><td class="no">no → sale</td><td>—</td><td>—</td><td>6</td></tr>
+      </tbody></table></div>
+    <p><b>Reto extra:</b> cambia el plan para que pida el número de la tabla en lugar de usar siempre el 4, y que llegue hasta el 10.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 3:</b> hice una prueba de escritorio por vuelta y sé por qué termina mi ciclo.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 4: un problema de tu vida real</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>📖 Repasa el capítulo 5 (los 5 pasos)</span></div>
+    <p><b>Qué hacer.</b> Elige algo que sí te importa: un cálculo de tu trabajo, de tu negocio o de tu casa. Sigue los 5 pasos: ejemplo a mano, entradas y salidas, pasos grandes, pseudocódigo y prueba. Esto es lo que va a convertir al ebook en una herramienta tuya.</p>
+    <p><b>Ejemplo resuelto: dividir la cuenta entre amigos con propina.</b> Entran la cuenta y el número de personas; sale cuánto paga cada una, con 10 % de propina. Ojo: ¿qué pasa si las personas son cero? (Acuérdate del error 4 del capítulo 9.)</p>
+<pre class="pseudo">INICIO
+  LEER cuenta
+  LEER personas
+  SI personas ≤ 0 ENTONCES
+    ESCRIBIR "Debe haber al menos una persona"
+  SINO
+    propina ← cuenta * 0.10
+    total ← cuenta + propina
+    cadaUno ← total / personas
+    ESCRIBIR "Cada uno paga: ", cadaUno
+  FIN SI
+FIN</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Caso</th><th>cuenta</th><th>personas</th><th>propina</th><th>total</th><th>cadaUno / Salida</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">60</td><td class="in">4</td><td class="chg">6.00</td><td class="chg">66.00</td><td class="out">16.50</td></tr>
+        <tr><td>B</td><td class="in">100</td><td class="in">3</td><td class="chg">10.00</td><td class="chg">110.00</td><td class="out">36.67 (redondeado)</td></tr>
+        <tr><td>C</td><td class="in">50</td><td class="in">1</td><td class="chg">5.00</td><td class="chg">55.00</td><td class="out">55.00</td></tr>
+        <tr><td>D (raro)</td><td class="in">40</td><td class="in">0</td><td>—</td><td>—</td><td class="out">Debe haber al menos una persona</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 4:</b> resolví en papel un problema que me importa y lo probé con 4 casos.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 5: casos de frontera y caza de bichos</h3>
+    <div class="meta"><span>⏱ 40 min</span><span>📖 Repasa los capítulos 6 y 9</span></div>
+    <p><b>Qué hacer.</b> Toma tu plan del día 4 (o este ejemplo) y atácalo: pruébalo con el cero, el valor justo en el borde y el valor más grande. Si algo falla, usa el protocolo de 5 pasos del capítulo 9.</p>
+    <p><b>Ejemplo resuelto: ¿cuántos días de la semana vendiste más de $100?</b> Una repetición con una decisión adentro:</p>
+<pre class="pseudo">INICIO
+  diasBuenos ← 0
+  dia ← 1
+  MIENTRAS dia ≤ 5 HACER
+    LEER venta
+    SI venta &gt; 100 ENTONCES
+      diasBuenos ← diasBuenos + 1
+    FIN SI
+    dia ← dia + 1
+  FIN MIENTRAS
+  ESCRIBIR diasBuenos, " días buenos"
+FIN</pre>
+    <p>Las ventas de la semana fueron <b>80, 120, 100, 150 y 90</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>dia</th><th>venta</th><th>¿venta &gt; 100?</th><th>diasBuenos</th></tr></thead>
+      <tbody>
+        <tr><td>Antes</td><td class="chg">1</td><td>—</td><td>—</td><td class="chg">0</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">80</td><td class="no">no</td><td>0</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">120</td><td class="ok">sí</td><td class="chg">1</td></tr>
+        <tr><td>3</td><td>3</td><td class="in">100</td><td class="no">no (frontera)</td><td>1</td></tr>
+        <tr><td>4</td><td>4</td><td class="in">150</td><td class="ok">sí</td><td class="chg">2</td></tr>
+        <tr><td>5</td><td>5</td><td class="in">90</td><td class="no">no</td><td>2</td></tr>
+        <tr><td>Salida</td><td>6 (6 ≤ 5: no)</td><td>—</td><td>—</td><td class="out">2 días buenos</td></tr>
+      </tbody></table></div>
+    <p>Mira el día 3: vendiste justo $100 y no cuenta. ¿Debería contar? <b>Esa no es una pregunta técnica, es una pregunta para quien pidió el reporte.</b> Si la respuesta es sí, cambias <code>&gt;</code> por <code>≥</code> y la tabla da 3. Lo importante es que la decisión sea consciente.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 5:</b> probé el cero, el borde y un valor grande, y arreglé lo que falló.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 6: del plan al código</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>📖 Repasa los capítulos 8 y 10</span></div>
+    <p><b>Qué hacer.</b> Usa la guía del capítulo 10 para elegir tu lenguaje (si no lo has hecho, elige Python y listo). Aplica la receta de 4 pasos: pega tu plan del día 4 como comentarios, traduce debajo, corre tus casos y compara con tu tabla.</p>
+    <p><b>Ejemplo resuelto: la cuenta compartida del día 4.</b></p>
+
+<div class="lang py">Python</div>
+<pre class="code"># LEER cuenta
+cuenta = float(input("Cuenta: "))
+# LEER personas
+personas = int(input("Personas: "))
+
+# SI personas ≤ 0 ENTONCES
+if personas &lt;= 0:
+    print("Debe haber al menos una persona")
+# SINO
+else:
+    propina = cuenta * 0.10
+    total = cuenta + propina
+    cada_uno = total / personas
+    print("Cada uno paga:", cada_uno)</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let cuenta = parseFloat(prompt("Cuenta:"));
+let personas = parseInt(prompt("Personas:"));
+
+if (personas &lt;= 0) {
+  console.log("Debe haber al menos una persona");
+} else {
+  let propina = cuenta * 0.10;
+  let total = cuenta + propina;
+  let cadaUno = total / personas;
+  console.log("Cada uno paga: " + cadaUno);
+}</pre>
+
+    <p>Verifica con el caso A del día 4 (<b>cuenta 60, personas 4</b>), siguiendo el código de Python:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Línea</th><th>cuenta</th><th>personas</th><th>propina</th><th>total</th><th>cada_uno</th></tr></thead>
+      <tbody>
+        <tr><td class="cd">cuenta = float(input(…))</td><td class="in">60.0</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">personas = int(input(…))</td><td>60.0</td><td class="in">4</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">if personas &lt;= 0</td><td>60.0</td><td>4</td><td>—</td><td>—</td><td class="no">falso → va al else</td></tr>
+        <tr><td class="cd">propina = cuenta * 0.10</td><td>60.0</td><td>4</td><td class="chg">6.0</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">total = cuenta + propina</td><td>60.0</td><td>4</td><td>6.0</td><td class="chg">66.0</td><td>—</td></tr>
+        <tr><td class="cd">cada_uno = total / personas</td><td>60.0</td><td>4</td><td>6.0</td><td>66.0</td><td class="out">16.5</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 6:</b> mi plan corre en un lenguaje real y da lo mismo que mi tabla.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Día 7: mini proyecto y celebración</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>🎉 Todo lo aprendido, junto</span></div>
+    <p><b>Qué hacer.</b> Hoy haces un proyecto que mezcla las tres piezas: secuencia, decisión y repetición. Primero el plan y la prueba de escritorio; si te sientes con ganas, lo traduces al lenguaje que elegiste.</p>
+    <p><b>Proyecto: el juego de adivinar el número.</b> El programa «piensa» en el número 7. La persona intenta adivinarlo y el programa le da pistas hasta que acierta, contando los intentos:</p>
+<pre class="pseudo">INICIO
+  secreto ← 7
+  intentos ← 1
+  LEER intento
+  MIENTRAS intento ≠ secreto HACER
+    SI intento &lt; secreto ENTONCES
+      ESCRIBIR "Más alto"
+    SINO
+      ESCRIBIR "Más bajo"
+    FIN SI
+    intentos ← intentos + 1
+    LEER intento
+  FIN MIENTRAS
+  ESCRIBIR "¡Adivinaste en ", intentos, " intentos!"
+FIN</pre>
+    <p>Prueba de escritorio con los intentos <b>3, 9 y 7</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Vuelta</th><th>intento</th><th>¿intento ≠ 7?</th><th>¿intento &lt; 7?</th><th>Salida</th><th>intentos</th></tr></thead>
+      <tbody>
+        <tr><td>Antes</td><td class="in">3</td><td class="ok">sí</td><td>—</td><td>—</td><td class="chg">1</td></tr>
+        <tr><td>1</td><td>3</td><td class="ok">sí</td><td class="ok">sí</td><td class="out">Más alto</td><td class="chg">2</td></tr>
+        <tr><td>2</td><td class="in">9</td><td class="ok">sí</td><td class="no">no</td><td class="out">Más bajo</td><td class="chg">3</td></tr>
+        <tr><td>—</td><td class="in">7</td><td class="no">no → sale</td><td>—</td><td class="out">¡Adivinaste en 3 intentos!</td><td>3</td></tr>
+      </tbody></table></div>
+    <p><b>Retos para subir de nivel:</b> (1) ¿qué pasa si aciertas al primer intento? Haz la prueba. (2) Limita a 5 intentos usando una condición con Y (como en el flujo de aprobación del capítulo 7). (3) Haz que el número secreto no sea siempre el 7. Sin dudar: busca en tu lenguaje cómo generar un número al azar y úsalo.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Meta del día 7:</b> terminé un mini proyecto completo, planeado y probado.</span></label></div>
+  </div>
+
+  <div class="check">
+    <h3>🏁 Tu balance de la semana</h3>
+    <label><input type="checkbox"><span>Completé al menos 5 de los 7 días (con 5 ya ganaste).</span></label>
+    <label><input type="checkbox"><span>Escribí por lo menos 7 planes en pseudocódigo.</span></label>
+    <label><input type="checkbox"><span>Hice una prueba de escritorio por cada plan.</span></label>
+    <label><input type="checkbox"><span>Traduje un plan a un lenguaje real.</span></label>
+    <label><input type="checkbox"><span>Ya no me da miedo abrir el editor, porque sé qué voy a escribir.</span></label>
+  </div>
+
+  <h3>¿Y después de los 7 días?</h3>
+  <ol>
+    <li><b>Resuelve los 10 problemas</b> de la lista del capítulo 9, uno cada dos días.</li>
+    <li><b>Haz un mini proyecto cada semana</b> con algo de tu vida: un presupuesto, un contador de gastos, un recordatorio.</li>
+    <li><b>Mantén los 30 días</b> en tu lenguaje antes de plantearte cambiar.</li>
+    <li><b>Enséñale a alguien.</b> Explicar un plan a otra persona es la mejor prueba de que lo entiendes.</li>
+  </ol>
+</section>
+
+<!-- ============ ANEXO ============ -->
+<section class="chapter c9" id="anexo">
+  <div class="ch-head"><p class="n">Anexo</p><h2>Tu hoja de trucos de una página</h2></div>
+  <p>Imprímela, tómale una captura o pégala junto a tu computadora. Es todo el libro en cinco tarjetas.</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Las reglas de la casa</span>
+      <b>Pseudocódigo</b>
+      INICIO … FIN<br>LEER · ESCRIBIR<br>← guarda · = pregunta<br>SI … SINO … FIN SI<br>MIENTRAS … FIN MIENTRAS<br>Sangría y nombres claros</div>
+    <div class="card k-mint"><span class="kwd">Los 5 pasos</span>
+      <b>Resolver un problema</b>
+      1. Ejemplo a mano<br>2. Entradas y salidas<br>3. Pasos grandes<br>4. Pseudocódigo<br>5. Prueba de escritorio</div>
+    <div class="card k-violet"><span class="kwd">Las 5 reglas</span>
+      <b>Prueba de escritorio</b>
+      Una columna por variable<br>Una fila por paso<br>Haz de computadora tonta<br>Marca lo que cambia<br>Normal, borde y raro</div>
+    <div class="card k-sun"><span class="kwd">Mi kit de casos</span>
+      <b>Para no fallar</b>
+      El cero · el vacío<br>El valor justo en el borde<br>El negativo<br>El valor muy grande<br>Todos iguales · texto raro</div>
+    <div class="card k-red"><span class="kwd">Cuando algo falla</span>
+      <b>Protocolo de 5 pasos</b>
+      1. Lee el mensaje completo<br>2. Ve a esa línea (y a la anterior)<br>3. Haz la prueba a mano<br>4. Simplifica el caso<br>5. Pide ayuda con la plantilla</div>
+  </div>
+</section>
+
+<aside class="cierre">
+  <h2>Lo que te llevas</h2>
+  <p>Empezamos con una historia de tres horas perdidas por un símbolo. Si algo quiero que recuerdes de este libro es que <b>nunca fue falta de talento</b>: era empezar por el final.</p>
+  <p>Ahora ya sabes empezar por el principio. Piensas primero, escribes el plan en español, lo pruebas con papel y lápiz y solo entonces abres el editor. Eso te sirve hoy en Python y te servirá mañana en cualquier lenguaje que elijas.</p>
+  <p>Cada vez que algo falle, acuérdate de esto: <b>el error no es tu enemigo, es tu pista.</b></p>
+  <p class="firma">Primero piensa, después escribe. ¡A darle!</p>
+</aside>
+
+</main>
+
+<script>
+(function(){
+  var re=/("[^"]*")|\b(FIN PARA|FIN SI|FIN MIENTRAS|PARA CADA|INICIO|FIN|LEER|ESCRIBIR|SINO|SI|ENTONCES|MIENTRAS|HACER|DIV|MOD|TOMAR|AGRUPAR|ORDENAR|SUMAR|CONTAR)\b|\b(Y|O|NO)\b|(←)|(\d+(?:\.\d+)?)|([A-Za-z_áéíóúñ][\wáéíóúñ]*)/g;
+  var cre=/(#.*$|\/\/.*$|--.*$)|("[^"]*"|'[^']*')|\b(if|else|elif|while|for|in|print|input|float|int|double|let|const|var|console|log|Console|Write|WriteLine|ReadLine|Parse|parseFloat|parseInt|prompt|using|class|static|void|Main|and|or|not|true|false|SELECT|FROM|WHERE|GROUP|BY|ORDER|AS|SUM|DESC|AND|OR)\b|(\b\d+(?:\.\d+)?\b)/g;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function line(l){
+    if(!l.trim()) return '\u200b';
+    var cm='', i=l.indexOf('//');
+    if(i>=0){cm=l.slice(i); l=l.slice(0,i);}
+    var out='', last=0, m;
+    re.lastIndex=0;
+    while((m=re.exec(l))){
+      out+=esc(l.slice(last,m.index));
+      var c = m[1]?'t-str':m[2]?'t-kw':m[3]?'t-op':m[4]?'t-arrow':m[5]?'t-num':'t-var';
+      out+='<span class="'+c+'">'+esc(m[0])+'</span>';
+      last=m.index+m[0].length;
+    }
+    out+=esc(l.slice(last));
+    if(cm) out+='<span class="t-cm">'+esc(cm)+'</span>';
+    return out;
+  }
+  function cline(l){
+    if(!l.trim()) return '\u200b';
+    var out='', last=0, m;
+    cre.lastIndex=0;
+    while((m=cre.exec(l))){
+      out+=esc(l.slice(last,m.index));
+      var c = m[1]?'t-cm':m[2]?'t-str':m[3]?'t-kw':'t-num';
+      out+='<span class="'+c+'">'+esc(m[0])+'</span>';
+      last=m.index+m[0].length;
+    }
+    out+=esc(l.slice(last));
+    return out;
+  }
+  function render(sel,fn){
+    document.querySelectorAll(sel).forEach(function(pre){
+      var lines=pre.textContent.replace(/\s+$/,'').split('\n');
+      pre.innerHTML=lines.map(function(l){return '<span class="ln">'+fn(l)+'</span>';}).join('');
+    });
+  }
+  try{ render('pre.pseudo:not(.code)', line); render('pre.code', cline); }catch(e){}
+})();
+</script>
+</body>
+</html>
