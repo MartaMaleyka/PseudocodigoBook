@@ -2232,31 +2232,14 @@ FIN</pre>
   try{ render('pre.pseudo:not(.code)', line); render('pre.code', cline); }catch(e){}
 })();
 </script>
-<!-- Ko-fi Button -->
-<style>
-  .kofi-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: linear-gradient(135deg, #72a4f2 0%, #5a8fd4 100%);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    padding: 12px 24px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(114, 164, 242, 0.4);
-    text-decoration: none;
-    z-index: 9999;
-    transition: all 0.3s ease;
-    font-family: Arial, sans-serif;
-  }
-  .kofi-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(114, 164, 242, 0.6);
-  }
-</style>
-<a href="https://ko-fi.com/W3Q3289B0P" target="_blank" class="kofi-button">☕ Apóyame con tu tip</a>
+<script src='https://storage.ko-fi.com/cdn/scripts/overlay-widget.js'></script>
+<script>
+  kofiWidgetOverlay.draw('martamagallon', {
+    'type': 'floating-chat',
+    'floating-chat.donateButton.text': 'Apoyame con un tip',
+    'floating-chat.donateButton.background-color': '#d9534f',
+    'floating-chat.donateButton.text-color': '#fff'
+  });
+</script>
 </body>
 </html>
