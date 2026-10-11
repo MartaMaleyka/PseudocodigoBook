@@ -14,13 +14,17 @@ El ebook está disponible en GitHub Pages:
 - **Ejemplos prácticos** con código en múltiples lenguajes
 - **Casos de uso** del mundo real
 - **Diseño responsivo** con soporte light/dark mode
+- **Español e inglés**: switch ES / EN en la portada
 
 ## 🛠️ Estructura
 
 ```
 .
 ├── docs/
-│   └── index.html          # Ebook HTML completo
+│   ├── index.html          # Ebook en español
+│   ├── style.css           # Estilos compartidos
+│   └── en/
+│       └── index.html      # Ebook en inglés
 ├── README.md               # Este archivo
 └── .git/
 ```
