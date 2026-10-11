@@ -7,155 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{
-  --bg:#F6F8FC; --card:#FFFFFF; --ink:#101B34; --muted:#56637F; --line:#D9E0EF;
-  --blue:#1D4ED8; --red:#D21034; --sun:#F4B400; --mint:#0E9F82; --violet:#7C3AED;
-  --blue-t:#E3EBFF; --red-t:#FFE3E8; --sun-t:#FFF1C7; --mint-t:#D8F5EC; --violet-t:#EEE5FF;
-  --code:#0F1B3D;
-  --head:'Bricolage Grotesque','Trebuchet MS',system-ui,sans-serif;
-  --body:'Source Sans 3','Segoe UI',system-ui,sans-serif;
-  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
-  box-sizing:border-box;
-  padding-top:env(safe-area-inset-top,0px);
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#0B1226; --card:#141E3A; --ink:#EAF0FF; --muted:#9DABCC; --line:#27345A;
-    --blue:#7AA2FF; --red:#FF6B85; --sun:#FFD166; --mint:#4FD8B4; --violet:#B697FF;
-    --blue-t:#1A2B66; --red-t:#4A1A2A; --sun-t:#4A3A0E; --mint-t:#0F3D35; --violet-t:#2E1F5C;
-    --code:#08102B;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#0B1226; --card:#141E3A; --ink:#EAF0FF; --muted:#9DABCC; --line:#27345A;
-  --blue:#7AA2FF; --red:#FF6B85; --sun:#FFD166; --mint:#4FD8B4; --violet:#B697FF;
-  --blue-t:#1A2B66; --red-t:#4A1A2A; --sun-t:#4A3A0E; --mint-t:#0F3D35; --violet-t:#2E1F5C;
-  --code:#08102B;
-}
-html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:18px;line-height:1.65}
-main{max-width:760px;margin:0 auto;padding:0 20px 80px}
-a{color:var(--blue)}
-code{font-family:var(--mono);font-size:.88em;background:var(--sun-t);padding:.1em .4em;border-radius:5px}
-
-/* Portada */
-.cover{padding:56px 0 36px}
-.cover .stripes{display:flex;height:14px;border-radius:7px;overflow:hidden;margin-bottom:34px}
-.cover .stripes i{flex:1}
-.cover h1{font-family:var(--head);font-weight:800;font-size:clamp(2.4rem,9vw,4.2rem);line-height:1.02;margin:0 0 18px;letter-spacing:-.02em}
-.cover h1 .a{color:var(--blue)} .cover h1 .b{color:var(--red)}
-.cover p.sub{font-size:1.2rem;color:var(--muted);max-width:34em;margin:0}
-.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px 22px;margin:30px 0 0}
-.toc h2{font-family:var(--head);font-size:1.15rem;margin:0 0 10px}
-.toc ol{margin:0;padding-left:1.4em}
-.toc li{margin:4px 0}
-.toc li.soon{color:var(--muted)}
-
-/* Capítulos */
-.chapter{margin-top:64px;--acc:var(--blue);--acc-t:var(--blue-t)}
-.chapter.c2{--acc:var(--red);--acc-t:var(--red-t)}
-.chapter.c3{--acc:var(--mint);--acc-t:var(--mint-t)}
-.chapter.c4{--acc:var(--violet);--acc-t:var(--violet-t)}
-.chapter.c5{--acc:var(--blue);--acc-t:var(--blue-t)}
-.chapter.c6{--acc:var(--red);--acc-t:var(--red-t)}
-.chapter.c7{--acc:var(--mint);--acc-t:var(--mint-t)}
-.chapter.c8{--acc:var(--blue);--acc-t:var(--blue-t)}
-.chapter.c9{--acc:var(--violet);--acc-t:var(--violet-t)}
-.chapter.c10{--acc:var(--red);--acc-t:var(--red-t)}
-.chapter.c11{--acc:var(--blue);--acc-t:var(--blue-t)}
-.meta{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
-.meta span{background:var(--acc-t);padding:2px 12px;border-radius:99px;font-size:.9rem;font-weight:600}
-.cierre{margin-top:64px;padding:28px 26px;border-radius:20px;background:var(--code);color:#E6ECFF}
-.cierre h2{font-family:var(--head);font-weight:800;font-size:1.8rem;margin:0 0 10px;color:#FFD166}
-.cierre p{margin:0 0 12px}
-.cierre .firma{font-family:var(--head);font-weight:600;color:#7EE6BC;margin:0}
-.lang{display:inline-block;font-family:var(--head);font-weight:600;font-size:.85rem;color:#fff;background:var(--acc);padding:3px 14px;border-radius:8px 8px 0 0;margin-top:14px}
-.lang + pre{margin-top:0;border-top-left-radius:0}
-.lang.py{background:#3776AB}.lang.js{background:#8A6D00}.lang.cs{background:#68217A}.lang.sql{background:#B3470F}
-.prueba td.cd{font-family:var(--mono)}
-.lista-prob{columns:2;column-gap:28px}
-@media (max-width:560px){.lista-prob{columns:1}}
-.caso{background:var(--card);border:1px solid var(--line);border-left:8px solid var(--acc);border-radius:6px 16px 16px 6px;padding:6px 20px 12px;margin:30px 0}
-.caso h3{margin-top:14px}
-.ch-head{background:var(--acc-t);border-left:10px solid var(--acc);border-radius:6px 18px 18px 6px;padding:22px 24px;margin-bottom:26px}
-.ch-head .n{font-family:var(--head);font-weight:800;color:var(--acc);font-size:1rem;margin:0 0 4px}
-.ch-head h2{font-family:var(--head);font-weight:800;font-size:clamp(1.6rem,6vw,2.3rem);line-height:1.1;margin:0;letter-spacing:-.01em}
-h3{font-family:var(--head);font-weight:600;font-size:1.35rem;margin:36px 0 8px;color:var(--ink)}
-p{margin:0 0 14px}
-.quote{font-family:var(--head);font-weight:600;font-size:1.3rem;line-height:1.3;border-left:6px solid var(--sun);padding:6px 0 6px 18px;margin:26px 0}
-
-/* Cajas */
-.callout{border-radius:14px;padding:16px 18px;margin:22px 0;background:var(--sun-t);border:1px solid var(--sun)}
-.callout.tip{background:var(--mint-t);border-color:var(--mint)}
-.callout.ojo{background:var(--red-t);border-color:var(--red)}
-.callout p:last-child{margin-bottom:0}
-.versus{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
-@media (max-width:560px){.versus{grid-template-columns:1fr}}
-.versus > div{border-radius:14px;padding:16px 18px;background:var(--card);border:2px solid var(--line)}
-.versus .mal{border-color:var(--red);background:var(--red-t)}
-.versus .bien{border-color:var(--mint);background:var(--mint-t)}
-.versus h4{font-family:var(--head);margin:0 0 8px;font-size:1.1rem}
-.versus ol{margin:0;padding-left:1.3em}
-.versus li{margin:3px 0}
-
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:20px 0}
-.card{background:var(--card);border:1px solid var(--line);border-top:6px solid var(--k,var(--blue));border-radius:12px;padding:14px 16px}
-.card b{font-family:var(--head);display:block;margin-bottom:4px}
-.card .kwd{font-family:var(--mono);font-weight:600;color:var(--k,var(--blue))}
-.k-blue{--k:var(--blue)} .k-red{--k:var(--red)} .k-sun{--k:var(--sun)} .k-mint{--k:var(--mint)} .k-violet{--k:var(--violet)}
-
-/* Pseudocódigo coloreado */
-pre.pseudo,pre.code{background:var(--code);color:#E6ECFF;border-radius:14px;padding:18px 16px;margin:16px 0;overflow-x:auto;font-family:var(--mono);font-size:.92rem;line-height:1.7;counter-reset:l;border:1px solid #24336B}
-.ln{display:block;white-space:pre}
-.ln::before{counter-increment:l;content:counter(l);display:inline-block;width:2ch;margin-right:1.6ch;color:#6C7BA6;text-align:right}
-.t-kw{color:#FF8CA1;font-weight:600}
-.t-str{color:#7EE6BC}
-.t-num{color:#FFD166}
-.t-var{color:#9DBEFF}
-.t-arrow{color:#C9A6FF;font-weight:600}
-.t-op{color:#FFB86B;font-weight:600}
-.t-cm{color:#8896BA;font-style:italic}
-.caption{font-family:var(--head);font-weight:600;margin:24px 0 0;font-size:1rem;color:var(--muted)}
-
-/* Prueba de escritorio */
-.scroll{overflow-x:auto;margin:10px 0 18px;border-radius:12px;border:1px solid var(--line);background:var(--card)}
-table.prueba{border-collapse:collapse;width:100%;min-width:520px;font-size:.95rem}
-.prueba th{background:var(--acc,var(--blue));color:#fff;font-family:var(--head);font-weight:600;padding:9px 10px;text-align:left;white-space:nowrap}
-:root[data-theme="dark"] .prueba th, .dk .prueba th{color:#0B1226}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .prueba th{color:#0B1226}}
-.prueba td{padding:8px 10px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.88rem;white-space:nowrap}
-.prueba td.in{background:var(--blue-t)}
-.prueba td.chg{background:var(--sun-t);font-weight:600}
-.prueba td.out{background:var(--mint-t);font-weight:600}
-.prueba td.ok{color:var(--mint);font-weight:700}
-.prueba td.no{color:var(--red);font-weight:700}
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:.88rem;color:var(--muted);margin:-6px 0 18px}
-.legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
-
-/* Ejercicio y checklist */
-.ejercicio{background:var(--card);border:2px dashed var(--acc);border-radius:16px;padding:18px 20px;margin:30px 0 18px}
-.ejercicio h3{margin-top:0;color:var(--acc)}
-details{margin-top:12px;border-radius:12px;background:var(--acc-t);padding:4px 16px}
-summary{cursor:pointer;font-family:var(--head);font-weight:600;padding:10px 0}
-summary:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
-.check{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
-.check h3{margin-top:0}
-.check label{display:flex;gap:12px;align-items:flex-start;margin:10px 0;cursor:pointer}
-.check input{width:22px;height:22px;margin-top:3px;accent-color:var(--acc);flex:none}
-.check input:checked + span{color:var(--muted);text-decoration:line-through}
-.next{margin-top:60px;padding:22px 24px;border-radius:18px;background:var(--code);color:#E6ECFF}
-.next h2{font-family:var(--head);margin:0 0 6px;color:#FFD166}
-.next p{margin:0}
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
 
 <header class="cover">
+  <nav class="lang-switch" aria-label="Idioma">
+    <a href="./" lang="es" hreflang="es" aria-current="page">ES</a>
+    <a href="en/" lang="en" hreflang="en">EN</a>
+  </nav>
   <div class="stripes"><i style="background:var(--blue)"></i><i style="background:var(--red)"></i><i style="background:var(--sun)"></i><i style="background:var(--mint)"></i><i style="background:var(--violet)"></i></div>
   <h1>Piensa <span class="a">primero</span>,<br>programa <span class="b">después</span></h1>
   <p class="sub">Aprende a resolver problemas con pseudocódigo y pruebas de escritorio, y después pásalos a cualquier lenguaje. Sin tecnicismos y sin miedo a elegir mal.</p>

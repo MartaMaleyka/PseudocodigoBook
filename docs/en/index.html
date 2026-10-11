@@ -1,0 +1,2101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Think first, program later - Support on Ko-fi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Source+Sans+3:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<main>
+
+<header class="cover">
+  <nav class="lang-switch" aria-label="Language">
+    <a href="../" lang="es" hreflang="es">ES</a>
+    <a href="./" lang="en" hreflang="en" aria-current="page">EN</a>
+  </nav>
+  <div class="stripes"><i style="background:var(--blue)"></i><i style="background:var(--red)"></i><i style="background:var(--sun)"></i><i style="background:var(--mint)"></i><i style="background:var(--violet)"></i></div>
+  <h1>Think <span class="a">first</span>,<br>program <span class="b">later</span></h1>
+  <p class="sub">Learn to solve problems with pseudocode and desk checks, and then turn them into any language. No jargon, and no fear of choosing wrong.</p>
+
+  <nav class="toc" aria-label="Contents">
+    <h2>What you'll find here</h2>
+    <ol>
+      <li><a href="#cap1">You're not dumb, you just started at the end</a></li>
+      <li><a href="#cap2">The trick: the language matters least</a></li>
+      <li><a href="#cap3">What is pseudocode?</a></li>
+      <li><a href="#cap4">The 3 building blocks that solve almost everything</a></li>
+      <li><a href="#cap5">Your first pseudocode: the purchase discount</a></li>
+      <li><a href="#cap6">The desk check in depth</a></li>
+      <li><a href="#cap7">Pseudocode with work cases</a></li>
+      <li><a href="#cap8">From pseudocode to code</a></li>
+      <li><a href="#cap9">Beginner mistakes</a></li>
+      <li><a href="#cap10">How to choose your first language without fear</a></li>
+      <li><a href="#plan">7-day action plan</a></li>
+      <li><a href="#anexo">Appendix: your one-page cheat sheet</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- ============ CHAPTER 1 ============ -->
+<section class="chapter c1" id="cap1">
+  <div class="ch-head"><p class="n">Chapter 1</p><h2>You're not dumb, you just started at the end</h2></div>
+
+  <p>I'm going to tell you something that almost made me quit programming.</p>
+  <p>My first language was Python. One day I spent <b>three hours</b> trying to figure out why my program wasn't working. The culprit? A <code>:</code> I had forgotten. Another day it was an <code>=</code> where there should have been an <code>==</code>. Three hours over two dots.</p>
+  <p>Meanwhile, everyone around me seemed to get it, and I didn't. I was one click away from giving up on everything.</p>
+  <p>What saved me wasn't studying more syntax. It was realizing this: <b>I was writing code without knowing what I wanted it to do.</b> The problem wasn't my talent. I was starting at the end.</p>
+
+  <div class="quote">Think first, then write. Mistakes aren't your enemy, they're your clue.</div>
+
+  <h3>Two ways to start</h3>
+  <div class="versus">
+    <div class="mal"><h4>🔥 Code first</h4>
+      <ol><li>I open the editor.</li><li>I write whatever comes to mind.</li><li>It fails.</li><li>I change things at random.</li><li>It fails differently.</li><li>I get frustrated and think I'm not cut out for this.</li></ol></div>
+    <div class="bien"><h4>🌱 Plan first</h4>
+      <ol><li>I say what I want in one sentence.</li><li>I write the steps in plain language.</li><li>I test them with pencil and paper.</li><li>Only then do I write code.</li></ol></div>
+  </div>
+
+  <h3>A very simple example: do I take an umbrella?</h3>
+  <p>Before thinking about languages, think about steps. Here is the plan, written in plain English the way a person would say it:</p>
+
+  <pre class="pseudo">START
+  READ rain       // "yes" or "no"
+  READ clouds     // "many" or "few"
+  IF rain = "yes" THEN
+    WRITE "Take an umbrella"
+  ELSE
+    IF clouds = "many" THEN
+      WRITE "Better take it, just in case"
+    ELSE
+      WRITE "Head out, no worries"
+    END IF
+  END IF
+END</pre>
+
+  <h3>Now let's test it by hand: the desk check</h3>
+  <p>A desk check means <b>acting as the computer with pencil and paper</b>: you pick example values, follow the plan line by line, and write down what happens. No installation needed.</p>
+  <p>We'll try three cases. Notice the "deciding line" column: it tells you which path the plan took.</p>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>rain</th><th>clouds</th><th>Deciding line</th><th>Output</th><th>As expected?</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">"yes"</td><td class="in">"few"</td><td>5</td><td class="out">Take an umbrella</td><td class="ok">✔ yes</td></tr>
+      <tr><td>B</td><td class="in">"no"</td><td class="in">"many"</td><td>8</td><td class="out">Better take it, just in case</td><td class="ok">✔ yes</td></tr>
+      <tr><td>C</td><td class="in">"no"</td><td class="in">"few"</td><td>10</td><td class="out">Head out, no worries</td><td class="ok">✔ yes</td></tr>
+    </tbody></table></div>
+  <div class="legend"><span style="--c:var(--blue-t)">Input data</span><span style="--c:var(--sun-t)">Value that changed</span><span style="--c:var(--mint-t)">Output</span></div>
+
+  <div class="callout tip">
+    <p><b>💡 And my colons and my <code>==</code>?</b> Notice how I wrote the plan: no <code>:</code> and no <code>==</code> in sight. In pseudocode you <b>store</b> with an arrow (←) and <b>ask</b> with an equals sign (=). When it's time to write real code, you'll already know what you want to do, and the syntax becomes a translation detail, not a three-hour nightmare.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🚦 Extra practical case: the traffic light</h3>
+    <p>A good desk check doesn't just confirm what works. It also uncovers what you forgot. Look at this first attempt:</p>
+<pre class="pseudo">START
+  READ color
+  IF color = "red" THEN
+    WRITE "Stop"
+  ELSE
+    IF color = "yellow" THEN
+      WRITE "Get ready"
+    ELSE
+      WRITE "Go"
+    END IF
+  END IF
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>color</th><th>Deciding line</th><th>Output</th><th>As expected?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"red"</td><td>4</td><td class="out">Stop</td><td class="ok">✔ yes</td></tr>
+        <tr><td>B</td><td class="in">"yellow"</td><td>7</td><td class="out">Get ready</td><td class="ok">✔ yes</td></tr>
+        <tr><td>C</td><td class="in">"green"</td><td>9</td><td class="out">Go</td><td class="ok">✔ yes</td></tr>
+        <tr><td>D</td><td class="in">"blue"</td><td>9</td><td class="out">Go</td><td class="no">✘ no</td></tr>
+      </tbody></table></div>
+    <p>Case D is a color that doesn't exist on a traffic light, and the plan says "Go"! A plan without that test would have sent someone across the street on an invented color. The fix is to ask explicitly about green and leave the last ELSE for unexpected data:</p>
+<pre class="pseudo">START
+  READ color
+  IF color = "red" THEN
+    WRITE "Stop"
+  ELSE
+    IF color = "yellow" THEN
+      WRITE "Get ready"
+    ELSE
+      IF color = "green" THEN
+        WRITE "Go"
+      ELSE
+        WRITE "Invalid color"
+      END IF
+    END IF
+  END IF
+END</pre>
+    <p>With this plan, case D now outputs "Invalid color". <b>Moral:</b> always ask yourself, "what if they type something I didn't expect?"</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: the ATM</h3>
+    <p>Write the plan for an ATM in plain English. Ask for the <b>balance</b> and the <b>withdrawal</b>. If the withdrawal is covered, subtract the money and tell the user how much is left. If it isn't, say there are insufficient funds.</p>
+    <p>Then test it with three cases: <b>balance 100 and withdrawal 40</b>, <b>balance 30 and withdrawal 30</b>, and <b>balance 20 and withdrawal 50</b>.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  READ balance
+  READ withdrawal
+  IF withdrawal ≤ balance THEN
+    balance ← balance - withdrawal
+    WRITE "Withdrawal successful. Remaining balance: ", balance
+  ELSE
+    WRITE "Insufficient funds"
+  END IF
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>balance</th><th>withdrawal</th><th>withdrawal ≤ balance?</th><th>final balance</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">100</td><td class="in">40</td><td>yes</td><td class="chg">60</td><td class="out">Withdrawal successful. Remaining balance: 60</td></tr>
+          <tr><td>B</td><td class="in">30</td><td class="in">30</td><td>yes</td><td class="chg">0</td><td class="out">Withdrawal successful. Remaining balance: 0</td></tr>
+          <tr><td>C</td><td class="in">20</td><td class="in">50</td><td>no</td><td>20</td><td class="out">Insufficient funds</td></tr>
+        </tbody></table></div>
+      <p>Case B (30 and 30) is the tricky one: if you had written "less than" instead of "less than or equal to", your ATM would deny a withdrawal to someone who has exactly enough money. The desk check catches it before you write a single line of code.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 1 checklist</h3>
+    <label><input type="checkbox"><span>Before opening the editor, I said in one sentence what I want to happen.</span></label>
+    <label><input type="checkbox"><span>I wrote the steps in plain language, without code.</span></label>
+    <label><input type="checkbox"><span>I tested my plan with at least 3 cases by hand.</span></label>
+    <label><input type="checkbox"><span>When something failed, I treated it as a clue, not a verdict.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 2 ============ -->
+<section class="chapter c2" id="cap2">
+  <div class="ch-head"><p class="n">Chapter 2</p><h2>The trick: the language matters least</h2></div>
+
+  <p>The question I hear most is: "Which language should I start with? Python? Java? JavaScript?" And people freeze. Whole months go by reading comparisons without writing a single line.</p>
+  <p>Here's what I wish someone had told me: <b>that's not the important question.</b></p>
+
+  <h3>The recipe for a stew</h3>
+  <p>Think of a hearty stew. The recipe (what goes in first, how long it simmers, when the vegetables go in) is the same in your kitchen or your grandmother's. What changes is the pot, the stove and the fire.</p>
+  <p>Programming works the same way: <b>languages are the kitchen; pseudocode is the recipe.</b> If you master the recipe, you can cook in any kitchen.</p>
+
+  <h3>The translation map</h3>
+  <p>All languages do the same basic things. They just change the names:</p>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">READ</span><b>Ask for data</b>Ask the user for something.</div>
+    <div class="card k-violet"><span class="kwd">←</span><b>Store</b>Put a value into a named "box".</div>
+    <div class="card k-red"><span class="kwd">IF … ELSE</span><b>Decide</b>Take one path or another depending on a condition.</div>
+    <div class="card k-sun"><span class="kwd">WHILE</span><b>Repeat</b>Do something over and over until something becomes true.</div>
+    <div class="card k-mint"><span class="kwd">WRITE</span><b>Show</b>Display a result on screen.</div>
+  </div>
+  <p>Each language has its own way of saying these five things. In chapter 8 we'll look at them side by side. For now, keep the idea: <b>if your plan is solid, translating it is just a matter of practice.</b></p>
+
+  <h3>A real example: the invoice with ITBMS</h3>
+  <p>ITBMS is the 7% tax added to a purchase in Panama. Notice that this plan doesn't mention any language and works for all of them:</p>
+
+  <pre class="pseudo">START
+  READ subtotal
+  itbms ← subtotal * 0.07
+  total ← subtotal + itbms
+  WRITE "ITBMS: ", itbms
+  WRITE "Total to pay: ", total
+END</pre>
+
+  <p>Desk check with three values. Watch how the boxes <b>itbms</b> and <b>total</b> change:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>subtotal</th><th>itbms</th><th>total</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">20</td><td class="chg">1.40</td><td class="chg">21.40</td><td class="out">ITBMS: 1.40 · Total: 21.40</td></tr>
+      <tr><td>B</td><td class="in">100</td><td class="chg">7.00</td><td class="chg">107.00</td><td class="out">ITBMS: 7.00 · Total: 107.00</td></tr>
+      <tr><td>C</td><td class="in">0</td><td class="chg">0.00</td><td class="chg">0.00</td><td class="out">ITBMS: 0.00 · Total: 0.00</td></tr>
+    </tbody></table></div>
+
+  <div class="callout">
+    <p><b>🔎 Look at case C.</b> Always include a "weird" value in your test: zero, the smallest, the largest. That's where programs break, and where a good plan shines.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🌡️ Extra practical case: from Celsius to Fahrenheit</h3>
+    <p>A tourist asks you what "30 degrees" is, and their thermometer is in Fahrenheit. Same plan, any language:</p>
+<pre class="pseudo">START
+  READ celsius
+  fahrenheit ← celsius * 9 / 5 + 32
+  WRITE celsius, " °C = ", fahrenheit, " °F"
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>celsius</th><th>calculation</th><th>fahrenheit</th><th>As expected?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">0</td><td>0 * 9 / 5 + 32</td><td class="chg">32</td><td class="ok">✔ water freezes</td></tr>
+        <tr><td>B</td><td class="in">100</td><td>100 * 9 / 5 + 32</td><td class="chg">212</td><td class="ok">✔ water boils</td></tr>
+        <tr><td>C</td><td class="in">30</td><td>30 * 9 / 5 + 32</td><td class="chg">86</td><td class="ok">✔ beach day</td></tr>
+        <tr><td>D</td><td class="in">-40</td><td>-40 * 9 / 5 + 32</td><td class="chg">-40</td><td class="ok">✔ the only point where both scales match</td></tr>
+      </tbody></table></div>
+    <p>See the trick of using cases you already know? 0 and 100 are your "judges": if your plan doesn't give 32 and 212, something is wrong, and you don't need to look the answer up anywhere else.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: from minutes to hours</h3>
+    <p>You have a number of <b>minutes</b> and want to say how many hours and minutes that is. For that you need two new tools:</p>
+    <p><b>DIV</b> answers "how many times does it fit?" (135 DIV 60 = 2) and <b>MOD</b> answers "what's left over?" (135 MOD 60 = 15).</p>
+    <p>Write the plan and test it with <b>135</b>, <b>45</b> and <b>60</b> minutes.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  READ minutes
+  hours ← minutes DIV 60
+  remainder ← minutes MOD 60
+  WRITE hours, " h ", remainder, " min"
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>minutes</th><th>hours</th><th>remainder</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">135</td><td class="chg">2</td><td class="chg">15</td><td class="out">2 h 15 min</td></tr>
+          <tr><td>B</td><td class="in">45</td><td class="chg">0</td><td class="chg">45</td><td class="out">0 h 45 min</td></tr>
+          <tr><td>C</td><td class="in">60</td><td class="chg">1</td><td class="chg">0</td><td class="out">1 h 0 min</td></tr>
+        </tbody></table></div>
+      <p>Look at case C: 60 minutes is exactly one hour, and the remainder is 0. If your plan had said "0 h 60 min", the desk check would have shown you right away.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 2 checklist</h3>
+    <label><input type="checkbox"><span>I can explain my problem without naming any language.</span></label>
+    <label><input type="checkbox"><span>My pseudocode doesn't use odd words from any particular language.</span></label>
+    <label><input type="checkbox"><span>I tested with 3 values, including zero or the smallest one.</span></label>
+    <label><input type="checkbox"><span>I understand that switching languages changes how you write, not the idea.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 3 ============ -->
+<section class="chapter c3" id="cap3">
+  <div class="ch-head"><p class="n">Chapter 3</p><h2>What is pseudocode? It's writing in plain language what you want to happen</h2></div>
+
+  <p>"Pseudo" means "almost". Pseudocode is <b>almost code</b>: you understand it, a computer doesn't. And that's an advantage, because there's no semicolon you can forget.</p>
+  <p>There are no official rules, but I recommend these six "house rules" so you don't get tangled up:</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">START … END</span><b>1. Everything has a beginning and an end</b>That way you know where your plan starts and where it finishes.</div>
+    <div class="card k-mint"><span class="kwd">READ · WRITE</span><b>2. In and out</b>READ asks for a value; WRITE shows a result.</div>
+    <div class="card k-violet"><span class="kwd">←</span><b>3. The arrow stores, the equals sign asks</b><code>x ← 5</code> stores a 5 in x. <code>x = 5</code> asks whether x is 5.</div>
+    <div class="card k-red"><span class="kwd">IF … ELSE … END IF</span><b>4. Every IF gets closed</b>If you open a decision, close it with END IF.</div>
+    <div class="card k-sun"><span class="kwd">WHILE … END WHILE</span><b>5. Repetition gets closed too</b>We'll look at it in depth in chapter 4.</div>
+    <div class="card k-blue"><span class="kwd">indentation</span><b>6. What's inside is indented to the right</b>And use clear names: <code>price</code>, not <code>p</code>.</div>
+  </div>
+
+  <h3>Example: did I pass or not?</h3>
+  <p>At a school in Panama, grades go from 1 to 5, and you pass with 3 or higher. You have three grades and want to know whether you passed:</p>
+
+  <pre class="pseudo">START
+  READ grade1
+  READ grade2
+  READ grade3
+  sum ← grade1 + grade2 + grade3
+  average ← sum / 3
+  IF average ≥ 3 THEN
+    WRITE "Passed with ", average
+  ELSE
+    WRITE "Time to review. Average: ", average
+  END IF
+END</pre>
+
+  <p>Desk check. Look closely at case C:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>grade1</th><th>grade2</th><th>grade3</th><th>sum</th><th>average</th><th>average ≥ 3?</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">5</td><td class="in">4</td><td class="in">3</td><td class="chg">12</td><td class="chg">4.00</td><td class="ok">yes</td><td class="out">Passed with 4</td></tr>
+      <tr><td>B</td><td class="in">2</td><td class="in">3</td><td class="in">2</td><td class="chg">7</td><td class="chg">2.33</td><td class="no">no</td><td class="out">Time to review. Average: 2.33</td></tr>
+      <tr><td>C</td><td class="in">3</td><td class="in">3</td><td class="in">3</td><td class="chg">9</td><td class="chg">3.00</td><td class="ok">yes</td><td class="out">Passed with 3</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ The borderline case.</b> Case C is worth exactly 3, right on the edge. If on line 7 you had used <code>&gt;</code> instead of <code>≥</code>, that student would fail with a 3.00. The desk check shows you this without running anything. Always test the value right on the boundary.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📅 Extra practical case: is it a leap year?</h3>
+    <p>A year is a leap year if it's divisible by 4, <b>but not</b> by 100, <b>unless</b> it's also divisible by 400. Sounds tangled, right? In pseudocode it becomes clear:</p>
+<pre class="pseudo">START
+  READ year
+  IF (year MOD 4 = 0 AND year MOD 100 ≠ 0) OR year MOD 400 = 0 THEN
+    WRITE year, " is a leap year"
+  ELSE
+    WRITE year, " is not a leap year"
+  END IF
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>year</th><th>MOD 4</th><th>MOD 100</th><th>MOD 400</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2024</td><td>0</td><td>24</td><td>24</td><td class="out">Leap year (divisible by 4, not by 100)</td></tr>
+        <tr><td>B</td><td class="in">2023</td><td>3</td><td>23</td><td>23</td><td class="out">Not a leap year</td></tr>
+        <tr><td>C</td><td class="in">1900</td><td>0</td><td>0</td><td>300</td><td class="out">Not a leap year (divisible by 100, not by 400)</td></tr>
+        <tr><td>D</td><td class="in">2000</td><td>0</td><td>0</td><td>0</td><td class="out">Leap year (divisible by 400)</td></tr>
+      </tbody></table></div>
+    <p>Cases C and D are the borderline ones. Without a desk check, almost everyone gets 1900 wrong. The parentheses group the conditions, just like in math.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: can they enter the movie?</h3>
+    <p>A movie is rated for ages 13 and up, but a younger person can also enter if they're accompanied by an adult. Ask for the <b>age</b> and whether they're <b>accompanied</b> ("yes" or "no"). Show "Can enter" or "Cannot enter".</p>
+    <p>Test it with four cases: <b>15 years old, unaccompanied</b>, <b>10 years old, accompanied</b>, <b>10 years old, unaccompanied</b> and <b>13 years old, unaccompanied</b>.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  READ age
+  READ accompanied     // "yes" or "no"
+  IF age ≥ 13 OR accompanied = "yes" THEN
+    WRITE "Can enter"
+  ELSE
+    WRITE "Cannot enter"
+  END IF
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>age</th><th>accompanied</th><th>age ≥ 13?</th><th>accompanied = "yes"?</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">15</td><td class="in">"no"</td><td class="ok">yes</td><td class="no">no</td><td class="out">Can enter</td></tr>
+          <tr><td>B</td><td class="in">10</td><td class="in">"yes"</td><td class="no">no</td><td class="ok">yes</td><td class="out">Can enter</td></tr>
+          <tr><td>C</td><td class="in">10</td><td class="in">"no"</td><td class="no">no</td><td class="no">no</td><td class="out">Cannot enter</td></tr>
+          <tr><td>D</td><td class="in">13</td><td class="in">"no"</td><td class="ok">yes</td><td class="no">no</td><td class="out">Can enter</td></tr>
+        </tbody></table></div>
+      <p>With <b>OR</b>, it's enough for one of the two conditions to hold. Case D is the boundary: exactly 13 gets in, because we used "greater than or equal to".</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 3 checklist</h3>
+    <label><input type="checkbox"><span>My plan starts with START and ends with END.</span></label>
+    <label><input type="checkbox"><span>I use ← to store and = to ask.</span></label>
+    <label><input type="checkbox"><span>Every IF has its END IF, and everything inside is indented.</span></label>
+    <label><input type="checkbox"><span>I tested the borderline case: the value right on the edge.</span></label>
+    <label><input type="checkbox"><span>My variables have names anyone can understand.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 4 ============ -->
+<section class="chapter c4" id="cap4">
+  <div class="ch-head"><p class="n">Chapter 4</p><h2>The 3 building blocks that solve almost everything</h2></div>
+
+  <p>Here's a secret: almost any program is built from just <b>three pieces</b>. Like Lego bricks: few shapes, millions of combinations. If you master them in pseudocode, you already know the most important part.</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Sequence</span><b>One after another</b>Steps happen in order. Changing the order changes the result.</div>
+    <div class="card k-red"><span class="kwd">Decision</span><b>Choose a path</b>IF this happens, do that; otherwise, do something else.</div>
+    <div class="card k-sun"><span class="kwd">Repetition</span><b>Going around in circles</b>Repeat a block as long as a condition holds.</div>
+  </div>
+
+  <h3>Piece 1: sequence (order matters)</h3>
+  <p>Imagine you have mango juice in glass A and pineapple juice in glass B, and you want to <b>swap them</b> without mixing. What do you need? A third glass. With variables it's the same:</p>
+
+<pre class="pseudo">START
+  READ a
+  READ b
+  aux ← a      // keep a's value in the spare glass
+  a ← b        // now a holds b's value
+  b ← aux      // and b gets back what was a's
+  WRITE a, b
+END</pre>
+
+  <p>Desk check with <b>a = 5</b> and <b>b = 8</b>. This time we write <b>one row per line executed</b>, so you can see how each "glass" changes:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Step</th><th>Line</th><th>a</th><th>b</th><th>aux</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="in">5</td><td>—</td><td>—</td></tr>
+      <tr><td>2</td><td>3</td><td>5</td><td class="in">8</td><td>—</td></tr>
+      <tr><td>3</td><td>4</td><td>5</td><td>8</td><td class="chg">5</td></tr>
+      <tr><td>4</td><td>5</td><td class="chg">8</td><td>8</td><td>5</td></tr>
+      <tr><td>5</td><td>6</td><td>8</td><td class="chg">5</td><td>5</td></tr>
+      <tr><td>6</td><td>7</td><td class="out">8</td><td class="out">5</td><td>5</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ What if you skip the spare glass?</b> Look at what happens if you only write <code>a ← b</code> and then <code>b ← a</code>, with the same values 5 and 8:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Step</th><th>Instruction</th><th>a</th><th>b</th></tr></thead>
+      <tbody>
+        <tr><td>0</td><td>(start)</td><td class="in">5</td><td class="in">8</td></tr>
+        <tr><td>1</td><td>a ← b</td><td class="chg">8</td><td>8</td></tr>
+        <tr><td>2</td><td>b ← a</td><td>8</td><td class="chg">8</td></tr>
+      </tbody></table></div>
+    <p>You end up with <b>8 and 8</b>. The 5 is lost forever. That's why the order of a sequence matters so much.</p>
+  </div>
+
+  <h3>Piece 2: decision (each question in its place)</h3>
+  <p>Now let's classify a person by age: child, teenager or adult. Notice how one decision can live inside another:</p>
+
+<pre class="pseudo">START
+  READ age
+  IF age &lt; 12 THEN
+    category ← "Child"
+  ELSE
+    IF age &lt; 18 THEN
+      category ← "Teenager"
+    ELSE
+      category ← "Adult"
+    END IF
+  END IF
+  WRITE category
+END</pre>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>age</th><th>age &lt; 12?</th><th>age &lt; 18?</th><th>category</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">8</td><td class="ok">yes</td><td>— (not asked)</td><td class="out">Child</td></tr>
+      <tr><td>B</td><td class="in">12</td><td class="no">no</td><td class="ok">yes</td><td class="out">Teenager</td></tr>
+      <tr><td>C</td><td class="in">17</td><td class="no">no</td><td class="ok">yes</td><td class="out">Teenager</td></tr>
+      <tr><td>D</td><td class="in">18</td><td class="no">no</td><td class="no">no</td><td class="out">Adult</td></tr>
+      <tr><td>E</td><td class="in">40</td><td class="no">no</td><td class="no">no</td><td class="out">Adult</td></tr>
+    </tbody></table></div>
+  <p>Cases B and D are the boundaries: 12 is already a teenager and 18 is already an adult. Notice that in the middle column, when the first answer is "yes", the second question is never asked. That's what it means for ELSE to be "all the remaining cases".</p>
+
+  <h3>Piece 3: repetition (going around with a head on your shoulders)</h3>
+  <p>This is where the desk check really shines. We want to add the numbers from 1 to 4. You could do 1+2+3+4 = 10 in your head, but the plan has to work for 1 to 1000 too:</p>
+
+<pre class="pseudo">START
+  counter ← 1
+  sum ← 0
+  WHILE counter ≤ 4 DO
+    sum ← sum + counter
+    counter ← counter + 1
+  END WHILE
+  WRITE sum
+END</pre>
+
+  <p>One row per line executed. Notice how line 4 (the WHILE question) appears once more than the loop body: the last time it says "no" and the program exits the loop.</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Step</th><th>Line</th><th>counter</th><th>sum</th><th>counter ≤ 4?</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="chg">1</td><td>—</td><td></td></tr>
+      <tr><td>2</td><td>3</td><td>1</td><td class="chg">0</td><td></td></tr>
+      <tr><td>3</td><td>4</td><td>1</td><td>0</td><td class="ok">yes</td></tr>
+      <tr><td>4</td><td>5</td><td>1</td><td class="chg">1</td><td></td></tr>
+      <tr><td>5</td><td>6</td><td class="chg">2</td><td>1</td><td></td></tr>
+      <tr><td>6</td><td>4</td><td>2</td><td>1</td><td class="ok">yes</td></tr>
+      <tr><td>7</td><td>5</td><td>2</td><td class="chg">3</td><td></td></tr>
+      <tr><td>8</td><td>6</td><td class="chg">3</td><td>3</td><td></td></tr>
+      <tr><td>9</td><td>4</td><td>3</td><td>3</td><td class="ok">yes</td></tr>
+      <tr><td>10</td><td>5</td><td>3</td><td class="chg">6</td><td></td></tr>
+      <tr><td>11</td><td>6</td><td class="chg">4</td><td>6</td><td></td></tr>
+      <tr><td>12</td><td>4</td><td>4</td><td>6</td><td class="ok">yes</td></tr>
+      <tr><td>13</td><td>5</td><td>4</td><td class="chg">10</td><td></td></tr>
+      <tr><td>14</td><td>6</td><td class="chg">5</td><td>10</td><td></td></tr>
+      <tr><td>15</td><td>4</td><td>5</td><td>10</td><td class="no">no → exits</td></tr>
+      <tr><td>16</td><td>8</td><td>5</td><td class="out">10</td><td>WRITE 10</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>🛒 Practical case: add up purchases until you enter 0</h3>
+    <p>In a store, the cashier keeps scanning products and typing in each price. When she's done, she types <b>0</b>. This value that signals "I'm finished" is called a <b>sentinel</b>.</p>
+<pre class="pseudo">START
+  total ← 0
+  READ purchase
+  WHILE purchase ≠ 0 DO
+    total ← total + purchase
+    READ purchase
+  END WHILE
+  WRITE "Total: ", total
+END</pre>
+    <p>We test with the price sequence <b>12, 5, 8, 0</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Step</th><th>Line</th><th>purchase</th><th>total</th><th>purchase ≠ 0?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2</td><td>—</td><td class="chg">0</td><td></td></tr>
+        <tr><td>2</td><td>3</td><td class="in">12</td><td>0</td><td></td></tr>
+        <tr><td>3</td><td>4</td><td>12</td><td>0</td><td class="ok">yes</td></tr>
+        <tr><td>4</td><td>5</td><td>12</td><td class="chg">12</td><td></td></tr>
+        <tr><td>5</td><td>6</td><td class="in">5</td><td>12</td><td></td></tr>
+        <tr><td>6</td><td>4</td><td>5</td><td>12</td><td class="ok">yes</td></tr>
+        <tr><td>7</td><td>5</td><td>5</td><td class="chg">17</td><td></td></tr>
+        <tr><td>8</td><td>6</td><td class="in">8</td><td>17</td><td></td></tr>
+        <tr><td>9</td><td>4</td><td>8</td><td>17</td><td class="ok">yes</td></tr>
+        <tr><td>10</td><td>5</td><td>8</td><td class="chg">25</td><td></td></tr>
+        <tr><td>11</td><td>6</td><td class="in">0</td><td>25</td><td></td></tr>
+        <tr><td>12</td><td>4</td><td>0</td><td>25</td><td class="no">no → exits</td></tr>
+        <tr><td>13</td><td>8</td><td>0</td><td class="out">25</td><td>WRITE 25</td></tr>
+      </tbody></table></div>
+    <div class="callout ojo">
+      <p><b>⚠️ The infinite loop.</b> What happens if you forget line 6 (the second READ)? The variable <code>purchase</code> stays at 12 forever, the question always says "yes", and the program never ends. In the table you'd see it right away: the <b>purchase</b> column never changes. Golden rule: <b>inside a WHILE, something has to change so that the condition eventually says "no".</b></p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>🎓 Practical case: the three pieces together</h3>
+    <p>A teacher wants to know how many of her 4 students passed (grade ≥ 3). Notice: there is <b>sequence</b> (initializing counters), <b>repetition</b> (checking each student) and <b>decision</b> (did they pass?).</p>
+<pre class="pseudo">START
+  passed ← 0
+  counter ← 1
+  WHILE counter ≤ 4 DO
+    READ grade
+    IF grade ≥ 3 THEN
+      passed ← passed + 1
+    END IF
+    counter ← counter + 1
+  END WHILE
+  WRITE passed, " of 4 passed"
+END</pre>
+    <p>To save space, this table records <b>one row per loop turn</b> instead of one per line. It's the "compact" version of the desk check. Grades: <b>4, 2, 3, 5</b>.</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>counter</th><th>grade</th><th>grade ≥ 3?</th><th>passed</th></tr></thead>
+      <tbody>
+        <tr><td>Before</td><td class="chg">1</td><td>—</td><td>—</td><td class="chg">0</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">4</td><td class="ok">yes</td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">2</td><td class="no">no</td><td>1</td></tr>
+        <tr><td>3</td><td>3</td><td class="in">3</td><td class="ok">yes</td><td class="chg">2</td></tr>
+        <tr><td>4</td><td>4</td><td class="in">5</td><td class="ok">yes</td><td class="chg">3</td></tr>
+        <tr><td>Exit</td><td>5 (5 ≤ 4: no)</td><td>—</td><td>—</td><td class="out">3 of 4 passed</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: countdown</h3>
+    <p>Write the plan for a countdown that shows <b>3, 2, 1</b> and at the end says <b>"Liftoff!"</b>. Then do the desk check with one row per turn.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  counter ← 3
+  WHILE counter ≥ 1 DO
+    WRITE counter
+    counter ← counter - 1
+  END WHILE
+  WRITE "Liftoff!"
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Turn</th><th>counter at start</th><th>counter ≥ 1?</th><th>Output</th><th>counter at end</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="in">3</td><td class="ok">yes</td><td class="out">3</td><td class="chg">2</td></tr>
+          <tr><td>2</td><td>2</td><td class="ok">yes</td><td class="out">2</td><td class="chg">1</td></tr>
+          <tr><td>3</td><td>1</td><td class="ok">yes</td><td class="out">1</td><td class="chg">0</td></tr>
+          <tr><td>—</td><td>0</td><td class="no">no → exits</td><td class="out">Liftoff!</td><td>0</td></tr>
+        </tbody></table></div>
+      <p>If you had written <code>counter &gt; 1</code>, the plan would stop at 2 and never show the 1. The boundary strikes again!</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 4 checklist</h3>
+    <label><input type="checkbox"><span>I can point out the sequences, decisions and repetitions in my plan.</span></label>
+    <label><input type="checkbox"><span>In every WHILE, something changes so the condition eventually says "no".</span></label>
+    <label><input type="checkbox"><span>I test my loops with one row per turn, without skipping any.</span></label>
+    <label><input type="checkbox"><span>I checked what happens on the first and the last turn.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 5 ============ -->
+<section class="chapter c5" id="cap5">
+  <div class="ch-head"><p class="n">Chapter 5</p><h2>Your first pseudocode: the purchase discount</h2></div>
+
+  <p>This is the problem that made everything click for me. A store wants to give a discount based on the purchase amount, and I tried to solve it straight in code, with a pile of nested conditions that tangled up like earphones in a pocket.</p>
+  <p>Here's how I solved it once I finally <b>thought first</b>. Follow these five steps, which work for any problem:</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Step 1</span><b>Understand it with an example</b>Solve it by hand with a real case before writing anything.</div>
+    <div class="card k-violet"><span class="kwd">Step 2</span><b>Inputs and outputs</b>What data do you get? What should come out?</div>
+    <div class="card k-mint"><span class="kwd">Step 3</span><b>Big steps</b>Write the plan in 4 or 5 sentences, without details.</div>
+    <div class="card k-sun"><span class="kwd">Step 4</span><b>Refine</b>Turn it into pseudocode with START, IF, END.</div>
+    <div class="card k-red"><span class="kwd">Step 5</span><b>Test it</b>Desk check with normal and borderline cases.</div>
+  </div>
+
+  <h3>Steps 1 and 2: understand the problem</h3>
+  <p>The store says: "if you buy less than $50, there's no discount; from $50 up to less than $100, 5%; from $100 up to less than $200, 10%; and $200 or more, 15%."</p>
+  <p>A hand example: if you buy $100, you get 10%, which is $10 off, so you pay $90. Now we know what to expect.</p>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Input data</th><th>Results it must give</th></tr></thead>
+    <tbody>
+      <tr><td class="in">purchase amount</td><td class="out">percentage, discount and total to pay</td></tr>
+    </tbody></table></div>
+
+  <h3>Steps 3 and 4: the plan in plain English, refined</h3>
+  <p>The trick is to ask <b>from highest to lowest</b>. Look at the full plan:</p>
+
+<pre class="pseudo">START
+  READ amount
+  IF amount ≥ 200 THEN
+    percentage ← 15
+  ELSE
+    IF amount ≥ 100 THEN
+      percentage ← 10
+    ELSE
+      IF amount ≥ 50 THEN
+        percentage ← 5
+      ELSE
+        percentage ← 0
+      END IF
+    END IF
+  END IF
+  discount ← amount * percentage / 100
+  total ← amount - discount
+  WRITE "Discount: ", discount
+  WRITE "Total to pay: ", total
+END</pre>
+
+  <h3>Step 5: the desk check</h3>
+  <p>We test with normal amounts and with the boundary amounts (50 and 100):</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>amount</th><th>≥ 200?</th><th>≥ 100?</th><th>≥ 50?</th><th>percentage</th><th>discount</th><th>total</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">30</td><td class="no">no</td><td class="no">no</td><td class="no">no</td><td class="chg">0</td><td class="chg">0.00</td><td class="out">30.00</td></tr>
+      <tr><td>B</td><td class="in">50</td><td class="no">no</td><td class="no">no</td><td class="ok">yes</td><td class="chg">5</td><td class="chg">2.50</td><td class="out">47.50</td></tr>
+      <tr><td>C</td><td class="in">100</td><td class="no">no</td><td class="ok">yes</td><td>—</td><td class="chg">10</td><td class="chg">10.00</td><td class="out">90.00</td></tr>
+      <tr><td>D</td><td class="in">199</td><td class="no">no</td><td class="ok">yes</td><td>—</td><td class="chg">10</td><td class="chg">19.90</td><td class="out">179.10</td></tr>
+      <tr><td>E</td><td class="in">250</td><td class="ok">yes</td><td>—</td><td>—</td><td class="chg">15</td><td class="chg">37.50</td><td class="out">212.50</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>💥 The version that breaks: the order of the questions</h3>
+    <p>My first attempt asked from <b>lowest to highest</b>. It seems logical, but look what happens:</p>
+<pre class="pseudo">  IF amount ≥ 50 THEN
+    percentage ← 5
+  ELSE
+    IF amount ≥ 100 THEN
+      percentage ← 10
+    ELSE
+      IF amount ≥ 200 THEN
+        percentage ← 15
+      ELSE
+        percentage ← 0
+      END IF
+    END IF
+  END IF</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>amount</th><th>≥ 50?</th><th>percentage obtained</th><th>percentage expected</th><th>Correct?</th></tr></thead>
+      <tbody>
+        <tr><td class="in">250</td><td class="ok">yes</td><td class="chg">5</td><td>15</td><td class="no">✘ no</td></tr>
+        <tr><td class="in">100</td><td class="ok">yes</td><td class="chg">5</td><td>10</td><td class="no">✘ no</td></tr>
+        <tr><td class="in">30</td><td class="no">no</td><td class="chg">0</td><td>0</td><td class="ok">✔ yes</td></tr>
+      </tbody></table></div>
+    <p>With 250, the first question (≥ 50) already says "yes", so the plan never gets to ask about the 15%. <b>When conditions overlap, ask first about the most demanding one.</b> This lesson alone is worth what this ebook costs.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: the shipping cost</h3>
+    <p>An online store charges shipping based on the weight of the package: up to <b>1 kg</b>, $3; over 1 kg up to <b>5 kg</b>, $7; over 5 kg, $12. Write the plan following the five steps and test it with <b>0.5, 1, 3, 5 and 8 kg</b>.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  READ weight
+  IF weight ≤ 1 THEN
+    shipping ← 3
+  ELSE
+    IF weight ≤ 5 THEN
+      shipping ← 7
+    ELSE
+      shipping ← 12
+    END IF
+  END IF
+  WRITE "Shipping cost: $", shipping
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>weight</th><th>weight ≤ 1?</th><th>weight ≤ 5?</th><th>shipping</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">0.5</td><td class="ok">yes</td><td>—</td><td class="out">3</td></tr>
+          <tr><td>B</td><td class="in">1</td><td class="ok">yes</td><td>—</td><td class="out">3</td></tr>
+          <tr><td>C</td><td class="in">3</td><td class="no">no</td><td class="ok">yes</td><td class="out">7</td></tr>
+          <tr><td>D</td><td class="in">5</td><td class="no">no</td><td class="ok">yes</td><td class="out">7</td></tr>
+          <tr><td>E</td><td class="in">8</td><td class="no">no</td><td class="no">no</td><td class="out">12</td></tr>
+        </tbody></table></div>
+      <p>Cases B and D (exactly 1 kg and exactly 5 kg) are the boundaries: "up to" includes the limit, which is why we use ≤.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 5 checklist</h3>
+    <label><input type="checkbox"><span>I solved an example by hand before writing the plan.</span></label>
+    <label><input type="checkbox"><span>I wrote clearly what goes in and what comes out.</span></label>
+    <label><input type="checkbox"><span>I asked first about the most demanding condition.</span></label>
+    <label><input type="checkbox"><span>I tested at least one case for each range and the values right on the edges.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 6 ============ -->
+<section class="chapter c6" id="cap6">
+  <div class="ch-head"><p class="n">Chapter 6</p><h2>The desk check in depth</h2></div>
+
+  <p>You've already done several desk checks without realizing it. Now we're going to turn it into your superpower: a tool with a method, so that when something fails you know <b>exactly</b> where to look.</p>
+
+  <h3>The 5 rules of a good check</h3>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Rule 1</span><b>One column per variable</b>If a variable has no column, you'll lose track of it.</div>
+    <div class="card k-violet"><span class="kwd">Rule 2</span><b>One row per step</b>Every line that runs is a row. Don't skip steps.</div>
+    <div class="card k-red"><span class="kwd">Rule 3</span><b>Be a dumb computer</b>Run what the plan says, not what you meant to say.</div>
+    <div class="card k-sun"><span class="kwd">Rule 4</span><b>Mark what changes</b>Color or underline each new value. That way you can see the path.</div>
+    <div class="card k-mint"><span class="kwd">Rule 5</span><b>Choose your cases well</b>One normal, one on the edge, and one weird (zero, empty, very large).</div>
+  </div>
+
+  <h3>Step-by-step example: the largest of three numbers</h3>
+  <p>A classic job interview question. The idea: we assume the first one is the largest and compare it with the others.</p>
+
+<pre class="pseudo">START
+  READ a
+  READ b
+  READ c
+  largest ← a
+  IF b &gt; largest THEN
+    largest ← b
+  END IF
+  IF c &gt; largest THEN
+    largest ← c
+  END IF
+  WRITE "The largest is ", largest
+END</pre>
+
+  <p>We follow the case <b>a = 4, b = 9, c = 2</b> line by line (we skip the END IFs to save space):</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Step</th><th>Line</th><th>a</th><th>b</th><th>c</th><th>largest</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>2</td><td class="in">4</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>2</td><td>3</td><td>4</td><td class="in">9</td><td>—</td><td>—</td><td></td></tr>
+      <tr><td>3</td><td>4</td><td>4</td><td>9</td><td class="in">2</td><td>—</td><td></td></tr>
+      <tr><td>4</td><td>5</td><td>4</td><td>9</td><td>2</td><td class="chg">4</td><td>assume a is the largest</td></tr>
+      <tr><td>5</td><td>6</td><td>4</td><td>9</td><td>2</td><td>4</td><td class="ok">9 &gt; 4: yes</td></tr>
+      <tr><td>6</td><td>7</td><td>4</td><td>9</td><td>2</td><td class="chg">9</td><td></td></tr>
+      <tr><td>7</td><td>9</td><td>4</td><td>9</td><td>2</td><td>9</td><td class="no">2 &gt; 9: no</td></tr>
+      <tr><td>8</td><td>12</td><td>4</td><td>9</td><td>2</td><td class="out">9</td><td>WRITE 9</td></tr>
+    </tbody></table></div>
+
+  <p>Now the other cases, in summary form. The middle one (7, 7, 7) is the "weird" one because they're all equal:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Case</th><th>a</th><th>b</th><th>c</th><th>largest at the end</th><th>As expected?</th></tr></thead>
+    <tbody>
+      <tr><td>A</td><td class="in">1</td><td class="in">2</td><td class="in">3</td><td class="out">3</td><td class="ok">✔ yes</td></tr>
+      <tr><td>B</td><td class="in">7</td><td class="in">7</td><td class="in">7</td><td class="out">7</td><td class="ok">✔ yes</td></tr>
+      <tr><td>C</td><td class="in">9</td><td class="in">5</td><td class="in">6</td><td class="out">9</td><td class="ok">✔ yes</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>🐛 Bug hunt 1: the sneaky division</h3>
+    <p>Someone wrote this plan to average three grades. It looks perfect, but the desk check says otherwise:</p>
+<pre class="pseudo">START
+  READ grade1
+  READ grade2
+  READ grade3
+  average ← grade1 + grade2 + grade3 / 3
+  WRITE average
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>grade1</th><th>grade2</th><th>grade3</th><th>Real calculation (division goes first)</th><th>average obtained</th><th>average expected</th></tr></thead>
+      <tbody>
+        <tr><td class="in">3</td><td class="in">3</td><td class="in">3</td><td>3 + 3 + (3 / 3) = 3 + 3 + 1</td><td class="chg">7</td><td class="no">3</td></tr>
+        <tr><td class="in">5</td><td class="in">4</td><td class="in">3</td><td>5 + 4 + (3 / 3) = 5 + 4 + 1</td><td class="chg">10</td><td class="no">4</td></tr>
+      </tbody></table></div>
+    <p>Division is done before addition, just like in math. <b>The fix:</b> add parentheses.</p>
+<pre class="pseudo">  average ← (grade1 + grade2 + grade3) / 3</pre>
+    <p>With the same values: (3 + 3 + 3) / 3 = <b>3</b> and (5 + 4 + 3) / 3 = <b>4</b>. ✔</p>
+  </div>
+
+  <div class="caso">
+    <h3>🐛 Bug hunt 2: the one that went too far (or fell short) by one</h3>
+    <p>I want to add from 1 to 4, and someone writes <code>WHILE counter &lt; 4</code> instead of <code>≤ 4</code>. See how the table gives it away:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>counter</th><th>counter &lt; 4?</th><th>sum after the turn</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">1</td><td class="ok">yes</td><td class="chg">1</td></tr>
+        <tr><td>2</td><td>2</td><td class="ok">yes</td><td class="chg">3</td></tr>
+        <tr><td>3</td><td>3</td><td class="ok">yes</td><td class="chg">6</td></tr>
+        <tr><td>—</td><td>4</td><td class="no">no → exits</td><td class="out">6 (expected: 10)</td></tr>
+      </tbody></table></div>
+    <p>The 4 was never added. It's so common it has a name among programmers: the "off-by-one" error. A four-row table can save you an entire afternoon.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: what does this plan write?</h3>
+    <p>Without looking at the solution, do a desk check of this plan and predict <b>everything that gets written on screen</b>:</p>
+<pre class="pseudo">START
+  x ← 1
+  WHILE x &lt; 20 DO
+    x ← x * 2
+    WRITE x
+  END WHILE
+END</pre>
+    <details><summary>See the solution</summary>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Turn</th><th>x at start</th><th>x &lt; 20?</th><th>x at end</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td class="in">1</td><td class="ok">yes</td><td class="chg">2</td><td class="out">2</td></tr>
+          <tr><td>2</td><td>2</td><td class="ok">yes</td><td class="chg">4</td><td class="out">4</td></tr>
+          <tr><td>3</td><td>4</td><td class="ok">yes</td><td class="chg">8</td><td class="out">8</td></tr>
+          <tr><td>4</td><td>8</td><td class="ok">yes</td><td class="chg">16</td><td class="out">16</td></tr>
+          <tr><td>5</td><td>16</td><td class="ok">yes</td><td class="chg">32</td><td class="out">32</td></tr>
+          <tr><td>—</td><td>32</td><td class="no">no → exits</td><td>32</td><td>—</td></tr>
+        </tbody></table></div>
+      <p>On screen you get: <b>2, 4, 8, 16, 32</b>. Notice that 32 does get written, even though it's greater than 20: the question is asked <i>before</i> each turn starts, but the turn that starts at 16 finishes completely.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 6 checklist</h3>
+    <label><input type="checkbox"><span>My table has one column for each variable.</span></label>
+    <label><input type="checkbox"><span>I ran what the plan says, not what I wanted it to say.</span></label>
+    <label><input type="checkbox"><span>I tested a normal case, a borderline one and a weird one.</span></label>
+    <label><input type="checkbox"><span>When the result didn't match, I looked for the first row where it diverged from what I expected.</span></label>
+    <label><input type="checkbox"><span>I checked the parentheses in calculations with several operations.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 7 ============ -->
+<section class="chapter c7" id="cap7">
+  <div class="ch-head"><p class="n">Chapter 7</p><h2>Pseudocode with work cases</h2></div>
+
+  <p>So far we've practiced with everyday examples. Now let's go to the office. Here are three cases I actually dealt with at work (with made-up data, of course): <b>validating a form</b>, <b>building a report</b> and <b>designing an approval flow</b>.</p>
+  <p>The nice thing is that in all three cases I did the same thing: <b>first I drew or wrote the plan, then I tested it by hand, and only then did I touch a tool</b>. And the tools were different: a web application, an SQL query and an automation platform. Same method, three destinations.</p>
+
+  <div class="caso">
+    <h3>📝 Case 1: validating a registration form</h3>
+    <p><b>The problem.</b> A person signs up for a system and you need to check their data is correct before saving it. The rules are:</p>
+    <ul>
+      <li>The name can't be empty.</li>
+      <li>The email must contain an at sign (@).</li>
+      <li>The age must be 18 or older.</li>
+      <li>The password must be 8 characters or longer.</li>
+    </ul>
+    <p><b>A detail on how to read this plan.</b> We use two "helpers" that exist in every language: <code>contains(text, piece)</code> answers yes or no, and <code>length(text)</code> counts the characters. They're called <b>functions</b>: they receive a value and return an answer.</p>
+    <p><b>The idea of the plan.</b> Instead of stopping at the first error, we're going to <b>count the errors</b> with a variable called <code>errors</code> (an "accumulator"). That way, the person sees everything they need to fix in one go.</p>
+
+<pre class="pseudo">START
+  READ name
+  READ email
+  READ age
+  READ password
+  errors ← 0
+  IF name = "" THEN
+    WRITE "Name is missing"
+    errors ← errors + 1
+  END IF
+  IF NOT contains(email, "@") THEN
+    WRITE "Invalid email"
+    errors ← errors + 1
+  END IF
+  IF age &lt; 18 THEN
+    WRITE "You must be of legal age"
+    errors ← errors + 1
+  END IF
+  IF length(password) &lt; 8 THEN
+    WRITE "The password must have 8 or more characters"
+    errors ← errors + 1
+  END IF
+  IF errors = 0 THEN
+    WRITE "Registration successful"
+  ELSE
+    WRITE "Fix ", errors, " field(s)"
+  END IF
+END</pre>
+
+    <p><b>Test with four cases.</b> A is normal, B has everything wrong, C is right at the boundaries (18 years old and 8 characters), and D fails in just one thing:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>name</th><th>email</th><th>age</th><th>password</th><th>length(password)</th><th>errors</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"Ana"</td><td class="in">"ana@mail.com"</td><td class="in">25</td><td class="in">"abcd1234"</td><td>8</td><td class="chg">0</td><td class="out">Registration successful</td></tr>
+        <tr><td>B</td><td class="in">""</td><td class="in">"ana.mail.com"</td><td class="in">16</td><td class="in">"123"</td><td>3</td><td class="chg">4</td><td class="out">Fix 4 field(s)</td></tr>
+        <tr><td>C</td><td class="in">"Luis"</td><td class="in">"luis@mail.com"</td><td class="in">18</td><td class="in">"12345678"</td><td>8</td><td class="chg">0</td><td class="out">Registration successful</td></tr>
+        <tr><td>D</td><td class="in">"Rosa"</td><td class="in">"rosa@mail.com"</td><td class="in">17</td><td class="in">"password2026"</td><td>12</td><td class="chg">1</td><td class="out">You must be of legal age · Fix 1 field(s)</td></tr>
+      </tbody></table></div>
+
+    <p><b>Now the details of case B, step by step.</b> Here you can see how the accumulator goes from 0 to 4 as the plan finds errors:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Step</th><th>Line</th><th>What happens</th><th>errors</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>2 to 5</td><td>Reads the 4 values: "", "ana.mail.com", 16, "123"</td><td>—</td><td></td></tr>
+        <tr><td>2</td><td>6</td><td>Starts the accumulator</td><td class="chg">0</td><td></td></tr>
+        <tr><td>3</td><td>7</td><td>name = ""? Yes</td><td>0</td><td></td></tr>
+        <tr><td>4</td><td>8 and 9</td><td>Warns and adds an error</td><td class="chg">1</td><td class="out">Name is missing</td></tr>
+        <tr><td>5</td><td>11</td><td>NOT contains "@"? Yes, "ana.mail.com" has no at sign</td><td>1</td><td></td></tr>
+        <tr><td>6</td><td>12 and 13</td><td>Warns and adds an error</td><td class="chg">2</td><td class="out">Invalid email</td></tr>
+        <tr><td>7</td><td>15</td><td>16 &lt; 18? Yes</td><td>2</td><td></td></tr>
+        <tr><td>8</td><td>16 and 17</td><td>Warns and adds an error</td><td class="chg">3</td><td class="out">You must be of legal age</td></tr>
+        <tr><td>9</td><td>19</td><td>length("123") = 3 &lt; 8? Yes</td><td>3</td><td></td></tr>
+        <tr><td>10</td><td>20 and 21</td><td>Warns and adds an error</td><td class="chg">4</td><td class="out">The password must have 8 or more characters</td></tr>
+        <tr><td>11</td><td>23</td><td>errors = 0? No (it's 4)</td><td>4</td><td></td></tr>
+        <tr><td>12</td><td>26</td><td>Shows the summary</td><td>4</td><td class="out">Fix 4 field(s)</td></tr>
+      </tbody></table></div>
+
+    <div class="callout tip">
+      <p><b>💡 A design decision you made without realizing it.</b> We could have stopped at the first error or shown them all together. For a form, showing all of them is kinder: nobody wants to fix one field, resubmit, and then discover three more errors. Notice how pseudocode forces you to think about these things <i>before</i> writing code.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>📊 Case 2: building a sales report</h3>
+    <p><b>The problem.</b> Your boss asks you: "I need to know how much each salesperson sold in September, from highest to lowest." Before opening any tool, we write the plan as a recipe for data:</p>
+
+<pre class="pseudo">START
+  TAKE the sales dated between 1 and 30 September
+  GROUP the sales by salesperson
+  FOR EACH salesperson
+    total ← SUM the amounts of their sales
+  END FOR
+  SORT the salespeople from highest to lowest total
+  WRITE salesperson, total
+END</pre>
+
+    <p><b>The desk check with data.</b> Here the "check" doesn't follow variables but <b>tables</b>. We start with the full sales table, including two traps: a sale from August 31 and another from October 1 (notice the date boundaries):</p>
+
+    <p class="caption">Step 0: the sales table we have</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>#</th><th>salesperson</th><th>amount</th><th>date</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">Ana</td><td class="in">100</td><td class="in">2026-09-03</td></tr>
+        <tr><td>2</td><td class="in">Luis</td><td class="in">50</td><td class="in">2026-09-15</td></tr>
+        <tr><td>3</td><td class="in">Ana</td><td class="in">200</td><td class="in">2026-09-30</td></tr>
+        <tr><td>4</td><td class="in">Luis</td><td class="in">300</td><td class="in">2026-08-31</td></tr>
+        <tr><td>5</td><td class="in">Rosa</td><td class="in">80</td><td class="in">2026-09-10</td></tr>
+        <tr><td>6</td><td class="in">Rosa</td><td class="in">40</td><td class="in">2026-10-01</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Step 1: we keep only September</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>#</th><th>salesperson</th><th>amount</th><th>date</th><th>September?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Ana</td><td>100</td><td>2026-09-03</td><td class="ok">yes, keep it</td></tr>
+        <tr><td>2</td><td>Luis</td><td>50</td><td>2026-09-15</td><td class="ok">yes, keep it</td></tr>
+        <tr><td>3</td><td>Ana</td><td>200</td><td>2026-09-30</td><td class="ok">yes, keep it (Sep 30 counts)</td></tr>
+        <tr><td>4</td><td>Luis</td><td>300</td><td>2026-08-31</td><td class="no">no, it's from August</td></tr>
+        <tr><td>5</td><td>Rosa</td><td>80</td><td>2026-09-10</td><td class="ok">yes, keep it</td></tr>
+        <tr><td>6</td><td>Rosa</td><td>40</td><td>2026-10-01</td><td class="no">no, it's from October</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Step 2: group by salesperson and add up</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>salesperson</th><th>sales that count</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>Ana</td><td>100 + 200</td><td class="chg">300</td></tr>
+        <tr><td>Luis</td><td>50</td><td class="chg">50</td></tr>
+        <tr><td>Rosa</td><td>80</td><td class="chg">80</td></tr>
+      </tbody></table></div>
+
+    <p class="caption">Step 3: sort from highest to lowest (the final report)</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Position</th><th>salesperson</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="out">Ana</td><td class="out">300</td></tr>
+        <tr><td>2</td><td class="out">Rosa</td><td class="out">80</td></tr>
+        <tr><td>3</td><td class="out">Luis</td><td class="out">50</td></tr>
+      </tbody></table></div>
+
+    <div class="callout ojo">
+      <p><b>⚠️ The date trap.</b> If your filter is off by one day, the report looks "almost right" and nobody notices until the numbers don't add up. That's why we put in an August 31 and an October 1: they're the boundary cases of monthly reports. In chapter 8 you'll see how this same plan is written in SQL.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>✅ Case 3: a vacation approval flow</h3>
+    <p><b>The problem.</b> In a company, a vacation request goes through different people depending on how many days you ask for. The rules are:</p>
+    <ul>
+      <li>If you ask for more days than you have left, it's automatically rejected.</li>
+      <li>1 to 3 days: your direct manager approves.</li>
+      <li>4 to 10 days: your direct manager and Human Resources approve.</li>
+      <li>More than 10 days: direct manager, Human Resources and Management approve.</li>
+    </ul>
+    <p>This is exactly what you'd "draw" as a flow with decision diamonds. Pseudocode is the same drawing, but in words:</p>
+
+<pre class="pseudo">START
+  READ days
+  READ balance
+  IF days &gt; balance THEN
+    WRITE "Rejected: insufficient balance"
+  ELSE
+    IF days ≤ 3 THEN
+      approvers ← "Direct manager"
+    ELSE
+      IF days ≤ 10 THEN
+        approvers ← "Direct manager and Human Resources"
+      ELSE
+        approvers ← "Direct manager, HR and Management"
+      END IF
+    END IF
+    WRITE "Request sent to: ", approvers
+  END IF
+END</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>days</th><th>balance</th><th>days &gt; balance?</th><th>days ≤ 3?</th><th>days ≤ 10?</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2</td><td class="in">10</td><td class="no">no</td><td class="ok">yes</td><td>—</td><td class="out">Sent to: Direct manager</td></tr>
+        <tr><td>B</td><td class="in">3</td><td class="in">10</td><td class="no">no</td><td class="ok">yes</td><td>—</td><td class="out">Sent to: Direct manager (boundary: 3 days)</td></tr>
+        <tr><td>C</td><td class="in">4</td><td class="in">10</td><td class="no">no</td><td class="no">no</td><td class="ok">yes</td><td class="out">Sent to: Direct manager and HR</td></tr>
+        <tr><td>D</td><td class="in">12</td><td class="in">15</td><td class="no">no</td><td class="no">no</td><td class="no">no</td><td class="out">Sent to: Manager, HR and Management</td></tr>
+        <tr><td>E</td><td class="in">12</td><td class="in">8</td><td class="ok">yes</td><td>—</td><td>—</td><td class="out">Rejected: insufficient balance</td></tr>
+        <tr><td>F</td><td class="in">8</td><td class="in">8</td><td class="no">no</td><td class="no">no</td><td class="ok">yes</td><td class="out">Sent to: Direct manager and HR (boundary: asks for exactly what they have)</td></tr>
+      </tbody></table></div>
+    <p>Case F is the one people forget: if someone has 8 days and asks for 8, is it rejected? Our plan says no, because we used <code>&gt;</code> (strictly greater than). That's a <b>business rule</b> worth confirming with whoever designed the process.</p>
+
+    <h3>And if the manager doesn't respond?</h3>
+    <p>Real processes have exceptions. Let's add this one: if the approver doesn't respond within 3 days, the request is <b>escalated</b> to the next level. Notice how a loop with <b>two conditions</b> appears:</p>
+
+<pre class="pseudo">START
+  daysWaiting ← 0
+  READ response       // "pending", "approved" or "rejected"
+  WHILE response = "pending" AND daysWaiting &lt; 3 DO
+    daysWaiting ← daysWaiting + 1
+    READ response
+  END WHILE
+  IF response = "pending" THEN
+    WRITE "Escalate to the next level"
+  ELSE
+    WRITE "Response received: ", response
+  END IF
+END</pre>
+
+    <p>We test two scenarios. In <b>scenario 1</b> the manager responds on day 2. In <b>scenario 2</b> they never respond:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Scenario</th><th>Turn</th><th>response received</th><th>daysWaiting</th><th>Does the WHILE continue?</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Before</td><td class="in">"pending"</td><td class="chg">0</td><td class="ok">yes (pending AND 0 &lt; 3)</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">"pending"</td><td class="chg">1</td><td class="ok">yes (pending AND 1 &lt; 3)</td></tr>
+        <tr><td>1</td><td>2</td><td class="in">"approved"</td><td class="chg">2</td><td class="no">no (no longer pending)</td></tr>
+        <tr><td>1</td><td>Exit</td><td colspan="3" class="out">Response received: approved</td></tr>
+        <tr><td>2</td><td>Before</td><td class="in">"pending"</td><td class="chg">0</td><td class="ok">yes</td></tr>
+        <tr><td>2</td><td>1</td><td class="in">"pending"</td><td class="chg">1</td><td class="ok">yes</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">"pending"</td><td class="chg">2</td><td class="ok">yes</td></tr>
+        <tr><td>2</td><td>3</td><td class="in">"pending"</td><td class="chg">3</td><td class="no">no (3 &lt; 3 is false)</td></tr>
+        <tr><td>2</td><td>Exit</td><td colspan="3" class="out">Escalate to the next level</td></tr>
+      </tbody></table></div>
+    <p>A condition with <b>AND</b> is like having two exit doors: the loop ends as soon as <i>one</i> of the two stops holding (a response arrived, or the 3 days ran out).</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: the purchase request</h3>
+    <p>At your company, purchases are approved based on the amount: up to <b>$100</b> they're approved automatically; over $100 up to <b>$1,000</b> the supervisor approves; and over $1,000 both the supervisor <b>and</b> the manager are required. Write the plan and test it with <b>$100, $101, $1,000 and $1,001</b>.</p>
+    <details><summary>See one possible solution</summary>
+<pre class="pseudo">START
+  READ amount
+  IF amount ≤ 100 THEN
+    WRITE "Automatically approved"
+  ELSE
+    IF amount ≤ 1000 THEN
+      WRITE "Requires supervisor approval"
+    ELSE
+      WRITE "Requires supervisor and manager approval"
+    END IF
+  END IF
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>amount</th><th>amount ≤ 100?</th><th>amount ≤ 1000?</th><th>Result</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">100</td><td class="ok">yes</td><td>—</td><td class="out">Automatically approved</td></tr>
+          <tr><td>B</td><td class="in">101</td><td class="no">no</td><td class="ok">yes</td><td class="out">Requires supervisor approval</td></tr>
+          <tr><td>C</td><td class="in">1000</td><td class="no">no</td><td class="ok">yes</td><td class="out">Requires supervisor approval</td></tr>
+          <tr><td>D</td><td class="in">1001</td><td class="no">no</td><td class="no">no</td><td class="out">Supervisor and manager</td></tr>
+        </tbody></table></div>
+      <p>All four cases are the boundaries of each tier: 100 and 101, 1,000 and 1,001. An audit report will thank you for testing it this way.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 7 checklist</h3>
+    <label><input type="checkbox"><span>Before using any tool, I wrote the business rules in pseudocode.</span></label>
+    <label><input type="checkbox"><span>I decided whether my validation shows all the errors or just the first one, and why.</span></label>
+    <label><input type="checkbox"><span>I tested the boundaries of dates, amounts and each tier's limits.</span></label>
+    <label><input type="checkbox"><span>I confirmed with whoever requested the process what happens in cases right on the edge.</span></label>
+    <label><input type="checkbox"><span>I thought about exceptions: what happens if nobody responds?</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 8 ============ -->
+<section class="chapter c8" id="cap8">
+  <div class="ch-head"><p class="n">Chapter 8</p><h2>From pseudocode to code</h2></div>
+
+  <p>The moment I promised has arrived: seeing how your pseudocode becomes real code. And I'm going to show you in <b>Python, JavaScript, C# and SQL</b>, side by side, so you can see the idea is always the same.</p>
+  <p>An important warning: this chapter isn't here so you memorize syntax. It's here so you see that <b>translating is mechanical</b>. If your plan is solid and your desk check passed, translating it is like turning a recipe from Spanish into English: the words change, the steps don't.</p>
+
+  <h3>The 4-step translation recipe</h3>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Step 1</span><b>Paste the plan as comments</b>Each line of your pseudocode becomes a comment in the editor.</div>
+    <div class="card k-violet"><span class="kwd">Step 2</span><b>Translate line by line</b>Under each comment, write its equivalent in the language.</div>
+    <div class="card k-mint"><span class="kwd">Step 3</span><b>Run your same cases</b>The ones from your desk check table.</div>
+    <div class="card k-red"><span class="kwd">Step 4</span><b>Compare</b>If the result doesn't match the table, the error is in the translation.</div>
+  </div>
+
+  <p>Here's what steps 1 and 2 look like with the start of the discount plan. The comments are your pseudocode; the rest is the translation:</p>
+<div class="lang py">Python</div>
+<pre class="code"># READ amount
+amount = float(input("Purchase amount: "))
+
+# IF amount ≥ 200 THEN percentage ← 15
+if amount &gt;= 200:
+    percentage = 15</pre>
+
+  <h3>The dictionary: pseudocode ↔ languages</h3>
+  <p>This is the table you'll consult most. Save it:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Pseudocode</th><th>Python</th><th>JavaScript</th><th>C#</th></tr></thead>
+    <tbody>
+      <tr><td>READ x</td><td class="cd">x = float(input())</td><td class="cd">let x = parseFloat(prompt())</td><td class="cd">double x = double.Parse(Console.ReadLine())</td></tr>
+      <tr><td>x ← 5 (store)</td><td class="cd">x = 5</td><td class="cd">let x = 5</td><td class="cd">int x = 5</td></tr>
+      <tr><td>x = 5 (ask)</td><td class="cd">x == 5</td><td class="cd">x === 5</td><td class="cd">x == 5</td></tr>
+      <tr><td>x ≠ 5</td><td class="cd">x != 5</td><td class="cd">x !== 5</td><td class="cd">x != 5</td></tr>
+      <tr><td>IF … ELSE</td><td class="cd">if: … else:</td><td class="cd">if (…) { } else { }</td><td class="cd">if (…) { } else { }</td></tr>
+      <tr><td>ELSE IF</td><td class="cd">elif</td><td class="cd">else if</td><td class="cd">else if</td></tr>
+      <tr><td>WHILE</td><td class="cd">while cond:</td><td class="cd">while (cond) { }</td><td class="cd">while (cond) { }</td></tr>
+      <tr><td>WRITE</td><td class="cd">print()</td><td class="cd">console.log()</td><td class="cd">Console.WriteLine()</td></tr>
+      <tr><td>AND · OR · NOT</td><td class="cd">and · or · not</td><td class="cd">&amp;&amp; · || · !</td><td class="cd">&amp;&amp; · || · !</td></tr>
+      <tr><td>MOD</td><td class="cd">%</td><td class="cd">%</td><td class="cd">%</td></tr>
+      <tr><td>DIV</td><td class="cd">//</td><td class="cd">Math.floor(a / b)</td><td class="cd">a / b (with integers)</td></tr>
+    </tbody></table></div>
+
+  <div class="callout tip">
+    <p><b>💡 This solves the mystery from chapter 1!</b> Remember my three hours over an <code>=</code> instead of <code>==</code>? Look at the table: in pseudocode, <b>storing</b> is ← and <b>asking</b> is =. In almost every language the roles are swapped: storing is <code>=</code> and asking is <code>==</code>. If you already know what you want to do on each line (store or ask), choosing the right symbol is just a matter of checking the dictionary.</p>
+  </div>
+
+  <div class="caso">
+    <h3>🏷️ Case 1: the purchase discount, in three languages</h3>
+    <p>The plan from chapter 5, translated. Notice that the nested <code>ELSE IF</code> of the pseudocode becomes <code>elif</code> or <code>else if</code>, which is how languages write them "in a row" so they don't end up as a staircase.</p>
+
+<div class="lang py">Python</div>
+<pre class="code">amount = float(input("Purchase amount: "))
+
+if amount &gt;= 200:
+    percentage = 15
+elif amount &gt;= 100:
+    percentage = 10
+elif amount &gt;= 50:
+    percentage = 5
+else:
+    percentage = 0
+
+discount = amount * percentage / 100
+total = amount - discount
+print("Discount:", discount)
+print("Total to pay:", total)</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let amount = parseFloat(prompt("Purchase amount:"));
+let percentage;
+
+if (amount &gt;= 200) {
+  percentage = 15;
+} else if (amount &gt;= 100) {
+  percentage = 10;
+} else if (amount &gt;= 50) {
+  percentage = 5;
+} else {
+  percentage = 0;
+}
+
+let discount = amount * percentage / 100;
+let total = amount - discount;
+console.log("Discount: " + discount);
+console.log("Total to pay: " + total);</pre>
+
+<div class="lang cs">C#</div>
+<pre class="code">using System;
+
+class Program
+{
+    static void Main()
+    {
+        Console.Write("Purchase amount: ");
+        double amount = double.Parse(Console.ReadLine());
+        double percentage;
+
+        if (amount &gt;= 200) { percentage = 15; }
+        else if (amount &gt;= 100) { percentage = 10; }
+        else if (amount &gt;= 50) { percentage = 5; }
+        else { percentage = 0; }
+
+        double discount = amount * percentage / 100;
+        double total = amount - discount;
+        Console.WriteLine("Discount: " + discount);
+        Console.WriteLine("Total to pay: " + total);
+    }
+}</pre>
+
+    <p><b>The desk check doesn't change.</b> It's the same table as in chapter 5, because the plan is the same. Verify the code with <b>amount = 100</b>, following the Python version:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Python line</th><th>amount</th><th>percentage</th><th>discount</th><th>total</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td class="cd">amount = float(input(…))</td><td class="in">100.0</td><td>—</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td class="cd">if amount &gt;= 200</td><td>100.0</td><td>—</td><td>—</td><td>—</td><td class="no">false</td></tr>
+        <tr><td class="cd">elif amount &gt;= 100</td><td>100.0</td><td>—</td><td>—</td><td>—</td><td class="ok">true (boundary)</td></tr>
+        <tr><td class="cd">percentage = 10</td><td>100.0</td><td class="chg">10</td><td>—</td><td>—</td><td></td></tr>
+        <tr><td class="cd">discount = amount * percentage / 100</td><td>100.0</td><td>10</td><td class="chg">10.0</td><td>—</td><td></td></tr>
+        <tr><td class="cd">total = amount - discount</td><td>100.0</td><td>10</td><td>10.0</td><td class="chg">90.0</td><td></td></tr>
+        <tr><td class="cd">print(…)</td><td>100.0</td><td>10</td><td>10.0</td><td class="out">90.0</td><td>Total to pay: 90.0 ✔</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="caso">
+    <h3>🛒 Case 2: adding purchases until you enter 0</h3>
+    <p>The sentinel plan from chapter 4. Notice how the <code>READ</code> appears twice, just like in the pseudocode: once before the loop and once at the end of each turn.</p>
+
+<div class="lang py">Python</div>
+<pre class="code">total = 0
+purchase = float(input("Price (0 to finish): "))
+
+while purchase != 0:
+    total = total + purchase
+    purchase = float(input("Price (0 to finish): "))
+
+print("Total:", total)</pre>
+
+<div class="lang cs">C#</div>
+<pre class="code">double total = 0;
+Console.Write("Price (0 to finish): ");
+double purchase = double.Parse(Console.ReadLine());
+
+while (purchase != 0)
+{
+    total = total + purchase;
+    Console.Write("Price (0 to finish): ");
+    purchase = double.Parse(Console.ReadLine());
+}
+
+Console.WriteLine("Total: " + total);</pre>
+    <p>(In C#, this block goes inside <code>Main</code>, as in the previous case.) With the prices 12, 5, 8, 0, the table from chapter 4 still holds as is: <b>total = 25</b>.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📅 Case 3: leap year in Python and JavaScript</h3>
+    <p>Here the interesting part is the parentheses and the AND/OR operators. Compare with the pseudocode from chapter 3:</p>
+
+<div class="lang py">Python</div>
+<pre class="code">year = int(input("Year: "))
+
+if (year % 4 == 0 and year % 100 != 0) or year % 400 == 0:
+    print(year, "is a leap year")
+else:
+    print(year, "is not a leap year")</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let year = parseInt(prompt("Year:"));
+
+if ((year % 4 === 0 &amp;&amp; year % 100 !== 0) || year % 400 === 0) {
+  console.log(year + " is a leap year");
+} else {
+  console.log(year + " is not a leap year");
+}</pre>
+
+    <p>The same desk check, this time with the real expressions from the code:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>year</th><th>year % 4 == 0</th><th>year % 100 != 0</th><th>year % 400 == 0</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td class="in">2024</td><td class="ok">True</td><td class="ok">True</td><td class="no">False</td><td class="out">is a leap year</td></tr>
+        <tr><td class="in">1900</td><td class="ok">True</td><td class="no">False</td><td class="no">False</td><td class="out">is not a leap year</td></tr>
+        <tr><td class="in">2000</td><td class="ok">True</td><td class="no">False</td><td class="ok">True</td><td class="out">is a leap year</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="caso">
+    <h3>📊 Case 4: the sales report, in SQL</h3>
+    <p>Remember the report from chapter 7. SQL looks a lot like the plan in English because it <b>describes what you want, not how to do it</b>. Compare line by line:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Plan step</th><th>Its SQL equivalent</th></tr></thead>
+      <tbody>
+        <tr><td>TAKE the sales</td><td class="cd">FROM sales</td></tr>
+        <tr><td>between 1 and 30 September</td><td class="cd">WHERE sale_date &gt;= '2026-09-01' AND sale_date &lt; '2026-10-01'</td></tr>
+        <tr><td>GROUP by salesperson</td><td class="cd">GROUP BY salesperson</td></tr>
+        <tr><td>SUM the amounts</td><td class="cd">SUM(amount) AS total</td></tr>
+        <tr><td>SORT from highest to lowest</td><td class="cd">ORDER BY total DESC</td></tr>
+      </tbody></table></div>
+
+<div class="lang sql">SQL (SQL Server, MySQL, PostgreSQL)</div>
+<pre class="code">SELECT salesperson, SUM(amount) AS total
+FROM sales
+WHERE sale_date &gt;= '2026-09-01' AND sale_date &lt; '2026-10-01'
+GROUP BY salesperson
+ORDER BY total DESC;</pre>
+
+    <p>Notice the filter trick: instead of "up to September 30" (which can fail if the date has a time attached), we use "before October 1". It's the safe way to handle the boundary we tested with the August 31 and October 1 sales. The result is the same as the desk check:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>salesperson</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td class="out">Ana</td><td class="out">300</td></tr>
+        <tr><td class="out">Rosa</td><td class="out">80</td></tr>
+        <tr><td class="out">Luis</td><td class="out">50</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <h3>The 4 translation traps (and how the desk check catches them)</h3>
+
+  <p><b>Trap 1: data that comes in as text.</b> When the program asks the person for something, almost every language receives it as <i>text</i>, not as a number. See what happens in JavaScript if you forget to convert it with <code>parseFloat</code>:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Expression (not converted)</th><th>You expect</th><th>You get</th></tr></thead>
+    <tbody>
+      <tr><td class="cd">"30" + 5</td><td>35</td><td class="no">"305" (it glued the texts together)</td></tr>
+      <tr><td class="cd">"100" &gt; "20"</td><td>true</td><td class="no">false (compares letter by letter)</td></tr>
+      <tr><td class="cd">parseFloat("30") + 5</td><td>35</td><td class="ok">35</td></tr>
+    </tbody></table></div>
+  <p>That's why, in the dictionary above, <code>READ</code> always comes with a conversion: <code>float(…)</code>, <code>parseFloat(…)</code>, <code>double.Parse(…)</code>.</p>
+
+  <p><b>Trap 2: colons, braces and indentation.</b> In Python, the <code>:</code> at the end of an <code>if</code> and the indentation are mandatory; in JavaScript and C#, the curly braces <code>{ }</code> and the semicolon are what matter. It's exactly the kind of detail that cost me three hours. When something fails, <b>check the punctuation line by line with your pseudocode next to it</b>.</p>
+
+  <p><b>Trap 3: integer division.</b> See how <code>7 divided by 2</code> changes depending on the language:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Language</th><th>Expression</th><th>Result</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Pseudocode</td><td class="cd">7 DIV 2</td><td class="out">3</td><td>"How many times does 2 fit into 7?"</td></tr>
+      <tr><td>Python</td><td class="cd">7 / 2</td><td class="chg">3.5</td><td>For 3, use <code>7 // 2</code></td></tr>
+      <tr><td>JavaScript</td><td class="cd">7 / 2</td><td class="chg">3.5</td><td>For 3, use <code>Math.floor(7 / 2)</code></td></tr>
+      <tr><td>C#</td><td class="cd">7 / 2</td><td class="chg">3</td><td>With two integers, it already divides "as an integer"; with 7.0 it would give 3.5</td></tr>
+    </tbody></table></div>
+
+  <p><b>Trap 4: names.</b> Reserved words (<code>if</code>, <code>while</code>, <code>class</code>) can't be used as variable names. And in most languages, <code>Total</code> and <code>total</code> are two different variables. Choosing clear, consistent names from the pseudocode stage saves you these headaches.</p>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: translate the movie</h3>
+    <p>Take the pseudocode for "can they enter the movie?" from chapter 3 and translate it into the language you choose. Use the 4-step recipe and the dictionary. Then test the cases <b>15 years old, unaccompanied</b>, <b>10 accompanied</b>, <b>10 unaccompanied</b> and <b>13 unaccompanied</b>.</p>
+    <details><summary>See one possible solution</summary>
+<div class="lang py">Python</div>
+<pre class="code">age = int(input("Age: "))
+accompanied = input("Is the person accompanied? (yes/no): ")
+
+if age &gt;= 13 or accompanied == "yes":
+    print("Can enter")
+else:
+    print("Cannot enter")</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let age = parseInt(prompt("Age:"));
+let accompanied = prompt("Is the person accompanied? (yes/no)");
+
+if (age &gt;= 13 || accompanied === "yes") {
+  console.log("Can enter");
+} else {
+  console.log("Cannot enter");
+}</pre>
+      <p>Notice the translations: "OR" became <code>or</code> in Python and <code>||</code> in JavaScript; the "=" used to ask became <code>==</code> in Python and <code>===</code> in JavaScript; and I kept variable names free of accents, because that's safer. The four results are the same as in the chapter 3 table: <b>Can enter, Can enter, Cannot enter, Can enter</b>.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 8 checklist</h3>
+    <label><input type="checkbox"><span>I pasted my pseudocode as comments and translated under each one.</span></label>
+    <label><input type="checkbox"><span>I can tell saving (<code>=</code>) apart from asking (<code>==</code>) in the language I use.</span></label>
+    <label><input type="checkbox"><span>I converted the data that comes in as text into numbers.</span></label>
+    <label><input type="checkbox"><span>I ran the same cases from my desk check and compared results.</span></label>
+    <label><input type="checkbox"><span>If something failed, I first checked the punctuation and the names.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 9 ============ -->
+<section class="chapter c9" id="cap9">
+  <div class="ch-head"><p class="n">Chapter 9</p><h2>Beginner mistakes (and how to dodge them)</h2></div>
+
+  <p>Everyone makes them, me included. The good news is that there are always the same five. For each one I'll show you what it looks like, how the desk check exposes it and how to fix it.</p>
+
+  <div class="caso">
+    <h3>Mistake 1: opening the editor before understanding the problem</h3>
+    <p><b>What it looks like.</b> Someone asks you to "calculate the tip" and you start typing. But... is the tip calculated before or after the ITBMS? Two reasonable people can understand different things. Look at both versions with a bill of <b>$20</b>:</p>
+
+<pre class="pseudo">// Version A: the tip is 10% of the subtotal
+START
+  READ subtotal
+  itbms ← subtotal * 0.07
+  tip ← subtotal * 0.10
+  total ← subtotal + itbms + tip
+  WRITE total
+END</pre>
+
+<pre class="pseudo">// Version B: the tip is 10% of the bill including ITBMS
+START
+  READ subtotal
+  itbms ← subtotal * 0.07
+  tip ← (subtotal + itbms) * 0.10
+  total ← subtotal + itbms + tip
+  WRITE total
+END</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Version</th><th>subtotal</th><th>itbms</th><th>tip</th><th>total</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">20</td><td>1.40</td><td class="chg">2.00</td><td class="out">23.40</td></tr>
+        <tr><td>B</td><td class="in">20</td><td>1.40</td><td class="chg">2.14</td><td class="out">23.54</td></tr>
+      </tbody></table></div>
+    <p>That's a 14-cent difference on a $20 bill. Across a thousand bills a day, it's an argument with the accountant. <b>The solution isn't technical: it's asking.</b></p>
+    <div class="callout tip">
+      <p><b>💡 The 3 questions to ask before writing anything:</b> (1) What data will I be given? (2) What exactly should come out? (3) Can you give me an example with real numbers? The third is the most powerful: if the other person can't give you an example, they don't have a clear idea of what they want either.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>Mistake 2: copying code without understanding it</h3>
+    <p><b>What it looks like.</b> You find a snippet that "works", paste it and cross your fingers. When it fails, you don't even know where to start. <b>The cure is the desk check.</b> Let's look at a mysterious plan someone passed to you. What does it do?</p>
+
+<pre class="pseudo">START
+  READ n
+  r ← 0
+  WHILE n &gt; 0 DO
+    r ← r * 10 + (n MOD 10)
+    n ← n DIV 10
+  END WHILE
+  WRITE r
+END</pre>
+
+    <p>Don't read it "from top to bottom hoping to understand it". Test it with a number, for example <b>123</b>, and write down each turn:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>n at start</th><th>n MOD 10 (last digit)</th><th>r</th><th>n DIV 10 (drops the last digit)</th></tr></thead>
+      <tbody>
+        <tr><td>Before</td><td class="in">123</td><td>—</td><td class="chg">0</td><td>—</td></tr>
+        <tr><td>1</td><td>123</td><td>3</td><td class="chg">0 * 10 + 3 = 3</td><td class="chg">12</td></tr>
+        <tr><td>2</td><td>12</td><td>2</td><td class="chg">3 * 10 + 2 = 32</td><td class="chg">1</td></tr>
+        <tr><td>3</td><td>1</td><td>1</td><td class="chg">32 * 10 + 1 = 321</td><td class="chg">0</td></tr>
+        <tr><td>Exit</td><td>0 (0 &gt; 0: no)</td><td>—</td><td class="out">321</td><td>—</td></tr>
+      </tbody></table></div>
+    <p>Got it! <b>It reverses a number</b>: 123 becomes 321. And as a bonus, let's try 100 to see its strange behavior:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>n at start</th><th>n MOD 10</th><th>r</th><th>n at end</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">100</td><td>0</td><td class="chg">0</td><td>10</td></tr>
+        <tr><td>2</td><td>10</td><td>0</td><td class="chg">0</td><td>1</td></tr>
+        <tr><td>3</td><td>1</td><td>1</td><td class="chg">1</td><td>0</td></tr>
+        <tr><td>Exit</td><td>—</td><td>—</td><td class="out">1</td><td>—</td></tr>
+      </tbody></table></div>
+    <p>100 gives "1", not "001": leading zeros get lost. If you had copied this code to validate license plates or ID numbers, that detail would have cost you dearly. <b>Code you can't test by hand is code you don't understand.</b></p>
+  </div>
+
+  <div class="caso">
+    <h3>Mistake 3: wanting to learn the whole language before mastering the logic</h3>
+    <p><b>What it looks like.</b> You buy three courses, memorize every Python function and still can't solve the problem "count how many even numbers there are". Look at the two routes:</p>
+    <div class="versus">
+      <div class="mal"><h4>🐢 Slow route</h4>
+        <ol><li>Study the whole language.</li><li>Watch 40 hours of videos.</li><li>Try a real problem.</li><li>Discover you don't know where to start.</li><li>Frustration.</li></ol></div>
+      <div class="bien"><h4>🚀 Fast route</h4>
+        <ol><li>Solve a small problem in pseudocode.</li><li>Test it by hand.</li><li>Translate it to a language you already know.</li><li>Learn only the new things you need.</li><li>Repeat with a slightly bigger problem.</li></ol></div>
+    </div>
+    <p>Logic is learned by <b>solving problems</b>, not by reading syntax. Here are ten problems to start with, from easiest to most challenging. Solve each one in pseudocode with its desk check before thinking about a language:</p>
+    <ol class="lista-prob">
+      <li>Tell whether a number is even or odd.</li>
+      <li>Find the largest of two numbers.</li>
+      <li>Show the multiplication table of a number.</li>
+      <li>Add up the even numbers from 1 to 20.</li>
+      <li>Calculate the factorial of a number (5! = 120).</li>
+      <li>Count how many digits a number has.</li>
+      <li>Tell whether a number is prime.</li>
+      <li>Convert seconds into hours, minutes and seconds.</li>
+      <li>Calculate how much you pay for electricity based on consumption tiers.</li>
+      <li>Game: guess a number using "higher" or "lower" hints.</li>
+    </ol>
+  </div>
+
+  <div class="caso">
+    <h3>Mistake 4: not testing with cases (not even by hand)</h3>
+    <p><b>What it looks like.</b> You test with a single "normal" value, it works, and you call it done. The cases that break programs are almost never the normal ones. One of the most dangerous is <b>zero</b> (or "no data"). Look at this plan for averaging grades:</p>
+
+<pre class="pseudo">START
+  READ quantity
+  sum ← 0
+  counter ← 1
+  WHILE counter ≤ quantity DO
+    READ grade
+    sum ← sum + grade
+    counter ← counter + 1
+  END WHILE
+  average ← sum / quantity
+  WRITE average
+END</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>quantity</th><th>Grades</th><th>sum</th><th>average ← sum / quantity</th><th>Does it work?</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">2</td><td class="in">4, 5</td><td class="chg">9</td><td class="out">9 / 2 = 4.5</td><td class="ok">✔ yes</td></tr>
+        <tr><td>B</td><td class="in">1</td><td class="in">3</td><td class="chg">3</td><td class="out">3 / 1 = 3</td><td class="ok">✔ yes</td></tr>
+        <tr><td>C</td><td class="in">0</td><td>— (the loop doesn't run)</td><td class="chg">0</td><td class="no">0 / 0 = error!</td><td class="no">✘ it breaks</td></tr>
+      </tbody></table></div>
+    <p>Case C (nobody handed in grades) divides by zero and the program crashes. The fix is a decision that protects the calculation:</p>
+<pre class="pseudo">  IF quantity = 0 THEN
+    WRITE "There are no grades to average"
+  ELSE
+    average ← sum / quantity
+    WRITE average
+  END IF</pre>
+    <div class="callout">
+      <p><b>🔎 Your kit of "weird" cases:</b> zero, empty (nothing), negative, the maximum value and the repeated one (all the same). Always test them.</p>
+    </div>
+  </div>
+
+  <div class="caso">
+    <h3>Mistake 5: giving up at the first error</h3>
+    <p><b>What it looks like.</b> A red message appears and you think "I'm not cut out for this". But that message is free information: it almost always tells you <b>what failed and on which line</b>. This is the protocol I use when something doesn't work:</p>
+    <div class="cards">
+      <div class="card k-blue"><span class="kwd">1</span><b>Breathe and read the whole message</b>Even if it's in English. It almost always gives the line and the type of error.</div>
+      <div class="card k-violet"><span class="kwd">2</span><b>Go to that line</b>And to the one before it: many errors show up a line after where they were born.</div>
+      <div class="card k-red"><span class="kwd">3</span><b>Do the desk check</b>With the values that caused the failure, up to that line.</div>
+      <div class="card k-sun"><span class="kwd">4</span><b>Simplify</b>Try the smallest possible case that still fails.</div>
+      <div class="card k-mint"><span class="kwd">5</span><b>Ask for help the right way</b>Using the template below.</div>
+    </div>
+    <div class="callout tip">
+      <p><b>💡 Template for asking for help:</b> "I want my program to <i>[what it should do]</i>. With the input <i>[values]</i> I expected <i>[result]</i>, but I get <i>[actual result / error message]</i>. I already tried <i>[what you tried]</i>. My pseudocode is: <i>[paste it]</i>." Whoever reads it can help you in two minutes instead of twenty.</p>
+    </div>
+    <p>And for when the result "almost" works, this symptom table will save you time:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Symptom</th><th>Most likely cause</th><th>What to check in your table</th></tr></thead>
+      <tbody>
+        <tr><td>Always gives 0 or a strange value</td><td>A variable that was never initialized</td><td>The first row: do all the variables have a starting value?</td></tr>
+        <tr><td>The program never ends</td><td>Nothing changes inside the WHILE</td><td>The column of the variable in the condition</td></tr>
+        <tr><td>Almost right, but one is missing or extra</td><td>"Off by one" or boundary error</td><td>The first and the last turn</td></tr>
+        <tr><td>An enormous or absurd number</td><td>Order of operations or parentheses</td><td>The calculation, operation by operation</td></tr>
+        <tr><td>Works for some cases but not others</td><td>Questions asked in the wrong order</td><td>The overlapping cases, from highest to lowest</td></tr>
+      </tbody></table></div>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: the detective</h3>
+    <p>This plan averages a group of grades. Someone says it "never gives the right average". Do the desk check with <b>quantity = 2</b> and grades <b>4 and 5</b>, find the error and fix it:</p>
+<pre class="pseudo">START
+  READ quantity
+  counter ← 1
+  WHILE counter ≤ quantity DO
+    READ grade
+    sum ← sum + grade
+    counter ← counter + 1
+  END WHILE
+  WRITE sum / quantity
+END</pre>
+    <details><summary>See the solution</summary>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Step</th><th>Line</th><th>quantity</th><th>counter</th><th>grade</th><th>sum</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>2</td><td class="in">2</td><td>—</td><td>—</td><td class="no">?</td></tr>
+          <tr><td>2</td><td>3</td><td>2</td><td class="chg">1</td><td>—</td><td class="no">?</td></tr>
+          <tr><td>3</td><td>5</td><td>2</td><td>1</td><td class="in">4</td><td class="no">? + 4 → error!</td></tr>
+        </tbody></table></div>
+      <p>At step 3 the table gets stuck: <b>we don't know what <code>sum</code> is worth</b> because nobody initialized it. It's the "variable that was never initialized" symptom. The fix is one line, before the loop:</p>
+<pre class="pseudo">START
+  READ quantity
+  sum ← 0
+  counter ← 1
+  WHILE counter ≤ quantity DO
+    READ grade
+    sum ← sum + grade
+    counter ← counter + 1
+  END WHILE
+  WRITE sum / quantity
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Turn</th><th>counter</th><th>grade</th><th>sum</th></tr></thead>
+        <tbody>
+          <tr><td>Before</td><td class="chg">1</td><td>—</td><td class="chg">0</td></tr>
+          <tr><td>1</td><td>1</td><td class="in">4</td><td class="chg">4</td></tr>
+          <tr><td>2</td><td>2</td><td class="in">5</td><td class="chg">9</td></tr>
+          <tr><td>Exit</td><td>3 (3 ≤ 2: no)</td><td>—</td><td class="out">9 / 2 = 4.5</td></tr>
+        </tbody></table></div>
+      <p>And as you just learned in mistake 4: if <code>quantity</code> were 0, the last line would break. How would you protect it?</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 9 checklist</h3>
+    <label><input type="checkbox"><span>Before writing, I asked what goes in, what comes out, and asked for an example with numbers.</span></label>
+    <label><input type="checkbox"><span>I don't use any code I can't test by hand.</span></label>
+    <label><input type="checkbox"><span>I practice with small problems before studying the whole language.</span></label>
+    <label><input type="checkbox"><span>I always test zero, empty values and the value right on the edge.</span></label>
+    <label><input type="checkbox"><span>When something fails, I follow the 5-step protocol before giving up.</span></label>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 10 ============ -->
+<section class="chapter c10" id="cap10">
+  <div class="ch-head"><p class="n">Chapter 10</p><h2>How to choose your first language without fear</h2></div>
+
+  <p>We've come to the question that brought you here: <b>which language do I start with?</b> The short answer is that, at this point, it hardly matters anymore. But since I know you want a concrete answer, I'll give you one using a method, not an opinion.</p>
+
+  <h3>First, let go of the fear: choosing "wrong" hardly exists</h3>
+  <p>The fear of getting it wrong comes from believing that what you learn in one language is lost if you switch. Look at what actually carries over:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>What you learned</th><th>Does it carry over to another language?</th></tr></thead>
+    <tbody>
+      <tr><td>Thinking in steps (pseudocode)</td><td class="ok">Fully</td></tr>
+      <tr><td>Sequences, decisions and repetitions</td><td class="ok">Fully</td></tr>
+      <tr><td>The desk check and the boundary cases</td><td class="ok">Fully</td></tr>
+      <tr><td>Breaking a big problem into small ones</td><td class="ok">Fully</td></tr>
+      <tr><td>The syntax (braces, colons, function names)</td><td class="chg">You relearn it, but much faster the second time</td></tr>
+      <tr><td>Each language's own tools and libraries</td><td class="chg">You relearn them</td></tr>
+    </tbody></table></div>
+  <p>What's hardest is exactly what you're already learning. Switching languages later is like switching car brands: you already know how to drive.</p>
+
+  <h3>Choose by your goal, not by fashion</h3>
+  <p>The right question isn't "what's the best language?" but <b>"what do I want to build?"</b> Here's an honest guide that isn't the only truth but will help you get started:</p>
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">Python</span><b>Data, automation, learning</b>Clean, readable syntax. Widely used for automating tasks, analyzing data and for learning.</div>
+    <div class="card k-sun"><span class="kwd">JavaScript</span><b>Web pages and applications</b>It's the language of browsers. If you want to see results on a web page, it's the natural path.</div>
+    <div class="card k-violet"><span class="kwd">C#</span><b>Business applications and video games</b>Very present in the corporate world and in game development with Unity.</div>
+    <div class="card k-red"><span class="kwd">SQL</span><b>Databases and reports</b>It doesn't compete with the others: you learn it <i>alongside</i> them. Almost every serious system stores data.</div>
+    <div class="card k-mint"><span class="kwd">Kotlin · Swift</span><b>Native mobile apps</b>Kotlin for Android and Swift for iPhone. More specific; better after you master the logic.</div>
+  </div>
+
+  <h3>The decision, written as pseudocode (of course!)</h3>
+  <p>Since this is a pseudocode book, the guide above is written this way. Notice it's a chain of decisions, like the one in chapter 5:</p>
+
+<pre class="pseudo">START
+  READ goal          // "web", "data", "games", "mobile" or "not sure"
+  IF goal = "web" THEN
+    language ← "JavaScript"
+  ELSE
+    IF goal = "data" THEN
+      language ← "Python"
+    ELSE
+      IF goal = "games" THEN
+        language ← "C#"
+      ELSE
+        IF goal = "mobile" THEN
+          language ← "Kotlin or Swift"
+        ELSE
+          language ← "Python"
+        END IF
+      END IF
+    END IF
+  END IF
+  WRITE "Start with: ", language
+END</pre>
+
+  <p>We try four people and one "weird" case:</p>
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Person</th><th>goal</th><th>Path the plan follows</th><th>language</th><th>Output</th></tr></thead>
+    <tbody>
+      <tr><td>Carla (switching careers, not sure what they want)</td><td class="in">"not sure"</td><td>Goes through all 4 IFs and lands in the last ELSE</td><td class="chg">"Python"</td><td class="out">Start with: Python</td></tr>
+      <tr><td>Dani (wants a website for their business)</td><td class="in">"web"</td><td>Says "yes" at the first IF</td><td class="chg">"JavaScript"</td><td class="out">Start with: JavaScript</td></tr>
+      <tr><td>Miguel (repeats reports every week)</td><td class="in">"data"</td><td>Second IF</td><td class="chg">"Python"</td><td class="out">Start with: Python</td></tr>
+      <tr><td>Luis (dreams of making a video game)</td><td class="in">"games"</td><td>Third IF</td><td class="chg">"C#"</td><td class="out">Start with: C#</td></tr>
+      <tr><td><b>Weird case:</b> Dani types "Web" with a capital W</td><td class="in">"Web"</td><td class="no">"Web" = "web" is false, so it goes through every ELSE</td><td class="chg">"Python"</td><td class="no">Start with: Python ✘ (not what they wanted)</td></tr>
+    </tbody></table></div>
+
+  <div class="callout ojo">
+    <p><b>⚠️ The weird case is a golden lesson.</b> For the plan, "Web" and "web" are different texts. A real program would have to convert what the person types to lowercase before comparing: <code>goal ← lowercase(goal)</code>. It's the same kind of mistake as in chapter 9: not testing with "weird" data. And it's also a reminder that, in that last ELSE, a default value was left that can hide errors.</p>
+  </div>
+
+  <div class="caso">
+    <h3>⚖️ Practical case: break the tie with a points table</h3>
+    <p>Torn between two languages (let's call them A and B)? Give each one a score from 1 to 5 on four criteria that depend on you: <b>motivation</b> (am I excited by what I can build?), <b>help</b> (do I have someone to ask?), <b>usefulness</b> (does it serve my goal?) and <b>practice</b> (do I have a place to practice this week?).</p>
+
+<pre class="pseudo">START
+  READ motivationA, helpA, usefulnessA, practiceA
+  READ motivationB, helpB, usefulnessB, practiceB
+  pointsA ← motivationA + helpA + usefulnessA + practiceA
+  pointsB ← motivationB + helpB + usefulnessB + practiceB
+  IF pointsA &gt; pointsB THEN
+    WRITE "Start with A"
+  ELSE
+    IF pointsB &gt; pointsA THEN
+      WRITE "Start with B"
+    ELSE
+      WRITE "Tie: either one works, pick one today"
+    END IF
+  END IF
+END</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>Points for A (motiv. + help + useful. + practice)</th><th>Points for B</th><th>pointsA &gt; pointsB</th><th>pointsB &gt; pointsA</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">5 + 4 + 5 + 3 = <b>17</b></td><td class="in">3 + 4 + 3 + 4 = <b>14</b></td><td class="ok">yes</td><td>—</td><td class="out">Start with A</td></tr>
+        <tr><td>2</td><td class="in">3 + 3 + 3 + 3 = <b>12</b></td><td class="in">4 + 4 + 3 + 3 = <b>14</b></td><td class="no">no</td><td class="ok">yes</td><td class="out">Start with B</td></tr>
+        <tr><td>3</td><td class="in">4 + 4 + 4 + 4 = <b>16</b></td><td class="in">5 + 3 + 4 + 4 = <b>16</b></td><td class="no">no</td><td class="no">no</td><td class="out">Tie: either one works, pick one today</td></tr>
+      </tbody></table></div>
+    <p>Case 3 is the most important: <b>if it's a tie, either one works</b>. A tie is telling you the difference between the two is so small that hesitating costs you more than making a mistake. Pick one today.</p>
+  </div>
+
+  <div class="caso">
+    <h3>📆 Practical case: the 30-day rule</h3>
+    <p>The most expensive mistake after choosing is <b>switching languages every week</b> because "the other one looks easier". I suggest a commitment: <b>30 days with the same language</b> before you consider switching. The plan is a rule with two conditions:</p>
+
+<pre class="pseudo">START
+  READ days
+  READ wantToSwitch    // "yes" or "no"
+  IF days &lt; 30 AND wantToSwitch = "yes" THEN
+    WRITE "Not yet: finish your 30 days and ask again"
+  ELSE
+    IF days &lt; 30 THEN
+      WRITE "You're doing well: keep practicing"
+    ELSE
+      WRITE "You can calmly decide now whether to switch"
+    END IF
+  END IF
+END</pre>
+
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>days</th><th>wantToSwitch</th><th>days &lt; 30?</th><th>AND wantToSwitch = "yes"?</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">10</td><td class="in">"yes"</td><td class="ok">yes</td><td class="ok">yes</td><td class="out">Not yet: finish your 30 days</td></tr>
+        <tr><td>B</td><td class="in">10</td><td class="in">"no"</td><td class="ok">yes</td><td class="no">no</td><td class="out">You're doing well: keep practicing</td></tr>
+        <tr><td>C</td><td class="in">30</td><td class="in">"yes"</td><td class="no">no (boundary)</td><td>—</td><td class="out">You can calmly decide now whether to switch</td></tr>
+        <tr><td>D</td><td class="in">45</td><td class="in">"no"</td><td class="no">no</td><td>—</td><td class="out">You can calmly decide now whether to switch</td></tr>
+      </tbody></table></div>
+    <p>Notice case C: exactly day 30 already counts as "completed". That decision (is day 30 a yes or a no?) was yours to make, with a <code>&lt;</code> instead of <code>≤</code>. The beauty of the desk check is that it forces you to make those decisions consciously.</p>
+  </div>
+
+  <div class="ejercicio">
+    <h3>✏️ Your turn: your own decision guide</h3>
+    <p>Write your own decision pseudocode with <b>three personal goals</b> of yours (for example: "automate my work", "make an app", "understand how websites work") and the language you'd start with in each case. Test it with your three goals and a fourth "weird" value that isn't on your list.</p>
+    <details><summary>See an example</summary>
+<pre class="pseudo">START
+  READ goal
+  IF goal = "automate" THEN
+    language ← "Python"
+  ELSE
+    IF goal = "website" THEN
+      language ← "JavaScript"
+    ELSE
+      IF goal = "reports" THEN
+        language ← "SQL"
+      ELSE
+        language ← "Python"
+      END IF
+    END IF
+  END IF
+  WRITE "I'll start with: ", language
+END</pre>
+      <div class="scroll"><table class="prueba">
+        <thead><tr><th>Case</th><th>goal</th><th>language</th><th>Output</th></tr></thead>
+        <tbody>
+          <tr><td>A</td><td class="in">"automate"</td><td class="chg">"Python"</td><td class="out">I'll start with: Python</td></tr>
+          <tr><td>B</td><td class="in">"website"</td><td class="chg">"JavaScript"</td><td class="out">I'll start with: JavaScript</td></tr>
+          <tr><td>C</td><td class="in">"reports"</td><td class="chg">"SQL"</td><td class="out">I'll start with: SQL</td></tr>
+          <tr><td>D (weird)</td><td class="in">"cooking"</td><td class="chg">"Python"</td><td class="out">I'll start with: Python (default value)</td></tr>
+        </tbody></table></div>
+      <p>If your case D makes you hesitate ("what if it types something I didn't think of?"), you're already thinking like a programmer.</p>
+    </details>
+  </div>
+
+  <div class="check">
+    <h3>✅ Chapter 10 checklist</h3>
+    <label><input type="checkbox"><span>I wrote down what I want to build before looking at languages.</span></label>
+    <label><input type="checkbox"><span>I chose my language today, even if it ended in a tie.</span></label>
+    <label><input type="checkbox"><span>I committed to 30 days without switching.</span></label>
+    <label><input type="checkbox"><span>I understand that logic carries over, and that syntax is quick to learn the second time.</span></label>
+  </div>
+</section>
+
+<!-- ============ 7-DAY PLAN ============ -->
+<section class="chapter c11" id="plan">
+  <div class="ch-head"><p class="n">Wrap-up</p><h2>Your 7-day action plan</h2></div>
+
+  <p>Learning happens through <b>short, repeated practice</b>, not marathons. This plan asks for <b>30 to 45 minutes a day</b>, for one week. Each day has a clear goal, an exercise with a worked example and a target you can tick off.</p>
+
+  <div class="callout">
+    <p><b>📌 Three rules of the plan.</b> (1) <b>Pencil and paper first:</b> a day doesn't count if you didn't write the plan by hand or in a notebook. (2) <b>Always test with cases</b>, including one on the boundary. (3) <b>If you fall a day behind, don't start over:</b> pick up where you left off. A flexible plan lasts longer than a perfect one.</p>
+  </div>
+
+  <div class="scroll"><table class="prueba">
+    <thead><tr><th>Day</th><th>Topic</th><th>What you'll have at the end</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Your first plan in pseudocode</td><td class="out">A plan with one decision, tested with 3 cases</td></tr>
+      <tr><td>2</td><td>Chained decisions</td><td class="out">A plan with 3 paths and a weird value</td></tr>
+      <tr><td>3</td><td>Your first repetition</td><td class="out">A multiplication table with a check per turn</td></tr>
+      <tr><td>4</td><td>A problem from your real life</td><td class="out">A 5-step plan for something that matters to you</td></tr>
+      <tr><td>5</td><td>Boundary cases and bugs</td><td class="out">A plan with repetition and decision, tested at the edges</td></tr>
+      <tr><td>6</td><td>From plan to code</td><td class="out">Your day-4 plan running in a language</td></tr>
+      <tr><td>7</td><td>Mini project and celebration</td><td class="out">A complete guess-the-number game</td></tr>
+    </tbody></table></div>
+
+  <div class="caso">
+    <h3>Day 1: your first plan, with one decision</h3>
+    <div class="meta"><span>⏱ 30 min</span><span>📖 Review chapters 1 to 3</span></div>
+    <p><b>What to do.</b> Choose a problem from your day-to-day life with just one decision. Write what goes in, what comes out, the pseudocode, and test it with 3 cases, one of them right on the edge.</p>
+    <p><b>Worked example: "Can I afford lunch?"</b></p>
+<pre class="pseudo">START
+  READ money
+  READ price
+  IF money ≥ price THEN
+    WRITE "You can afford it. You have left over: ", money - price
+  ELSE
+    WRITE "You can't afford it. You're short by: ", price - money
+  END IF
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>money</th><th>price</th><th>money ≥ price?</th><th>Output</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">5.00</td><td class="in">4.50</td><td class="ok">yes</td><td class="out">You can afford it. You have left over: 0.50</td></tr>
+        <tr><td>B</td><td class="in">4.50</td><td class="in">4.50</td><td class="ok">yes (boundary)</td><td class="out">You can afford it. You have left over: 0.00</td></tr>
+        <tr><td>C</td><td class="in">3.00</td><td class="in">4.50</td><td class="no">no</td><td class="out">You can't afford it. You're short by: 1.50</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 1 goal:</b> I have a plan written by hand with 3 tested cases.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 2: chained decisions</h3>
+    <div class="meta"><span>⏱ 35 min</span><span>📖 Review chapters 4 and 5</span></div>
+    <p><b>What to do.</b> Write a plan with three paths (using IF inside ELSE) and remember the chapter 5 rule: ask first about the most demanding condition. Include a "weird" value you didn't expect.</p>
+    <p><b>Worked example: the bus fare.</b> Senior citizens ride for free, students pay half, and everyone else pays the full fare (we use a sample fare of $1.00):</p>
+<pre class="pseudo">START
+  fare ← 1.00
+  READ type        // "senior", "student" or "regular"
+  IF type = "senior" THEN
+    ticket ← 0
+  ELSE
+    IF type = "student" THEN
+      ticket ← fare / 2
+    ELSE
+      ticket ← fare
+    END IF
+  END IF
+  WRITE "Your fare is: ", ticket
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>type</th><th>senior?</th><th>student?</th><th>ticket</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">"regular"</td><td class="no">no</td><td class="no">no</td><td class="out">1.00</td></tr>
+        <tr><td>B</td><td class="in">"student"</td><td class="no">no</td><td class="ok">yes</td><td class="out">0.50</td></tr>
+        <tr><td>C</td><td class="in">"senior"</td><td class="ok">yes</td><td>—</td><td class="out">0.00</td></tr>
+        <tr><td>D (weird)</td><td class="in">"retired"</td><td class="no">no</td><td class="no">no</td><td class="no">1.00 (falls into "regular")</td></tr>
+      </tbody></table></div>
+    <p>Case D is the question of the day: is it right that "retired" pays full fare? You should probably warn "invalid type", as with the traffic light in chapter 1.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 2 goal:</b> my plan has 3 paths and I tested a weird value.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 3: your first repetition</h3>
+    <div class="meta"><span>⏱ 40 min</span><span>📖 Review chapter 4</span></div>
+    <p><b>What to do.</b> Write a plan with WHILE and do the desk check <b>one row per turn</b>. Before writing it, answer: what variable changes on each turn, and when does the condition stop holding?</p>
+    <p><b>Worked example: the 4 times table (up to 5).</b></p>
+<pre class="pseudo">START
+  counter ← 1
+  WHILE counter ≤ 5 DO
+    WRITE "4 x ", counter, " = ", 4 * counter
+    counter ← counter + 1
+  END WHILE
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>counter at start</th><th>counter ≤ 5?</th><th>Calculation</th><th>Output</th><th>counter at end</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td class="in">1</td><td class="ok">yes</td><td>4 * 1</td><td class="out">4 x 1 = 4</td><td class="chg">2</td></tr>
+        <tr><td>2</td><td>2</td><td class="ok">yes</td><td>4 * 2</td><td class="out">4 x 2 = 8</td><td class="chg">3</td></tr>
+        <tr><td>3</td><td>3</td><td class="ok">yes</td><td>4 * 3</td><td class="out">4 x 3 = 12</td><td class="chg">4</td></tr>
+        <tr><td>4</td><td>4</td><td class="ok">yes</td><td>4 * 4</td><td class="out">4 x 4 = 16</td><td class="chg">5</td></tr>
+        <tr><td>5</td><td>5</td><td class="ok">yes (boundary)</td><td>4 * 5</td><td class="out">4 x 5 = 20</td><td class="chg">6</td></tr>
+        <tr><td>—</td><td>6</td><td class="no">no → exits</td><td>—</td><td>—</td><td>6</td></tr>
+      </tbody></table></div>
+    <p><b>Extra challenge:</b> change the plan so it asks for the number of the table instead of always using 4, and so it goes up to 10.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 3 goal:</b> I did a desk check per turn and I know why my loop ends.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 4: a problem from your real life</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>📖 Review chapter 5 (the 5 steps)</span></div>
+    <p><b>What to do.</b> Choose something that matters to you: a calculation from your work, your business or your home. Follow the 5 steps: example by hand, inputs and outputs, big steps, pseudocode and test. This is what will turn the ebook into a tool of your own.</p>
+    <p><b>Worked example: splitting the bill among friends with a tip.</b> The bill and the number of people go in; out comes how much each person pays, with a 10% tip. Careful: what happens if there are zero people? (Remember mistake 4 from chapter 9.)</p>
+<pre class="pseudo">START
+  READ bill
+  READ people
+  IF people ≤ 0 THEN
+    WRITE "There must be at least one person"
+  ELSE
+    tip ← bill * 0.10
+    total ← bill + tip
+    eachPays ← total / people
+    WRITE "Each person pays: ", eachPays
+  END IF
+END</pre>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Case</th><th>bill</th><th>people</th><th>tip</th><th>total</th><th>eachPays / Output</th></tr></thead>
+      <tbody>
+        <tr><td>A</td><td class="in">60</td><td class="in">4</td><td class="chg">6.00</td><td class="chg">66.00</td><td class="out">16.50</td></tr>
+        <tr><td>B</td><td class="in">100</td><td class="in">3</td><td class="chg">10.00</td><td class="chg">110.00</td><td class="out">36.67 (rounded)</td></tr>
+        <tr><td>C</td><td class="in">50</td><td class="in">1</td><td class="chg">5.00</td><td class="chg">55.00</td><td class="out">55.00</td></tr>
+        <tr><td>D (weird)</td><td class="in">40</td><td class="in">0</td><td>—</td><td>—</td><td class="out">There must be at least one person</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 4 goal:</b> I solved a problem that matters to me on paper and tested it with 4 cases.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 5: boundary cases and bug hunting</h3>
+    <div class="meta"><span>⏱ 40 min</span><span>📖 Review chapters 6 and 9</span></div>
+    <p><b>What to do.</b> Take your day-4 plan (or this example) and attack it: test it with zero, the value right on the edge and the largest value. If something fails, use the 5-step protocol from chapter 9.</p>
+    <p><b>Worked example: how many days this week did you sell more than $100?</b> A repetition with a decision inside:</p>
+<pre class="pseudo">START
+  goodDays ← 0
+  day ← 1
+  WHILE day ≤ 5 DO
+    READ sale
+    IF sale &gt; 100 THEN
+      goodDays ← goodDays + 1
+    END IF
+    day ← day + 1
+  END WHILE
+  WRITE goodDays, " good days"
+END</pre>
+    <p>The week's sales were <b>80, 120, 100, 150 and 90</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>day</th><th>sale</th><th>sale &gt; 100?</th><th>goodDays</th></tr></thead>
+      <tbody>
+        <tr><td>Before</td><td class="chg">1</td><td>—</td><td>—</td><td class="chg">0</td></tr>
+        <tr><td>1</td><td>1</td><td class="in">80</td><td class="no">no</td><td>0</td></tr>
+        <tr><td>2</td><td>2</td><td class="in">120</td><td class="ok">yes</td><td class="chg">1</td></tr>
+        <tr><td>3</td><td>3</td><td class="in">100</td><td class="no">no (boundary)</td><td>1</td></tr>
+        <tr><td>4</td><td>4</td><td class="in">150</td><td class="ok">yes</td><td class="chg">2</td></tr>
+        <tr><td>5</td><td>5</td><td class="in">90</td><td class="no">no</td><td>2</td></tr>
+        <tr><td>Exit</td><td>6 (6 ≤ 5: no)</td><td>—</td><td>—</td><td class="out">2 good days</td></tr>
+      </tbody></table></div>
+    <p>Look at day 3: you sold exactly $100 and it doesn't count. Should it? <b>That's not a technical question, it's a question for whoever requested the report.</b> If the answer is yes, change <code>&gt;</code> to <code>≥</code> and the table gives 3. What matters is that the decision is deliberate.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 5 goal:</b> I tested zero, the edge and a large value, and fixed what failed.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 6: from plan to code</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>📖 Review chapters 8 and 10</span></div>
+    <p><b>What to do.</b> Use the chapter 10 guide to choose your language (if you haven't yet, just pick Python and go). Apply the 4-step recipe: paste your day-4 plan as comments, translate underneath, run your cases and compare with your table.</p>
+    <p><b>Worked example: the shared bill from day 4.</b></p>
+
+<div class="lang py">Python</div>
+<pre class="code"># READ bill
+bill = float(input("Bill: "))
+# READ people
+people = int(input("People: "))
+
+# IF people ≤ 0 THEN
+if people &lt;= 0:
+    print("There must be at least one person")
+# ELSE
+else:
+    tip = bill * 0.10
+    total = bill + tip
+    each_pays = total / people
+    print("Each person pays:", each_pays)</pre>
+
+<div class="lang js">JavaScript</div>
+<pre class="code">let bill = parseFloat(prompt("Bill:"));
+let people = parseInt(prompt("People:"));
+
+if (people &lt;= 0) {
+  console.log("There must be at least one person");
+} else {
+  let tip = bill * 0.10;
+  let total = bill + tip;
+  let eachPays = total / people;
+  console.log("Each person pays: " + eachPays);
+}</pre>
+
+    <p>Verify with case A from day 4 (<b>bill 60, people 4</b>), following the Python code:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Line</th><th>bill</th><th>people</th><th>tip</th><th>total</th><th>each_pays</th></tr></thead>
+      <tbody>
+        <tr><td class="cd">bill = float(input(…))</td><td class="in">60.0</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">people = int(input(…))</td><td>60.0</td><td class="in">4</td><td>—</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">if people &lt;= 0</td><td>60.0</td><td>4</td><td>—</td><td>—</td><td class="no">false → goes to else</td></tr>
+        <tr><td class="cd">tip = bill * 0.10</td><td>60.0</td><td>4</td><td class="chg">6.0</td><td>—</td><td>—</td></tr>
+        <tr><td class="cd">total = bill + tip</td><td>60.0</td><td>4</td><td>6.0</td><td class="chg">66.0</td><td>—</td></tr>
+        <tr><td class="cd">each_pays = total / people</td><td>60.0</td><td>4</td><td>6.0</td><td>66.0</td><td class="out">16.5</td></tr>
+      </tbody></table></div>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 6 goal:</b> my plan runs in a real language and gives the same result as my table.</span></label></div>
+  </div>
+
+  <div class="caso">
+    <h3>Day 7: mini project and celebration</h3>
+    <div class="meta"><span>⏱ 45 min</span><span>🎉 Everything you learned, together</span></div>
+    <p><b>What to do.</b> Today you build a project that mixes the three building blocks: sequence, decision and repetition. First the plan and the desk check; if you feel up to it, translate it into the language you chose.</p>
+    <p><b>Project: the guess-the-number game.</b> The program "thinks" of the number 7. The person tries to guess it and the program gives hints until they get it right, counting the attempts:</p>
+<pre class="pseudo">START
+  secret ← 7
+  attempts ← 1
+  READ guess
+  WHILE guess ≠ secret DO
+    IF guess &lt; secret THEN
+      WRITE "Higher"
+    ELSE
+      WRITE "Lower"
+    END IF
+    attempts ← attempts + 1
+    READ guess
+  END WHILE
+  WRITE "You got it in ", attempts, " attempts!"
+END</pre>
+    <p>Desk check with the guesses <b>3, 9 and 7</b>:</p>
+    <div class="scroll"><table class="prueba">
+      <thead><tr><th>Turn</th><th>guess</th><th>guess ≠ 7?</th><th>guess &lt; 7?</th><th>Output</th><th>attempts</th></tr></thead>
+      <tbody>
+        <tr><td>Before</td><td class="in">3</td><td class="ok">yes</td><td>—</td><td>—</td><td class="chg">1</td></tr>
+        <tr><td>1</td><td>3</td><td class="ok">yes</td><td class="ok">yes</td><td class="out">Higher</td><td class="chg">2</td></tr>
+        <tr><td>2</td><td class="in">9</td><td class="ok">yes</td><td class="no">no</td><td class="out">Lower</td><td class="chg">3</td></tr>
+        <tr><td>—</td><td class="in">7</td><td class="no">no → exits</td><td>—</td><td class="out">You got it in 3 attempts!</td><td>3</td></tr>
+      </tbody></table></div>
+    <p><b>Challenges to level up:</b> (1) What happens if you guess right on the first try? Test it. (2) Limit it to 5 attempts using a condition with AND (as in the approval flow in chapter 7). (3) Make the secret number not always 7. Without doubt: look up in your language how to generate a random number and use it.</p>
+    <div class="check" style="margin-top:14px"><label><input type="checkbox"><span><b>Day 7 goal:</b> I finished a complete mini project, planned and tested.</span></label></div>
+  </div>
+
+  <div class="check">
+    <h3>🏁 Your week in review</h3>
+    <label><input type="checkbox"><span>I completed at least 5 of the 7 days (with 5, you've already won).</span></label>
+    <label><input type="checkbox"><span>I wrote at least 7 plans in pseudocode.</span></label>
+    <label><input type="checkbox"><span>I did a desk check for every plan.</span></label>
+    <label><input type="checkbox"><span>I translated one plan into a real language.</span></label>
+    <label><input type="checkbox"><span>I'm no longer afraid to open the editor, because I know what I'm going to write.</span></label>
+  </div>
+
+  <h3>And after the 7 days?</h3>
+  <ol>
+    <li><b>Solve the 10 problems</b> from the chapter 9 list, one every two days.</li>
+    <li><b>Build a mini project each week</b> with something from your life: a budget, an expense tracker, a reminder.</li>
+    <li><b>Keep the 30 days</b> in your language before you consider switching.</li>
+    <li><b>Teach someone.</b> Explaining a plan to another person is the best proof that you understand it.</li>
+  </ol>
+</section>
+
+<!-- ============ APPENDIX ============ -->
+<section class="chapter c9" id="anexo">
+  <div class="ch-head"><p class="n">Appendix</p><h2>Your one-page cheat sheet</h2></div>
+  <p>Print it, take a screenshot or stick it next to your computer. It's the whole book in five cards.</p>
+
+  <div class="cards">
+    <div class="card k-blue"><span class="kwd">The house rules</span>
+      <b>Pseudocode</b>
+      START … END<br>READ · WRITE<br>← stores · = asks<br>IF … ELSE … END IF<br>WHILE … END WHILE<br>Indentation and clear names</div>
+    <div class="card k-mint"><span class="kwd">The 5 steps</span>
+      <b>Solving a problem</b>
+      1. Example by hand<br>2. Inputs and outputs<br>3. Big steps<br>4. Pseudocode<br>5. Desk check</div>
+    <div class="card k-violet"><span class="kwd">The 5 rules</span>
+      <b>Desk check</b>
+      One column per variable<br>One row per step<br>Be a dumb computer<br>Mark what changes<br>Normal, edge and weird</div>
+    <div class="card k-sun"><span class="kwd">My case kit</span>
+      <b>To avoid failing</b>
+      Zero · empty<br>The value right on the edge<br>Negative<br>A very large value<br>All equal · strange text</div>
+    <div class="card k-red"><span class="kwd">When something fails</span>
+      <b>5-step protocol</b>
+      1. Read the whole message<br>2. Go to that line (and the one before)<br>3. Do the check by hand<br>4. Simplify the case<br>5. Ask for help with the template</div>
+  </div>
+</section>
+
+<aside class="cierre">
+  <h2>What you take with you</h2>
+  <p>We started with a story of three hours lost over one symbol. If there's one thing I want you to remember from this book, it's that <b>it was never a lack of talent</b>: it was starting at the end.</p>
+  <p>Now you know how to start at the beginning. You think first, write the plan in plain language, test it with pencil and paper, and only then open the editor. That works today in Python and will work tomorrow in any language you choose.</p>
+  <p>Whenever something fails, remember this: <b>the error isn't your enemy, it's your clue.</b></p>
+  <p class="firma">Think first, then write. Go for it!</p>
+</aside>
+
+</main>
+
+<script>
+(function(){
+  var re=/("[^"]*")|\b(END FOR|END IF|END WHILE|FOR EACH|START|END|READ|WRITE|ELSE|IF|THEN|WHILE|DO|DIV|MOD|TAKE|GROUP|SORT|SUM|COUNT)\b|\b(AND|OR|NOT)\b|(←)|(\d+(?:\.\d+)?)|([A-Za-z_][\w]*)/g;
+  var cre=/(#.*$|\/\/.*$|--.*$)|("[^"]*"|'[^']*')|\b(if|else|elif|while|for|in|print|input|float|int|double|let|const|var|console|log|Console|Write|WriteLine|ReadLine|Parse|parseFloat|parseInt|prompt|using|class|static|void|Main|and|or|not|true|false|SELECT|FROM|WHERE|GROUP|BY|ORDER|AS|SUM|DESC|AND|OR)\b|(\b\d+(?:\.\d+)?\b)/g;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function line(l){
+    if(!l.trim()) return '​';
+    var cm='', i=l.indexOf('//');
+    if(i>=0){cm=l.slice(i); l=l.slice(0,i);}
+    var out='', last=0, m;
+    re.lastIndex=0;
+    while((m=re.exec(l))){
+      out+=esc(l.slice(last,m.index));
+      var c = m[1]?'t-str':m[2]?'t-kw':m[3]?'t-op':m[4]?'t-arrow':m[5]?'t-num':'t-var';
+      out+='<span class="'+c+'">'+esc(m[0])+'</span>';
+      last=m.index+m[0].length;
+    }
+    out+=esc(l.slice(last));
+    if(cm) out+='<span class="t-cm">'+esc(cm)+'</span>';
+    return out;
+  }
+  function cline(l){
+    if(!l.trim()) return '​';
+    var out='', last=0, m;
+    cre.lastIndex=0;
+    while((m=cre.exec(l))){
+      out+=esc(l.slice(last,m.index));
+      var c = m[1]?'t-cm':m[2]?'t-str':m[3]?'t-kw':'t-num';
+      out+='<span class="'+c+'">'+esc(m[0])+'</span>';
+      last=m.index+m[0].length;
+    }
+    out+=esc(l.slice(last));
+    return out;
+  }
+  function render(sel,fn){
+    document.querySelectorAll(sel).forEach(function(pre){
+      var lines=pre.textContent.replace(/\s+$/,'').split('\n');
+      pre.innerHTML=lines.map(function(l){return '<span class="ln">'+fn(l)+'</span>';}).join('');
+    });
+  }
+  try{ render('pre.pseudo:not(.code)', line); render('pre.code', cline); }catch(e){}
+})();
+</script>
+<!-- Ko-fi Widget v2024 -->
+<script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+<script type='text/javascript'>
+  kofiwidget2.init('Support me with a tip', '#72a4f2', 'W3Q3289B0P');
+  kofiwidget2.draw();
+</script>
+</body>
+</html>
